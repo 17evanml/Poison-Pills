@@ -2322,6 +2322,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1208123026}
   - component: {fileID: 1208123027}
+  - component: {fileID: 1208123028}
   m_Layer: 0
   m_Name: NetManager
   m_TagString: Untagged
@@ -2357,6 +2358,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 5026630115752653688, guid: 92f7288d4d4d34020b16a20d752f3027,
     type: 3}
+--- !u!114 &1208123028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1208123025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8f7628aac3a84caa9dbf1c35b663384, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1219393517
 GameObject:
   m_ObjectHideFlags: 0
@@ -2537,7 +2550,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1393322889}
   - component: {fileID: 1393322888}
-  - component: {fileID: 1393322890}
   m_Layer: 0
   m_Name: ClientManager
   m_TagString: Untagged
@@ -2574,18 +2586,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1393322890
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1393322887}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8f7628aac3a84caa9dbf1c35b663384, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1393434886
 GameObject:
   m_ObjectHideFlags: 0
@@ -3393,7 +3393,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4735435004735796793}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &4735435004735796795
 Camera:
   m_ObjectHideFlags: 0
