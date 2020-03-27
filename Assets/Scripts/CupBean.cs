@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 public enum Pills { Red, Black };
-
 public class CupBean
 {
     private int playerID;

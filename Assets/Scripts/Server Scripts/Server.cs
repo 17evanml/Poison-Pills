@@ -9,10 +9,11 @@ public class Server
 {
     public static int MaxPlayers { get; private set; }
     public static int Port { get; private set; }
-
     public static Dictionary<int, ServerClient> clients = new Dictionary<int, ServerClient>();
-
+    public delegate void PacketHandler(int _fromClient, Packet _packet);
+    public static Dictionary<int, PacketHandler> packetHandlers;
     private static TcpListener tcpListener;
+
     public void Start(int maxPlayers, int port)
     {
         MaxPlayers = maxPlayers;
@@ -38,7 +39,7 @@ public class Server
 
         for (int i = 1; i <= MaxPlayers; i++)
         {
-            if(clients[i].tcp.socket == null)
+            if (clients[i].tcp.socket == null)
             {
                 clients[i].tcp.Connect(_client);
                 return;
@@ -49,11 +50,14 @@ public class Server
 
     private static void InitalizeServer()
     {
-        for(int i = 1; i <= MaxPlayers; i++)
+        for (int i = 1; i <= MaxPlayers; i++)
         {
             clients.Add(i, new ServerClient(i));
-
         }
+        packetHandlers = new Dictionary<int, PacketHandler>()
+        {
+            {(int)ClientPackets.welcomeReceived, ServerHandle.WelcomeReceive}
+        };
 
     }
 }
