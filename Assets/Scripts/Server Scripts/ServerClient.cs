@@ -1,95 +1,67 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 using System.Net;
 using System.Net.Sockets;
-
-public class Client : MonoBehaviour
+using System;
+public class ServerClient
 {
-    public static Client instance;
     public static int dataBufferSize = 4096;
 
-    public string ip = "127.0.0.1";
-    public int port = 6942;
-    public int myId = 0;
+    public int id;
     public TCP tcp;
 
-    private delegate void PacketHandler(Packet _packet);
-    private static Dictionary<int, PacketHandler> packetHandlers;
-    private void Awake()
+    public ServerClient(int clientId)
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else if (instance != this)
-        {
-            Destroy(this);
-        }
+        id = clientId;
+        tcp = new TCP(id);
     }
 
-    private void Start()
-    {
-        tcp = new TCP();
-    }
-
-    public void ConnectToServer()
-    {
-        InitializeClientData();
-        tcp.Connect();
-    }
 
     public class TCP
     {
         public TcpClient socket;
 
+        private readonly int id;
         private NetworkStream stream;
         private Packet receiveData;
         private byte[] receiveBuffer;
 
-        public void Connect()
+        public TCP (int _id)
         {
-            socket = new TcpClient
-            {
-                ReceiveBufferSize = dataBufferSize,
-                SendBufferSize = dataBufferSize
-            };
-
-            receiveBuffer = new byte[dataBufferSize];
-            socket.BeginConnect(instance.ip, instance.port, ConnectCallback, socket);
+            id = _id;
         }
 
-        private void ConnectCallback(IAsyncResult _result)
+        public void Connect(TcpClient _socket)
         {
-            socket.EndConnect(_result);
-
-            if (!socket.Connected)
-            {
-                return;
-            }
+            socket = _socket;
+            socket.ReceiveBufferSize = dataBufferSize;
+            socket.SendBufferSize = dataBufferSize;
 
             stream = socket.GetStream();
 
             receiveData = new Packet();
+            receiveBuffer = new byte[dataBufferSize];
 
             stream.BeginRead(receiveBuffer, 0, dataBufferSize, ReceiveCallback, null);
-        }
 
+            ServerSend.Welcome(id, "Welcome to the server");
+        }
 
         public void SendData(Packet _packet)
         {
             try
             {
-                if(socket != null)
+                if (socket != null)
                 {
                     stream.BeginWrite(_packet.ToArray(), 0, _packet.Length(), null, null);
-                }
 
+                }
+                 
             }
             catch (Exception _ex)
             {
-                Debug.Log($"Error sending data to server via TCP: {_ex}");
+                Debug.Log($"Error sending data to player {id} via TCP {_ex}");
             }
 
         }
@@ -99,7 +71,7 @@ public class Client : MonoBehaviour
             try
             {
                 int _byteLength = stream.EndRead(_result);
-                if (_byteLength <= 0)
+                if(_byteLength <= 0)
                 {
                     return;
                 }
@@ -109,7 +81,7 @@ public class Client : MonoBehaviour
                 receiveData.Reset(HandleData(_data));
                 stream.BeginRead(receiveBuffer, 0, dataBufferSize, ReceiveCallback, null);
             }
-            catch (System.Exception _ex)
+            catch (Exception _ex)
             {
                 Debug.Log($"Error receiving TCP data: {_ex}");
 
@@ -139,7 +111,7 @@ public class Client : MonoBehaviour
                     using (Packet _packet = new Packet(_packetBytes))
                     {
                         int _packetId = _packet.ReadInt();
-                        packetHandlers[_packetId](_packet);
+                        Server.packetHandlers[_packetId](id, _packet);
                     }
 
                 });
@@ -154,7 +126,7 @@ public class Client : MonoBehaviour
                     }
                 }
             }
-            if(_packetLength <= 1)
+            if (_packetLength <= 1)
             {
                 return true;
 
@@ -162,15 +134,5 @@ public class Client : MonoBehaviour
 
             return false;
         }
-    }
-
-    private void InitializeClientData()
-    {
-        packetHandlers = new Dictionary<int, PacketHandler>()
-        {
-            { (int)ServerPackets.welcome, ClientHandle.Welcome }
-
-        };
-        Debug.Log("Initialized Packets.");
     }
 }

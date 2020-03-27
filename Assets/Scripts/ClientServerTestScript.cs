@@ -9,6 +9,7 @@ public class ClientServerTestScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        print("hi");
         server = new Server();
         server.Start(10, 6942);
     }
