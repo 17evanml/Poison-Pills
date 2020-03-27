@@ -123,7 +123,7 @@ public class Server
         }
         packetHandlers = new Dictionary<int, PacketHandler>()
         {
-            {(int)ClientPackets.welcomeReceived, ServerHandle.WelcomeReceive },
+            {(int)ClientPackets.welcomeReceived, ServerHandle.WelcomeReceive},
             {(int)ClientPackets.playerMovement, ServerHandle.PlayerMovement} 
         };
 

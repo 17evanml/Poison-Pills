@@ -22,7 +22,8 @@ public class NetworkManager : MonoBehaviour
 
     private void Start()
     {
-        Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Server"), LayerMask.NameToLayer("Default"));
+        Server.Start(10, 6942);
+        //Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Server"), LayerMask.NameToLayer("Default"));
     }
 
     public Player InstantiatePlayer()
