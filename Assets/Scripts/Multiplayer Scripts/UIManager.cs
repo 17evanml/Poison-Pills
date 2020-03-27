@@ -7,6 +7,7 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
 
+    public GameObject server;
     public GameObject startMenu;
     public InputField usernameField;
     public InputField ipField;
@@ -35,9 +36,8 @@ public class UIManager : MonoBehaviour
 
     public void StartServer()
     {
-
+        Instantiate(server);
         serverStartButton.enabled = false;
-        Server.Start(10, 6942);
         //SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
 
     }
