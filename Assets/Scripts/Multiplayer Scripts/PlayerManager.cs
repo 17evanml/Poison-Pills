@@ -9,7 +9,7 @@ public class PlayerManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //SendInputToServer();
+        SendInputToServer();
     }
 
     private void SendInputToServer()
