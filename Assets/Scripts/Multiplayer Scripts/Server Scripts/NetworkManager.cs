@@ -1,34 +1,36 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class NetworkManager : MonoBehaviour
+namespace ServerScripts
 {
-    public static NetworkManager instance;
-
-    public GameObject playerPrefab;
-
-    private void Awake()
+    public class NetworkManager : MonoBehaviour
     {
-        if (instance == null)
+        public static NetworkManager instance;
+
+        public GameObject playerPrefab;
+
+        private void Awake()
         {
-            instance = this;
+            if (instance == null)
+            {
+                instance = this;
+            }
+            else if (instance != this)
+            {
+                Destroy(this);
+            }
         }
-        else if (instance != this)
+
+        private void Start()
         {
-            Destroy(this);
+            Server.Start(10, 6942);
+            //Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Server"), LayerMask.NameToLayer("Default"));
         }
-    }
 
-    private void Start()
-    {
-        Server.Start(10, 6942);
-        //Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Server"), LayerMask.NameToLayer("Default"));
-    }
+        public Player InstantiatePlayer()
+        {
+            return Instantiate(playerPrefab, Vector3.zero, Quaternion.identity).GetComponent<Player>();
 
-    public Player InstantiatePlayer()
-    {
-        return Instantiate(playerPrefab, Vector3.zero, Quaternion.identity).GetComponent<Player>();
-
+        }
     }
 }
