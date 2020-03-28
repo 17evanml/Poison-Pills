@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1974404443808644500}
-  - component: {fileID: 1974404443808644518}
+  - component: {fileID: -8138326404930737151}
   m_Layer: 0
-  m_Name: PFB_Player 1
+  m_Name: PFB_Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1974404443808644518
+--- !u!114 &-8138326404930737151
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,7 +41,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1974404443808644489}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6ce9ea33470b46db8807558910d96bb, type: 3}
+  m_Script: {fileID: 11500000, guid: 03e038d168a454d2f9b0265137f9d009, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
