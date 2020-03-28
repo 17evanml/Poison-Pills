@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
@@ -39,6 +39,7 @@ public class UIManager : MonoBehaviour
 
     public void StartServer()
     {
-        Instantiate(server);
+        SceneManager.LoadScene(0, LoadSceneMode.Additive);
+        //Instantiate(server);
     }
 }
