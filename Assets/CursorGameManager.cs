@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class CursorGameManager : MonoBehaviour
 {
-    public static GameManager Instance { get; private set; }
+    public static CursorGameManager Instance { get; private set; }
     public GameObject testCup;
     Dictionary<int, Color32> dictionary;
 
