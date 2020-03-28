@@ -9,7 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5190047918063767674}
-  - component: {fileID: 6648870434942757150}
+  - component: {fileID: 11611861706688874}
+  - component: {fileID: 1687519228404497614}
   m_Layer: 0
   m_Name: PFB_LocalPlayer
   m_TagString: Untagged
@@ -33,7 +34,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6648870434942757150
+--- !u!114 &11611861706688874
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,11 +43,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 86691115986361980}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6ce9ea33470b46db8807558910d96bb, type: 3}
+  m_Script: {fileID: 11500000, guid: 03e038d168a454d2f9b0265137f9d009, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
   username: 
+--- !u!114 &1687519228404497614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 86691115986361980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86b79fc90a74943ca95ad76e8c852c9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &146499248708679972
 GameObject:
   m_ObjectHideFlags: 0
@@ -266,9 +279,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 5167758921062832283}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ab0ddc7e12c844c1b1a9c30fba0053a, type: 3}
+  m_Script: {fileID: 11500000, guid: c5c34ca34ea884f82b1b280f32d6e958, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 6648870434942757150}
+  player: {fileID: 11611861706688874}
   sensitivity: 100
   clampAngle: 85
