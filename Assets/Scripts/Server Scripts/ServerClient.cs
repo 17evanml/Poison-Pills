@@ -78,6 +78,7 @@ public class ServerClient
                 int _byteLength = stream.EndRead(_result);
                 if (_byteLength <= 0)
                 {
+                    Debug.Log(Environment.StackTrace);
                     Server.clients[id].Disconnect();
                     return;
                 }
@@ -241,7 +242,7 @@ public class ServerClient
     private void Disconnect()
     {
         Debug.Log($"{tcp.socket.Client.RemoteEndPoint} has disconnected.");
-
+        Debug.Log(Environment.StackTrace);
         UnityEngine.Object.Destroy(player.gameObject);
         player = null;
 
