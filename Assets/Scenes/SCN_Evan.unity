@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1165,6 +1165,8 @@ MonoBehaviour:
   server: {fileID: 4593971856992619829, guid: ca429340f7b0346898cc967f82923c8c, type: 3}
   startMenu: {fileID: 782060904}
   usernameField: {fileID: 1429061411}
+  ipField: {fileID: 470329204}
+  portField: {fileID: 857040744}
   startServer: {fileID: 1203099652}
 --- !u!114 &1088310614
 MonoBehaviour:
