@@ -10,6 +10,8 @@ public class UIManager : MonoBehaviour
     public GameObject server;
     public GameObject startMenu;
     public InputField usernameField;
+    public InputField ipField;
+    public InputField portField;
     public Button startServer;
 
     private void Awake()
@@ -30,6 +32,8 @@ public class UIManager : MonoBehaviour
     {
         startMenu.SetActive(false);
         usernameField.interactable = false;
+        Client.instance.ip = ipField.text;
+        Client.instance.port = int.Parse(portField.text);
         Client.instance.ConnectToServer();
     }
 
