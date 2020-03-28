@@ -53,4 +53,9 @@ public class CursorGameManager : MonoBehaviour
             CupManager.Instance.RemoveCup(CupManager.Instance.GetFirst());
         }
     }
+
+    public void NextTurn()
+    {
+
+    }
 }

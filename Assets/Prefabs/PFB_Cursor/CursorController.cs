@@ -10,14 +10,20 @@ public class CursorController : MonoBehaviour
     public Vector2 cursorOffset = new Vector2(1, 1);
     private Vector2 mousePosition;
     public Color32 cursorColor;
+    public Pill pillPoison, pillFake;
 
     public CupManager cupManager;
     public GameObject cup;
     private CupInfo oldCup;
 
-    void Start()
+    void Awake()
     {
         Cursor.visible = false;
+        Color32 c = Random.ColorHSV();
+        
+        pillPoison = new Pill(cursorColor, c, true);
+        //fix this later for complementary colors
+        pillFake = new Pill(cursorColor, new Color32(c.g, c.r, c.b, 1), false);
     }
 
     private void LateUpdate()
@@ -25,6 +31,11 @@ public class CursorController : MonoBehaviour
         UpdateCursorPosition();
 
         MouseRaycast();
+
+        if(Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            OnClick();
+        }
     }
 
     private void StartTurn()
@@ -46,21 +57,41 @@ public class CursorController : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, 1000))
         {
-            Debug.Log($"HIT: {hit.transform.gameObject.name}");
-            CupInfo cupInfo = hit.transform.gameObject.GetComponent<CupInfo>();
+            Debug.Log($"HOVERING: {hit.transform.gameObject.name}");
+            CupInfo newCup = hit.transform.gameObject.GetComponent<CupInfo>();
             
+
             //If the gameobject has a cupInfo component
-            if (cupInfo)
+            if (newCup)
             {
-                if(oldCup != cupInfo)
+                if(oldCup != newCup)
                 {
-                    cupInfo.OffHover();
+                    newCup.OffHover();
                 }
-                oldCup = cupInfo;
-                cupInfo.OnHover();
+                oldCup = newCup;
+                newCup.OnHover();
             }
         }
     }
+
+    private void OnClick()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, 1000))
+        {
+            Debug.Log($"CLICKED ON: {hit.transform.gameObject.name}");
+            CupInfo cup = hit.transform.gameObject.GetComponent<CupInfo>();
+
+            //If the gameobject has a cupInfo component
+            if (cup)
+            {
+                cup.OnClick(this);
+            }
+        }
+    }
+
 
     private void EnableSpotlight()
     {
