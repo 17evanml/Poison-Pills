@@ -49,8 +49,8 @@ public class Player : MonoBehaviour
         Vector3 _moveDirection = transform.right * _inputDirection.x + transform.forward * _inputDirection.y;
         transform.position += _moveDirection * moveSpeed;
 
-        ServerSend.PlayerPosition(this);
-        ServerSend.PlayerRotation(this);
+        //ServerSend.PlayerPosition(this);
+        //ServerSend.PlayerRotation(this);
     }
 
     /// <summary>Updates the player input with newly received input.</summary>

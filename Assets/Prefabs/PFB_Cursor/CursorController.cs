@@ -4,33 +4,25 @@ using UnityEngine;
 
 public class CursorController : MonoBehaviour
 {
-    public Texture2D cursorTexture;
-    public Vector2 cursorSizes = new Vector2(64, 128);
-    private int cursorSize = 64;
     public Vector2 cursorOffset = new Vector2(1, 1);
-    private Vector2 mousePosition; //SERVER NEEDS TO KNOW
-    public Color32 playerColor; //SERVER NEEDS TO ASSIGN
-    private int id; //ASSIGNED IN LOGIN
-    private string playerName; //ASSIGNED IN LOGIN
 
     public Pill pillPoison, pillFake;
+
+    public CursorManager cursorManager;
 
     public CupManager cupManager;
     public GameObject cup;
     private CupInfo oldCup;
 
-    public void Initialize(int id, Color32 playerColor, string playerName)
+    public void Initialize(int _id, string _username, Color32 _color)
     {
-        this.id = id;
-        this.playerColor = playerColor;
-        this.playerName = playerName;
-
+   
         Cursor.visible = false;
 
-        Color32 poisonColor = GetPoisonColor(id);
-        Color32 fakeColor = GetFakeColor(id);
-        pillPoison = new Pill(playerColor, poisonColor, true);
-        pillFake = new Pill(playerColor, fakeColor, false);
+        //Color32 poisonColor = GetPoisonColor(id);
+        //Color32 fakeColor = GetFakeColor(id);
+        //pillPoison = new Pill(playerColor, poisonColor, true);
+        //pillFake = new Pill(playerColor, fakeColor, false);
     }
 
     public Color32 GetPoisonColor(int id)
@@ -124,26 +116,22 @@ public class CursorController : MonoBehaviour
 
     private void SetCursorLarge()
     {
-        cursorSize = (int)cursorSizes.y;
+        cursorManager.cursorSize = (int)cursorManager.cursorSizes.y;
     }
 
     private void SetCursorSmall()
     {
-        cursorSize = (int)cursorSizes.x;
+        cursorManager.cursorSize = (int)cursorManager.cursorSizes.x;
     }
 
     void UpdateCursorPosition()
     {
-        mousePosition.x = Input.mousePosition.x;
-        mousePosition.y = Screen.height - Input.mousePosition.y;
-        mousePosition += cursorOffset;
+        cursorManager.mousePosition.x = Input.mousePosition.x;
+        cursorManager.mousePosition.y = Screen.height - Input.mousePosition.y;
+        cursorManager.mousePosition += cursorOffset;
 
         //SEND INFO TO SERVER
     }
 
-    void OnGUI()
-    {
-        GUI.color = playerColor;
-        GUI.DrawTexture(new Rect(mousePosition.x - (cursorSize / 2), mousePosition.y - (cursorSize / 2), cursorSize, cursorSize), cursorTexture);
-    }
+   
 }
