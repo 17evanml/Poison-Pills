@@ -127,6 +127,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1403198804113721574}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &304382588 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2984214983743843390, guid: 7d02573e77b3256418cdb1fb69c5774a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1403198804113721574}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 304382587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e91b0f57412d4441bfbd68fd1efbcef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &304382589
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,12 +151,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebe1cc3a891809441850599ace314947, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cursorTexture: {fileID: 2800000, guid: 1022a0b4f9a42ac419880afc83b412b8, type: 3}
-  cursorSizes: {x: 64, y: 128}
-  cursorOffset: {x: 16, y: 16}
-  playerColor:
-    serializedVersion: 2
-    rgba: 0
+  cursorOffset: {x: 1, y: 1}
+  cursorManager: {fileID: 304382588}
   cupManager: {fileID: 1481779424}
   cup: {fileID: 2359417681267865306, guid: f1a8946eaebafad4983e1107e1f6a572, type: 3}
 --- !u!1 &316935299
@@ -1251,6 +1259,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 2984214983743843390, guid: 7d02573e77b3256418cdb1fb69c5774a,
+        type: 3}
+      propertyPath: color.rgba
+      value: 4278190335
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d02573e77b3256418cdb1fb69c5774a, type: 3}
