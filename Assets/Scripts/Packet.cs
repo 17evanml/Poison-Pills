@@ -9,7 +9,8 @@ public enum ServerPackets
 {
     welcome = 1,
     spawnCursor,
-    playerPosition
+    playerPosition,
+    playerDisconnect
 }
 
 /// <summary>Sent from client to server.</summary>
