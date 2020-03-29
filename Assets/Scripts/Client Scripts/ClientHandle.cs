@@ -32,7 +32,7 @@ public class ClientHandle : MonoBehaviour
     {
         int _id = _packet.ReadInt();
         Vector3 _position = _packet.ReadVector3();
-        Debug.Log($"{_id} is at {_position}");
+        //Debug.Log($"{_id} is at {_position}");
         if (GameManager.cursors.ContainsKey(_id))
         {
             GameManager.cursors[_id].SetMousePosition(_position);
@@ -45,5 +45,11 @@ public class ClientHandle : MonoBehaviour
         Quaternion _rotation = _packet.ReadQuaternion();
 
         GameManager.cursors[_id].transform.rotation = _rotation;
+    }
+
+    public static void PlayerDisconnect(Packet _packet)
+    {
+        int _id = _packet.ReadInt();
+        Destroy(GameManager.cursors[_id].gameObject);
     }
 }
