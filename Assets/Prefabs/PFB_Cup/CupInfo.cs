@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class CupInfo : MonoBehaviour
 {
     private int id;
-    private string playerName;
+    private string username;
     private Color32 color;
 
     private Pill tempFakePill;
@@ -19,14 +19,14 @@ public class CupInfo : MonoBehaviour
     CupInfo(int id, string name, Color32 color)
     {
         this.id = id;
-        this.playerName = name;
-        this.color = color;
+        this.username = name;
+        //this.color = color;
     }
 
     public void Initialize(int id, string name, Color32 color)
     {
         this.id = id;
-        this.playerName = name;
+        this.username = name;
         this.color = color;
         pillStack = new Stack<Pill>();
     }
@@ -34,7 +34,7 @@ public class CupInfo : MonoBehaviour
     public void SetValues(int id, string name, Color32 color)
     {
         this.id = id;
-        this.playerName = name;
+        //this.username = name;
         this.color = color;
     }
 
