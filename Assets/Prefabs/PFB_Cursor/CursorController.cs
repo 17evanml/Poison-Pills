@@ -8,29 +8,48 @@ public class CursorController : MonoBehaviour
     public Vector2 cursorSizes = new Vector2(64, 128);
     private int cursorSize = 64;
     public Vector2 cursorOffset = new Vector2(1, 1);
-    private Vector2 mousePosition;
-    public Color32 cursorColor;
+    private Vector2 mousePosition; //SERVER NEEDS TO KNOW
+    public Color32 playerColor; //SERVER NEEDS TO ASSIGN
+    private int id; //ASSIGNED IN LOGIN
+    private string playerName; //ASSIGNED IN LOGIN
+
     public Pill pillPoison, pillFake;
 
     public CupManager cupManager;
     public GameObject cup;
     private CupInfo oldCup;
 
-    void Awake()
+    public void Initialize(int id, Color32 playerColor, string playerName)
     {
+        this.id = id;
+        this.playerColor = playerColor;
+        this.playerName = playerName;
+
         Cursor.visible = false;
-        Color32 c = Random.ColorHSV();
-        
-        pillPoison = new Pill(cursorColor, c, true);
-        //fix this later for complementary colors
-        pillFake = new Pill(cursorColor, new Color32(c.g, c.r, c.b, 1), false);
+
+        Color32 poisonColor = GetPoisonColor(id);
+        Color32 fakeColor = GetFakeColor(id);
+        pillPoison = new Pill(playerColor, poisonColor, true);
+        pillFake = new Pill(playerColor, fakeColor, false);
+    }
+
+    public Color32 GetPoisonColor(int id)
+    {
+        //EVAN DO SERVER STUFF HERE
+        return new Color32();
+    }
+
+    public Color32 GetFakeColor(int id)
+    {
+        //EVAN DO SERVER STUFF HERE
+        return new Color32();
     }
 
     private void LateUpdate()
     {
         UpdateCursorPosition();
 
-        MouseRaycast();
+        //MouseRaycast();
 
         if(Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.Mouse1))
         {
@@ -38,6 +57,7 @@ public class CursorController : MonoBehaviour
         }
     }
 
+    //Server manager needs to call functions
     private void StartTurn()
     {
         SetCursorLarge();
@@ -60,7 +80,6 @@ public class CursorController : MonoBehaviour
             Debug.Log($"HOVERING: {hit.transform.gameObject.name}");
             CupInfo newCup = hit.transform.gameObject.GetComponent<CupInfo>();
             
-
             //If the gameobject has a cupInfo component
             if (newCup)
             {
@@ -118,11 +137,13 @@ public class CursorController : MonoBehaviour
         mousePosition.x = Input.mousePosition.x;
         mousePosition.y = Screen.height - Input.mousePosition.y;
         mousePosition += cursorOffset;
+
+        //SEND INFO TO SERVER
     }
 
     void OnGUI()
     {
-        GUI.color = cursorColor;
+        GUI.color = playerColor;
         GUI.DrawTexture(new Rect(mousePosition.x - (cursorSize / 2), mousePosition.y - (cursorSize / 2), cursorSize, cursorSize), cursorTexture);
     }
 }
