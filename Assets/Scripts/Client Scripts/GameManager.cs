@@ -6,10 +6,12 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    public static Dictionary<int, PlayerManager> players = new Dictionary<int, PlayerManager>();
+    public static Dictionary<int, CursorController> cursors = new Dictionary<int, CursorController>();
+    public static Dictionary<int, CupInfo> cups = new Dictionary<int, CupInfo>();
 
-    public GameObject localPlayerPrefab;
-    public GameObject playerPrefab;
+    public GameObject localCursorPrefab;
+    public GameObject cursorPrefab;
+    public GameObject cupPrefab;
 
     private void Awake()
     {
@@ -29,20 +31,29 @@ public class GameManager : MonoBehaviour
     /// <param name="_name">The player's name.</param>
     /// <param name="_position">The player's starting position.</param>
     /// <param name="_rotation">The player's starting rotation.</param>
-    public void SpawnPlayer(int _id, string _username, Vector3 _position, Quaternion _rotation)
+    public void SpawnCursor(int _id, string _username, Vector3 _position, Quaternion _rotation, Color32 _color)
     {
-        GameObject _player;
+        GameObject _cursor;
         if (_id == Client.instance.myId)
         {
-            _player = Instantiate(localPlayerPrefab, _position, _rotation);
+            _cursor = Instantiate(localCursorPrefab, _position, _rotation);
         }
         else
         {
-            _player = Instantiate(playerPrefab, _position, _rotation);
+            _cursor = Instantiate(cursorPrefab, _position, _rotation);
         }
 
-        _player.GetComponent<PlayerManager>().id = _id;
-        _player.GetComponent<PlayerManager>().username = _username;
-        players.Add(_id, _player.GetComponent<PlayerManager>());
+        _cursor.GetComponent<CursorManager>().id = _id;
+        _cursor.GetComponent<CursorManager>().username = _username;
+        _cursor.GetComponent<CursorManager>().color = _color;
+        cursors.Add(_id, _cursor.GetComponent<CursorController>());
+    }
+
+    public void SpawnCup(int _id, string _username, Vector3 _position, Quaternion _rotation)
+    {
+        GameObject _cup = Instantiate(cupPrefab, _position, _rotation);
+        _cup.GetComponent<CupInfo>().id = _id;
+        _cup.GetComponent<CupInfo>().username = _username;
+        cups.Add(_id, _cup.GetComponent<CupInfo>());
     }
 }
