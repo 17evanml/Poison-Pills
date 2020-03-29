@@ -66,6 +66,8 @@ public class CupManager : MonoBehaviour
             c.transform.position = origin + new Vector3(Mathf.Cos(cupAngle * index * d2r), 0, Mathf.Sin(cupAngle * index * d2r)) * radius;
             index++;
         }
+
+        //Send TCP to all
     }
 
     public CupInfo GetFirst()
