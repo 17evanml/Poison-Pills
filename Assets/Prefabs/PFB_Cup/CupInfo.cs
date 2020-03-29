@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class CupInfo : MonoBehaviour
 {
-    private int id;
-    private string playerName;
-    private Color32 color;
+    public int id;
+    public string username;
+    public Color32 color;
 
     private Stack<Pill> pillStack = new Stack<Pill>();
 
@@ -14,15 +14,13 @@ public class CupInfo : MonoBehaviour
 
     CupInfo(int id, string name, Color32 color)
     {
-        this.id = id;
-        this.playerName = name;
-        this.color = color;
+        //this.color = color;
     }
 
     public void SetValues(int id, string name, Color32 color)
     {
         this.id = id;
-        this.playerName = name;
+        //this.playerName = name;
         this.color = color;
     }
 
