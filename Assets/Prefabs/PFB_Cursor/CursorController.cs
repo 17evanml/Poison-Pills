@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CursorController : MonoBehaviour
 {
-    public Vector2 cursorOffset = new Vector2(1, 1);
+    private Vector2 cursorOffset = new Vector2(16, 16);
 
     public Pill pillPoison, pillFake;
 
@@ -14,15 +14,14 @@ public class CursorController : MonoBehaviour
     public GameObject cup;
     private CupInfo oldCup;
 
-    public void Initialize(int _id, string _username, Color32 _color)
+    public void Awake()
     {
-   
         Cursor.visible = false;
 
-        //Color32 poisonColor = GetPoisonColor(id);
-        //Color32 fakeColor = GetFakeColor(id);
-        //pillPoison = new Pill(playerColor, poisonColor, true);
-        //pillFake = new Pill(playerColor, fakeColor, false);
+        Color32 poisonColor = GetPoisonColor(cursorManager.id);
+        Color32 fakeColor = GetFakeColor(cursorManager.id);
+        pillPoison = new Pill(cursorManager.color, poisonColor, true);
+        pillFake = new Pill(cursorManager.color, fakeColor, false);
     }
 
     public Color32 GetPoisonColor(int id)
@@ -43,7 +42,7 @@ public class CursorController : MonoBehaviour
 
         //MouseRaycast();
 
-        if(Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.Mouse1))
+        if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.Mouse1))
         {
             OnClick();
         }
@@ -71,11 +70,11 @@ public class CursorController : MonoBehaviour
         {
             Debug.Log($"HOVERING: {hit.transform.gameObject.name}");
             CupInfo newCup = hit.transform.gameObject.GetComponent<CupInfo>();
-            
+
             //If the gameobject has a cupInfo component
             if (newCup)
             {
-                if(oldCup != newCup)
+                if (oldCup != newCup)
                 {
                     newCup.OffHover();
                 }
@@ -133,5 +132,5 @@ public class CursorController : MonoBehaviour
         //SEND INFO TO SERVER
     }
 
-   
+
 }
