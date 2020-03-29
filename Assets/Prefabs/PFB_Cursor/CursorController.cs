@@ -9,9 +9,11 @@ public class CursorController : MonoBehaviour
     private int cursorSize = 64;
     public Vector2 cursorOffset = new Vector2(1, 1);
     private Vector2 mousePosition; //SERVER NEEDS TO KNOW
-    public Color32 playerColor; //SERVER NEEDS TO ASSIGN
+
+   
     private int id; //ASSIGNED IN LOGIN
     private string playerName; //ASSIGNED IN LOGIN
+    public Color32 playerColor; //SERVER NEEDS TO ASSIGN
 
     public Pill pillPoison, pillFake;
 
@@ -43,6 +45,11 @@ public class CursorController : MonoBehaviour
     {
         //EVAN DO SERVER STUFF HERE
         return new Color32();
+    }
+
+    private void Start()
+    {
+        Initialize(1, new Color32(255, 0, 0, 255), "bill");
     }
 
     private void LateUpdate()
