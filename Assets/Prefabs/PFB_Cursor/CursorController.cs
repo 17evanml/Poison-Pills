@@ -128,7 +128,7 @@ public class CursorController : MonoBehaviour
         cursorManager.mousePosition.x = Input.mousePosition.x;
         cursorManager.mousePosition.y = Screen.height - Input.mousePosition.y;
         cursorManager.mousePosition += cursorOffset;
-
+        ClientSend.CursorMovement(cursorManager.mousePosition);
         //SEND INFO TO SERVER
     }
 

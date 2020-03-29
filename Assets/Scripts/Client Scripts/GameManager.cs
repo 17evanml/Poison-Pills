@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    public static Dictionary<int, CursorController> cursors = new Dictionary<int, CursorController>();
+    public static Dictionary<int, CursorManager> cursors = new Dictionary<int, CursorManager>();
     public static Dictionary<int, CupInfo> cups = new Dictionary<int, CupInfo>();
 
     public GameObject localCursorPrefab;
@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
         _cursor.GetComponent<CursorManager>().id = _id;
         _cursor.GetComponent<CursorManager>().username = _username;
         _cursor.GetComponent<CursorManager>().color = _color;
-        cursors.Add(_id, _cursor.GetComponent<CursorController>());
+        cursors.Add(_id, _cursor.GetComponent<CursorManager>());
     }
 
     public void SpawnCup(int _id, string _username, Vector3 _position, Quaternion _rotation)
