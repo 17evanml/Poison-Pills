@@ -50,6 +50,8 @@ public class Client : MonoBehaviour
         InitializeClientData();
 
         isConnected = true;
+        tcp = new TCP();
+        udp = new UDP();
         tcp.Connect(); // Connect tcp, udp gets connected once tcp is done
     }
 
