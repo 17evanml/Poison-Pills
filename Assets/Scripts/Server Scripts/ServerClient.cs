@@ -78,7 +78,7 @@ public class ServerClient
                 int _byteLength = stream.EndRead(_result);
                 if (_byteLength <= 0)
                 {
-                    Debug.Log(Environment.StackTrace);
+                    //Debug.Log(Environment.StackTrace);
                     Server.clients[id].Disconnect();
                     return;
                 }
