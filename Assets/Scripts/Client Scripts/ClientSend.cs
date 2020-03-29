@@ -39,6 +39,7 @@ public class ClientSend : MonoBehaviour
     {
         using (Packet _packet = new Packet((int)ClientPackets.cursorMovement))
         {
+            print("sent position");
             _packet.Write(_position);
             //_packet.Write(GameManager.cups[Client.instance.myId].transform.rotation);
 
