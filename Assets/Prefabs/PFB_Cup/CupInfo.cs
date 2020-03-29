@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CupInfo : MonoBehaviour
 {
@@ -8,7 +9,10 @@ public class CupInfo : MonoBehaviour
     private string playerName;
     private Color32 color;
 
-    private Stack<Pill> pillStack = new Stack<Pill>();
+    private Pill tempFakePill;
+    private Pill tempPoisonPill;
+
+    private Stack<Pill> pillStack;
 
     public bool hover = false;
 
@@ -17,6 +21,14 @@ public class CupInfo : MonoBehaviour
         this.id = id;
         this.playerName = name;
         this.color = color;
+    }
+
+    public void Initialize(int id, string name, Color32 color)
+    {
+        this.id = id;
+        this.playerName = name;
+        this.color = color;
+        pillStack = new Stack<Pill>();
     }
 
     public void SetValues(int id, string name, Color32 color)
@@ -41,18 +53,55 @@ public class CupInfo : MonoBehaviour
     {
         //Notify server that you clicked a cup
         //Call the button display script
-        //All three buttons are not instantiated, they are saved as a reference in the scene
-        //Moves buttons to right place (based on offset)
+        //TODO: Moves buttons to right place (based on offset)
         //SETS background button to be OFFCLICK for this CUPINFO class
-        //SET RAND LEFT OR RIGHT BUTTON TO BE AddPill(player.poisonPill)...
+        CursorGameManager.Instance.offClick.onClick.AddListener(OffClick);
+        //SET RAND LEFT OR RIGHT BUTTON TO BE AddPill(player.poisonPill)
+        tempFakePill = player.pillFake;
+        tempPoisonPill = player.pillPoison;
+        CursorGameManager.Instance.poisonClick.onClick.AddListener(AddPoisonPill);
+        CursorGameManager.Instance.fakeClick.onClick.AddListener(AddFakePill);
         //Enables UI
+        CursorGameManager.Instance.canvas.SetActive(true);
     }
 
     public void OffClick()
     {
         //Notify Server that you clicked off 
-        //Call the button hide script
+
+        tempFakePill = null;
+        tempPoisonPill = null;
+
+        CursorGameManager.Instance.offClick.onClick.RemoveListener(OffClick);
+        CursorGameManager.Instance.poisonClick.onClick.RemoveListener(AddPoisonPill);
+        CursorGameManager.Instance.fakeClick.onClick.RemoveListener(AddFakePill);
         //DISABLES UI
+        CursorGameManager.Instance.canvas.SetActive(false);
+        
+    }
+
+    public void AddPoisonPill()
+    {
+        if (tempPoisonPill != null)
+        {
+            AddPill(tempPoisonPill);
+        }
+        else
+        {
+            Debug.LogError("TempPoisonPill in CupInfo is null");
+        }
+    }
+
+    public void AddFakePill()
+    {
+        if (tempFakePill != null)
+        {
+            AddPill(tempFakePill);
+        }
+        else
+        {
+            Debug.LogError("TempFakePill in CupInfo is null");
+        }
     }
 
     public void AddPill(Pill pill)
