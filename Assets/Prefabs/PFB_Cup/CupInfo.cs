@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class CupInfo : MonoBehaviour
 {
-    private int id;
+    public int id;
     private string playerName;
-    private Color32 color;
+    public Color32 color;
     private Stack<Pill> pillStack = new Stack<Pill>();
 
     public Vector3 originalScale;
