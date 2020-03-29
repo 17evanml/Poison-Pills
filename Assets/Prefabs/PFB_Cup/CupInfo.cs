@@ -7,9 +7,9 @@ public class CupInfo : MonoBehaviour
     private int id;
     private string playerName;
     private Color32 color;
+
     private Stack<Pill> pillStack = new Stack<Pill>();
 
-    public Vector3 originalScale;
     public bool hover = false;
 
     CupInfo(int id, string name, Color32 color)
@@ -39,6 +39,7 @@ public class CupInfo : MonoBehaviour
 
     public void OnClick(CursorController player)
     {
+        //Notify server that you clicked a cup
         //Call the button display script
         //All three buttons are not instantiated, they are saved as a reference in the scene
         //Moves buttons to right place (based on offset)
@@ -49,6 +50,7 @@ public class CupInfo : MonoBehaviour
 
     public void OffClick()
     {
+        //Notify Server that you clicked off 
         //Call the button hide script
         //DISABLES UI
     }
