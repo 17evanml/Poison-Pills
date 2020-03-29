@@ -89,44 +89,32 @@ public class ServerSend
 
     /// <summary>Tells a client to spawn a player.</summary>
     /// <param name="_toClient">The client that should spawn the player.</param>
-    /// <param name="_player">The player to spawn.</param>
-    public static void SpawnPlayer(int _toClient, Player _player)
+    /// <param name="_cursor">The player to spawn.</param>
+    public static void SpawnCursor(int _toClient, ServerCursor _cursor)
     {
-        using (Packet _packet = new Packet((int)ServerPackets.spawnPlayer))
+        using (Packet _packet = new Packet((int)ServerPackets.spawnCursor))
         {
-            _packet.Write(_player.id);
-            _packet.Write(_player.username);
-            _packet.Write(_player.transform.position);
-            _packet.Write(_player.transform.rotation);
-
+            _packet.Write(_cursor.id);
+            _packet.Write(_cursor.username);
+            _packet.Write(_cursor.transform.position);
+            _packet.Write(_cursor.transform.rotation);
+            _packet.Write(_cursor.color);
             SendTCPData(_toClient, _packet);
         }
     }
 
     /// <summary>Sends a player's updated position to all clients.</summary>
     /// <param name="_player">The player whose position to update.</param>
-    public static void PlayerPosition(Player _player)
+    public static void CursorPosition(ServerCursor _cursor)
     {
         using (Packet _packet = new Packet((int)ServerPackets.playerPosition))
         {
-            _packet.Write(_player.id);
-            _packet.Write(_player.transform.position);
+            _packet.Write(_cursor.id);
+            _packet.Write(_cursor.cursorPos);
 
-            SendUDPDataToAll(_packet);
+            SendUDPDataToAll(_cursor.id, _packet);
         }
     }
-
-    /// <summary>Sends a player's updated rotation to all clients except to himself (to avoid overwriting the local player's rotation).</summary>
-    /// <param name="_player">The player whose rotation to update.</param>
-    public static void PlayerRotation(Player _player)
-    {
-        using (Packet _packet = new Packet((int)ServerPackets.playerRotation))
-        {
-            _packet.Write(_player.id);
-            _packet.Write(_player.transform.rotation);
-
-            SendUDPDataToAll(_player.id, _packet);
-        }
-    }
+       
     #endregion
 }
