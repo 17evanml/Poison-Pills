@@ -18,23 +18,24 @@ public class ClientHandle : MonoBehaviour
         Client.instance.udp.Connect(((IPEndPoint)Client.instance.tcp.socket.Client.LocalEndPoint).Port);
     }
 
-    public static void SpawnPlayer(Packet _packet)
+    public static void SpawnCursor(Packet _packet)
     {
         int _id = _packet.ReadInt();
         string _username = _packet.ReadString();
         Vector3 _position = _packet.ReadVector3();
         Quaternion _rotation = _packet.ReadQuaternion();
-        GameManager.instance.SpawnPlayer(_id, _username, _position, _rotation);
+        Color32 _color = _packet.ReadColor();
+        GameManager.instance.SpawnCursor(_id, _username, _position, _rotation, _color);
     }
 
-    public static void PlayerPosition(Packet _packet)
+    public static void CursorPosition(Packet _packet)
     {
         int _id = _packet.ReadInt();
         Vector3 _position = _packet.ReadVector3();
 
-        if (GameManager.players.ContainsKey(_id))
+        if (GameManager.cursors.ContainsKey(_id))
         {
-            GameManager.players[_id].transform.position = _position;
+            GameManager.cursors[_id].transform.position = _position;
         }
     }
 
@@ -43,6 +44,6 @@ public class ClientHandle : MonoBehaviour
         int _id = _packet.ReadInt();
         Quaternion _rotation = _packet.ReadQuaternion();
 
-        GameManager.players[_id].transform.rotation = _rotation;
+        GameManager.cursors[_id].transform.rotation = _rotation;
     }
 }

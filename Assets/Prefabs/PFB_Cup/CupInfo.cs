@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 public class CupInfo : MonoBehaviour
 {
-    private int id;
-    private string username;
-    private Color32 color;
+    public int id;
+    public string username;
+    public Color32 color;
 
     private Pill tempFakePill;
     private Pill tempPoisonPill;

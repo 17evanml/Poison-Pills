@@ -6,7 +6,7 @@ public class NetworkManager : MonoBehaviour
 {
     public static NetworkManager instance;
 
-    public GameObject playerPrefab;
+    public GameObject cursorPrefab;
 
     private void Awake()
     {
@@ -38,8 +38,8 @@ public class NetworkManager : MonoBehaviour
         Server.Start(50, 6942);
     }
 
-    public Player InstantiatePlayer()
+    public ServerCursor InstantiatePlayer()
     {
-        return Instantiate(playerPrefab, Vector3.zero, Quaternion.identity).GetComponent<Player>();
+        return Instantiate(cursorPrefab, Vector3.zero, Quaternion.identity).GetComponent<ServerCursor>();
     }
 }
