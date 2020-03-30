@@ -6,10 +6,13 @@ public class CupManager : MonoBehaviour
 {
     public static CupManager Instance { get; private set; }
 
+    //Positioning of all cups
     [SerializeField]
     private Vector3 origin;
     [SerializeField]
     private float radius = 5f;
+
+    //Linked list of all cups
     private LinkedList<CupInfo> cupInfos = new LinkedList<CupInfo>();
 
     private void Awake()
@@ -66,8 +69,6 @@ public class CupManager : MonoBehaviour
             c.transform.position = origin + new Vector3(Mathf.Cos(cupAngle * index * d2r), 0, Mathf.Sin(cupAngle * index * d2r)) * radius;
             index++;
         }
-
-        //Send TCP to all
     }
 
     public CupInfo GetFirst()
