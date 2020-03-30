@@ -19,4 +19,9 @@ public class CursorManager : MonoBehaviour
         GUI.color = color;
         GUI.DrawTexture(new Rect(mousePosition.x - (cursorSize / 2), mousePosition.y - (cursorSize / 2), cursorSize, cursorSize), cursorTexture);
     }
+
+    public void SetMousePosition(Vector2 _mousePosition)
+    {
+        mousePosition = _mousePosition;
+    }
 }
