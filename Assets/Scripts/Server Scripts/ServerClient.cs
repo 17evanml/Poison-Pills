@@ -10,7 +10,7 @@ public class ServerClient
     public static int dataBufferSize = 4096;
 
     public int id;
-    public Player player;
+    public ServerCursor cursor;
     public TCP tcp;
     public UDP udp;
 
@@ -78,7 +78,7 @@ public class ServerClient
                 int _byteLength = stream.EndRead(_result);
                 if (_byteLength <= 0)
                 {
-                    Debug.Log(Environment.StackTrace);
+                    //Debug.Log(Environment.StackTrace);
                     Server.clients[id].Disconnect();
                     return;
                 }
@@ -214,16 +214,16 @@ public class ServerClient
     public void SendIntoGame(string _playerName)
     {
         Debug.Log(NetworkManager.instance);
-        player = NetworkManager.instance.InstantiatePlayer();
-        player.Initialize(id, _playerName);
+        cursor = NetworkManager.instance.InstantiatePlayer();
+        cursor.Initialize(id, _playerName, new Color32(255, 0,0,255));
         // Send all players to the new player
         foreach (ServerClient _client in Server.clients.Values)
         {
-            if (_client.player != null)
+            if (_client.cursor != null)
             {
                 if (_client.id != id)
                 {
-                    ServerSend.SpawnPlayer(id, _client.player);
+                    ServerSend.SpawnCursor(id, _client.cursor);
                 }
             }
         }
@@ -231,9 +231,9 @@ public class ServerClient
         // Send the new player to all players (including himself)
         foreach (ServerClient _client in Server.clients.Values)
         {
-            if (_client.player != null)
+            if (_client.cursor != null)
             {
-                ServerSend.SpawnPlayer(_client.id, player);
+                ServerSend.SpawnCursor(_client.id, cursor);
             }
         }
     }
@@ -242,9 +242,13 @@ public class ServerClient
     private void Disconnect()
     {
         Debug.Log($"{tcp.socket.Client.RemoteEndPoint} has disconnected.");
-        Debug.Log(Environment.StackTrace);
-        UnityEngine.Object.Destroy(player.gameObject);
-        player = null;
+        //Debug.Log(Environment.StackTrace);
+
+        ThreadManager.ExecuteOnMainThread(() =>
+        {
+            UnityEngine.Object.Destroy(cursor.gameObject);
+            cursor = null;
+        });
 
         tcp.Disconnect();
         udp.Disconnect();

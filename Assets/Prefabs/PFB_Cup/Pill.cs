@@ -15,4 +15,8 @@ public class Pill
         this.poison = poison;
         pillRenderer = null;
     }
+
+    public override string ToString() {
+        return ($"Pill: playerColor: {playerColor}, pillColor: {pillColor}, poison: {poison}");
+    }
 }
