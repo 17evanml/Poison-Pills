@@ -1,12 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CursorGameManager : MonoBehaviour
 {
     public static CursorGameManager Instance { get; private set; }
     public GameObject testCup;
     Dictionary<int, Color32> dictionary;
+
+    public GameObject canvas;
+    public Button offClick;
+    public Button poisonClick;
+    public Button fakeClick;
 
     private void Awake()
     {
@@ -41,7 +47,7 @@ public class CursorGameManager : MonoBehaviour
         CupInfo c = g.GetComponent<CupInfo>();
         if (c)
         {
-            c.SetValues(1, "Bill", Random.ColorHSV());
+            c.Initialize(1, "Bill", Random.ColorHSV());
         }
         CupManager.Instance.AddCup(c);
     }

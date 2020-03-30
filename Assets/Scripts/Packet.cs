@@ -8,16 +8,16 @@ using UnityEngine;
 public enum ServerPackets
 {
     welcome = 1,
-    spawnPlayer,
+    spawnCursor,
     playerPosition,
-    playerRotation
+    playerDisconnect
 }
 
 /// <summary>Sent from client to server.</summary>
 public enum ClientPackets
 {
     welcomeReceived = 1,
-    playerMovement
+    cursorMovement
 }
 
 public class Packet : IDisposable
@@ -177,6 +177,13 @@ public class Packet : IDisposable
         Write(_value.y);
         Write(_value.z);
         Write(_value.w);
+    }
+    public void Write(Color32 _value)
+    {
+        Write(_value.a);
+        Write(_value.b);
+        Write(_value.g);
+        Write(_value.r);
     }
     #endregion
 
@@ -362,6 +369,11 @@ public class Packet : IDisposable
     public Quaternion ReadQuaternion(bool _moveReadPos = true)
     {
         return new Quaternion(ReadFloat(_moveReadPos), ReadFloat(_moveReadPos), ReadFloat(_moveReadPos), ReadFloat(_moveReadPos));
+    }
+
+    public Color32 ReadColor(bool _moveReadPos = true)
+    {
+        return new Color32(ReadByte(_moveReadPos), ReadByte(_moveReadPos), ReadByte(_moveReadPos), ReadByte(_moveReadPos));
     }
     #endregion
 
