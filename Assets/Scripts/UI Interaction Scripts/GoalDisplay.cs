@@ -9,7 +9,7 @@ public class GoalDisplay : MonoBehaviour {
     public Goal goal; // Goal Data
 
     // Start is called before the first frame update
-    void Start() {
+    public void Initialize() {
         // Assigns goal text based on Goal data
         if (goal.goal == Goal.goalOptions.die) { goalText.text = "Kill "; }
         else if (goal.goal == Goal.goalOptions.live) { goalText.text = "Save "; }
