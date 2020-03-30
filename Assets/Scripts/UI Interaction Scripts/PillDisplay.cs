@@ -10,14 +10,6 @@ public class PillDisplay : MonoBehaviour {
     public Vector2 spacing; // Spacing between pills
     public GameObject pillPrefab; // Reference to Pill Prefab
 
-    // Update is called once per frame
-    void Update() {
-        // Debug Tool
-        if (Input.GetKeyDown(KeyCode.A)) {
-            AddPill(new Pill((Color32) Color.red, (Color32) Color.blue, true));
-        }
-    }
-
     /// <summary> Adds a Pill to the Stack. Then Displays the new Pill. </summary>
     /// <param name="pill"> A new Pill. </param>
     void AddPill(Pill pill) {
