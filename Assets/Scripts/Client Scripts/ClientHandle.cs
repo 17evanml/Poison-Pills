@@ -50,6 +50,10 @@ public class ClientHandle : MonoBehaviour
     public static void PlayerDisconnect(Packet _packet)
     {
         int _id = _packet.ReadInt();
-        Destroy(GameManager.cursors[_id].gameObject);
+        print("delete");
+        //ThreadManager.ExecuteOnMainThread(() =>
+        //{
+            Destroy(GameManager.cursors[_id].gameObject);
+        //});
     }
 }
