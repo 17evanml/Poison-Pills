@@ -7,12 +7,15 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
 
+    public GameObject lobbyMenu;
     public GameObject server;
     public GameObject startMenu;
     public InputField usernameField;
     public InputField ipField;
     public InputField portField;
     public Button startServer;
+    public Button beginGame;
+    public Button selfConnect;
 
     private void Awake()
     {
@@ -40,6 +43,22 @@ public class UIManager : MonoBehaviour
     public void StartServer()
     {
         SceneManager.LoadScene(0, LoadSceneMode.Additive);
+        lobbyMenu.SetActive(true);
+        startMenu.SetActive(false);
+
         //Instantiate(server);
+    }
+
+    public void SelfConnect()
+    {
+        Client.instance.ip = "127.0.0.1";
+        Client.instance.port = 6942;
+        Client.instance.ConnectToServer();
+    }
+
+    public void BeginGame()
+    {
+        lobbyMenu.SetActive(false);
+        ServerSend.BeginGame();
     }
 }

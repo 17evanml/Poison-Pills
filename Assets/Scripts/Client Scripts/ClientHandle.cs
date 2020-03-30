@@ -56,4 +56,10 @@ public class ClientHandle : MonoBehaviour
             Destroy(GameManager.cursors[_id].gameObject);
         //});
     }
+
+    public static void BeginGame(Packet _packet)
+    {
+        //Add cups to cupmanager
+        CursorGameManager.Instance.CreateAllCups();
+    }
 }

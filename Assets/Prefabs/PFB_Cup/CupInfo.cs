@@ -113,6 +113,7 @@ public class CupInfo : MonoBehaviour
 
     public void AddPill(Pill pill)
     {
+        //ClientSend.SendPill(id, pillType);
         //somehow in server do ur magic
         pillStack.Push(pill);
         OffClick();

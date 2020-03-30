@@ -302,7 +302,8 @@ public class Client : MonoBehaviour
             { (int)ServerPackets.welcome, ClientHandle.Welcome },
             { (int)ServerPackets.spawnCursor, ClientHandle.SpawnCursor },
             { (int)ServerPackets.playerPosition, ClientHandle.CursorPosition },
-            { (int)ServerPackets.playerDisconnect, ClientHandle.PlayerDisconnect }
+            { (int)ServerPackets.playerDisconnect, ClientHandle.PlayerDisconnect },
+            { (int)ServerPackets.beginGame, ClientHandle.BeginGame}
         };
         Debug.Log("Initialized packets.");
     }
