@@ -11,6 +11,7 @@ public class ServerClient
 
     public int id;
     public ServerCursor cursor;
+    public ServerCup cup;
     public TCP tcp;
     public UDP udp;
 

@@ -10,14 +10,16 @@ public enum ServerPackets
     welcome = 1,
     spawnCursor,
     playerPosition,
-    playerDisconnect
+    playerDisconnect,
+    beginGame
 }
 
 /// <summary>Sent from client to server.</summary>
 public enum ClientPackets
 {
     welcomeReceived = 1,
-    cursorMovement
+    cursorMovement,
+    placePill
 }
 
 public class Packet : IDisposable
@@ -184,6 +186,13 @@ public class Packet : IDisposable
         Write(_value.b);
         Write(_value.g);
         Write(_value.r);
+    }
+    public void Write(Pill _value)
+    {
+        Write(_value.playerColor);
+        Write(_value.pillColor);
+        Write(_value.poison);
+
     }
     #endregion
 
@@ -374,6 +383,12 @@ public class Packet : IDisposable
     public Color32 ReadColor(bool _moveReadPos = true)
     {
         return new Color32(ReadByte(_moveReadPos), ReadByte(_moveReadPos), ReadByte(_moveReadPos), ReadByte(_moveReadPos));
+    }
+
+    public Pill ReadPill(bool _moveReadPos = true)
+    {
+        return new Pill(ReadColor(_moveReadPos), ReadColor(_moveReadPos), ReadBool(_moveReadPos));
+                   
     }
     #endregion
 

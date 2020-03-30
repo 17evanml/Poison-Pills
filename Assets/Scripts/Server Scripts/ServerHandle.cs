@@ -23,4 +23,18 @@ public class ServerHandle
         //Debug.Log($"Received Position : {newPos}");
         Server.clients[_fromClient].cursor.SetPos(newPos);
     }
+
+    public static void PlacePill(int _fromClient, Packet _packet)
+    {
+        int _clientIdCheck = _packet.ReadInt();
+        string _username = _packet.ReadString();
+        int _cupId = _packet.ReadInt();
+        Pill _pill = _packet.ReadPill();
+        if(_fromClient != _clientIdCheck)
+        {
+            Debug.Log($"Player \"{_username}\" (ID: {_fromClient}) has assumed the wrong client ID ({_clientIdCheck})!");
+        }
+        Server.clients[_cupId].cup.AddPill(_pill);
+
+    }
 }
