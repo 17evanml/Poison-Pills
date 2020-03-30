@@ -13,7 +13,7 @@ public class CupManager : MonoBehaviour
     private float radius = 5f;
 
     //Linked list of all cups
-    private LinkedList<CupInfo> cupInfos = new LinkedList<CupInfo>();
+    private Dictionary<int, CupInfo> cupInfos = new Dictionary<int, CupInfo>();
 
     private void Awake()
     {
@@ -35,7 +35,7 @@ public class CupManager : MonoBehaviour
             return;
         }
 
-        cupInfos.AddLast(cup);
+        cupInfos.Add(cup.id, cup);
         RepositionCups();
     }
 
@@ -47,7 +47,7 @@ public class CupManager : MonoBehaviour
             return;
         }
 
-        cupInfos.Remove(cup);
+        cupInfos.Remove(cup.id);
         Destroy(cup.transform.gameObject);
         RepositionCups();
     }
@@ -64,17 +64,13 @@ public class CupManager : MonoBehaviour
         int index = 1;
         float d2r = Mathf.PI / 180f;
 
-        foreach(CupInfo c in cupInfos)
+        foreach(CupInfo c in cupInfos.Values)
         {
             c.transform.position = origin + new Vector3(Mathf.Cos(cupAngle * index * d2r), 0, Mathf.Sin(cupAngle * index * d2r)) * radius;
             index++;
         }
     }
 
-    public CupInfo GetFirst()
-    {
-        return cupInfos.First.Value;
-    }
 
     public int Count()
     {

@@ -125,5 +125,14 @@ public class ServerSend
         }
     }
 
+    public static void BeginGame()
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.beginGame))
+        {
+            //Add all cups to cup manager for each player
+            SendTCPDataToAll(_packet);
+        }
+    }
+
     #endregion
 }

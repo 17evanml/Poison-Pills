@@ -51,12 +51,13 @@ public class CursorGameManager : MonoBehaviour
         CupManager.Instance.AddCup(c);
     }
 
-    private void RemoveCup()
+    public void CreateAllCups()
     {
-        if (CupManager.Instance.Count() > 0)
+        foreach (CursorManager cm in GameManager.cursors.Values)
         {
-            CupManager.Instance.RemoveCup(CupManager.Instance.GetFirst());
+            CreateCup(cm);
         }
+
     }
 
     public void NextTurn()
