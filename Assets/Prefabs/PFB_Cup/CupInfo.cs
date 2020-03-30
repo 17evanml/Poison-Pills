@@ -16,6 +16,8 @@ public class CupInfo : MonoBehaviour
 
     public bool hover = false;
 
+    public static bool clickable = true;
+
     CupInfo(int id, string name, Color32 color)
     {
         this.id = id;
@@ -51,23 +53,29 @@ public class CupInfo : MonoBehaviour
 
     public void OnClick(CursorController player)
     {
+        if (!clickable)
+        {
+            return;
+        }
+        clickable = false;
         //Notify server that you clicked a cup
-        //Call the button display script
-        //TODO: Moves buttons to right place (based on offset)
-        //SETS background button to be OFFCLICK for this CUPINFO class
         CursorGameManager.Instance.offClick.onClick.AddListener(OffClick);
-        //SET RAND LEFT OR RIGHT BUTTON TO BE AddPill(player.poisonPill)
         tempFakePill = player.pillFake;
         tempPoisonPill = player.pillPoison;
+        CursorGameManager.Instance.SwapPillPosition();
         CursorGameManager.Instance.poisonClick.onClick.AddListener(AddPoisonPill);
         CursorGameManager.Instance.fakeClick.onClick.AddListener(AddFakePill);
-        //Enables UI
+        Vector2 objPos = Camera.main.WorldToScreenPoint(transform.position);
         CursorGameManager.Instance.canvas.SetActive(true);
+        CursorGameManager.Instance.buttonParent.anchoredPosition = objPos - CursorGameManager.Instance.canvasRectTransform.anchoredPosition + CursorGameManager.Instance.offset;
     }
 
     public void OffClick()
     {
         //Notify Server that you clicked off 
+
+        //DISABLES UI
+        CursorGameManager.Instance.canvas.SetActive(false);
 
         tempFakePill = null;
         tempPoisonPill = null;
@@ -75,9 +83,8 @@ public class CupInfo : MonoBehaviour
         CursorGameManager.Instance.offClick.onClick.RemoveListener(OffClick);
         CursorGameManager.Instance.poisonClick.onClick.RemoveListener(AddPoisonPill);
         CursorGameManager.Instance.fakeClick.onClick.RemoveListener(AddFakePill);
-        //DISABLES UI
-        CursorGameManager.Instance.canvas.SetActive(false);
-        
+
+        clickable = true;
     }
 
     public void AddPoisonPill()
@@ -106,6 +113,7 @@ public class CupInfo : MonoBehaviour
 
     public void AddPill(Pill pill)
     {
+        //somehow in server do ur magic
         pillStack.Push(pill);
         OffClick();
         CursorGameManager.Instance.NextTurn();
