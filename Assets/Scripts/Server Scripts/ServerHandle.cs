@@ -20,7 +20,7 @@ public class ServerHandle
     public static void CursorMovement(int _fromClient, Packet _packet)
     {
         Vector2 newPos = _packet.ReadVector3();
-
+        //Debug.Log($"Received Position : {newPos}");
         Server.clients[_fromClient].cursor.SetPos(newPos);
     }
 }
