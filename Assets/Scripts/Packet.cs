@@ -11,7 +11,8 @@ public enum ServerPackets
     spawnCursor,
     playerPosition,
     playerDisconnect,
-    beginGame
+    beginGame,
+    receivePill
 }
 
 /// <summary>Sent from client to server.</summary>
@@ -193,6 +194,11 @@ public class Packet : IDisposable
         Write(_value.pillColor);
         Write(_value.poison);
 
+    }
+    public void Write(Goal _value)
+    {
+        Write(_value.id);
+        Write((int)_value.goal);
     }
     #endregion
 
@@ -389,6 +395,11 @@ public class Packet : IDisposable
     {
         return new Pill(ReadColor(_moveReadPos), ReadColor(_moveReadPos), ReadBool(_moveReadPos));
                    
+    }
+    public Goal ReadGoal(bool _moveReadPos = true)
+    {
+        return new Goal(ReadInt(_moveReadPos), (Goal.goalOptions)ReadInt(_moveReadPos));
+
     }
     #endregion
 
