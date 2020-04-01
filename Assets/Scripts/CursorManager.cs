@@ -19,8 +19,11 @@ public class CursorManager : MonoBehaviour
     {
         GUI.color = color;
         tempPos = mousePosition;
+        tempPos.x *= Screen.width / 2;
+        tempPos.y *= Screen.height / 2;
         tempPos.x += Screen.width / 2;
         tempPos.y += Screen.height / 2;
+        tempPos += Vector2.one * 16;
         GUI.DrawTexture(new Rect(tempPos.x - (cursorSize / 2), tempPos.y - (cursorSize / 2), cursorSize, cursorSize), cursorTexture);
     }
 
