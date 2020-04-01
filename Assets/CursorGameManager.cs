@@ -27,6 +27,8 @@ public class CursorGameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+
     }
 
     public void SwapPillPosition()
