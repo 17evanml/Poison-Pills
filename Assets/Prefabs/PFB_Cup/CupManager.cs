@@ -13,7 +13,7 @@ public class CupManager : MonoBehaviour
     private float radius = 5f;
 
     //Linked list of all cups
-    private Dictionary<int, CupInfo> cupInfos = new Dictionary<int, CupInfo>();
+    public Dictionary<int, CupInfo> cupInfos = new Dictionary<int, CupInfo>();
 
     private void Awake()
     {
