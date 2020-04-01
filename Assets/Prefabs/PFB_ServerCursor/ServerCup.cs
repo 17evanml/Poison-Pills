@@ -8,8 +8,14 @@ public class ServerCup : MonoBehaviour
     public int username;
     public Stack<Pill> pillStack;
 
+    private void Awake()
+    {
+        pillStack = new Stack<Pill>();
+    }
+
     public void AddPill(Pill pill)
     {
+        Debug.Log($"Added a: {pill}");
         pillStack.Push(pill);
 
     }
