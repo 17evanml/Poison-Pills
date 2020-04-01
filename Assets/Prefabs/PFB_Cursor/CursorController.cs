@@ -130,7 +130,9 @@ public class CursorController : MonoBehaviour
         //Make it relative to center of the screen
         cursorManager.mousePosition.x -= Screen.width / 2;
         cursorManager.mousePosition.y -= Screen.height / 2;
-        cursorManager.mousePosition += cursorOffset;
+
+        cursorManager.mousePosition.x /= Screen.width / 2;
+        cursorManager.mousePosition.y /= Screen.height / 2;
 
         //Send information to server
         ClientSend.CursorMovement(cursorManager.mousePosition);
