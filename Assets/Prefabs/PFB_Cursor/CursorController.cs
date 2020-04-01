@@ -40,8 +40,6 @@ public class CursorController : MonoBehaviour
     {
         UpdateCursorPosition();
 
-        //MouseRaycast();
-
         if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.Mouse1))
         {
             OnClick();
@@ -125,12 +123,16 @@ public class CursorController : MonoBehaviour
 
     void UpdateCursorPosition()
     {
+        //Get mouse position
         cursorManager.mousePosition.x = Input.mousePosition.x;
         cursorManager.mousePosition.y = Screen.height - Input.mousePosition.y;
+
+        //Make it relative to center of the screen
+        cursorManager.mousePosition.x -= Screen.width / 2;
+        cursorManager.mousePosition.y -= Screen.height / 2;
         cursorManager.mousePosition += cursorOffset;
+
+        //Send information to server
         ClientSend.CursorMovement(cursorManager.mousePosition);
-        //SEND INFO TO SERVER
     }
-
-
 }
