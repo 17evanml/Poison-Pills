@@ -60,6 +60,17 @@ public class ClientHandle : MonoBehaviour
     public static void BeginGame(Packet _packet)
     {
         //Add cups to cupmanager
+        Goal goal1 = _packet.ReadGoal();
+        Debug.Log(goal1);
+        Goal goal2 = _packet.ReadGoal();
+        Debug.Log(goal2);
         CursorGameManager.Instance.CreateAllCups();
+    }
+
+    public static void ReceivePill(Packet _packet)
+    {
+        int _id = _packet.ReadInt();
+        Pill _pill = _packet.ReadPill();
+        CupManager.Instance.cupInfos[_id].ReceivePill(_pill);
     }
 }

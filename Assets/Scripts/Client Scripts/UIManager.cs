@@ -1,4 +1,4 @@
-﻿    using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -59,6 +59,12 @@ public class UIManager : MonoBehaviour
     public void BeginGame()
     {
         lobbyMenu.SetActive(false);
-        ServerSend.BeginGame();
+        foreach (ServerClient client in Server.clients.Values)
+        {
+            if (client.cursor != null)
+            {
+                ServerSend.BeginGame(client.cursor);
+            }
+        }
     }
 }

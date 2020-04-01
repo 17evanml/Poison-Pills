@@ -123,9 +123,14 @@ public class CupInfo : MonoBehaviour
         Debug.Log("addpill cupinfo");
         ClientSend.PlacePill(pill, this);
         //somehow in server do ur magic
-        pillStack.Push(pill);
         OffClick();
         CursorGameManager.Instance.NextTurn();
+    }
+
+    public void ReceivePill(Pill pill)
+    {
+        pillStack.Push(pill);
+
     }
 
     //OPERATOR OVERLOADING
