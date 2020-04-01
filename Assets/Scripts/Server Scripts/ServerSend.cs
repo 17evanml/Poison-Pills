@@ -134,5 +134,11 @@ public class ServerSend
         }
     }
 
+    public static void GiveTargets()
+    {
+
+
+    }
+
     #endregion
 }
