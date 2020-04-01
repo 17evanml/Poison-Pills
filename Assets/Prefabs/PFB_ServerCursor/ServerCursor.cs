@@ -17,18 +17,14 @@ public class ServerCursor : MonoBehaviour
         color = _color;
     }
 
-
-
     // Update is called once per frame
     void FixedUpdate()
     {
         ServerSend.CursorPosition(this);
     }
 
-
     public void SetPos(Vector2 _cursorPos)
     {
         cursorPos = _cursorPos;
-
     }
 }
