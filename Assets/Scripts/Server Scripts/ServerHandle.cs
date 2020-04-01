@@ -30,6 +30,8 @@ public class ServerHandle
         string _username = _packet.ReadString();
         int _cupId = _packet.ReadInt();
         Pill _pill = _packet.ReadPill();
+        Debug.Log(_pill);
+        Debug.Log(_cupId);
         if(_fromClient != _clientIdCheck)
         {
             Debug.Log($"Player \"{_username}\" (ID: {_fromClient}) has assumed the wrong client ID ({_clientIdCheck})!");

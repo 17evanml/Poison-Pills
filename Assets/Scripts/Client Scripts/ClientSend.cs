@@ -49,6 +49,7 @@ public class ClientSend : MonoBehaviour
 
     public static void PlacePill(Pill _pill, CupInfo _cup)
     {
+        Debug.Log("Send placepill packet");
         using (Packet _packet = new Packet((int)ClientPackets.placePill))
         {
             _packet.Write(Client.instance.myId);
