@@ -73,4 +73,15 @@ public class ClientHandle : MonoBehaviour
         Pill _pill = _packet.ReadPill();
         CupManager.Instance.cupInfos[_id].ReceivePill(_pill);
     }
+
+    public static void UpdateAuthority(Packet _packet)
+    {
+        int size = _packet.ReadInt();
+        bool[] authorities = new bool[size];
+        for(int i = 0; i < authorities.Length; i++)
+        {
+            authorities[i] = _packet.ReadBool();
+        }
+
+    }
 }

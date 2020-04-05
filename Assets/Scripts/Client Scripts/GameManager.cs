@@ -49,11 +49,4 @@ public class GameManager : MonoBehaviour
         cursors.Add(_id, _cursor.GetComponent<CursorManager>());
     }
 
-    public void SpawnCup(int _id, string _username, Vector3 _position, Quaternion _rotation)
-    {
-        GameObject _cup = Instantiate(cupPrefab, _position, _rotation);
-        _cup.GetComponent<CupInfo>().id = _id;
-        _cup.GetComponent<CupInfo>().username = _username;
-        cups.Add(_id, _cup.GetComponent<CupInfo>());
-    }
 }
