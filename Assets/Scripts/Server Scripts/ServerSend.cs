@@ -153,6 +153,21 @@ public class ServerSend
         }
     }
 
+    public static void UpdateAuthority(int _toClient, bool[] authorities)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.updateAuthority))
+        {
+            _packet.Write(authorities.Length);
+            for (int i = 0; i < authorities.Length; i++)
+            {
+                _packet.Write(authorities[i]);
+            }
+
+            SendTCPData(_toClient, _packet);
+        }
+
+    }
+
 
     #endregion
 }
