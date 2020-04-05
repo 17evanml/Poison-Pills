@@ -10,8 +10,8 @@ public class CursorManager : MonoBehaviour
 
     public Vector2 mousePosition; //SERVER NEEDS TO KNOW
     public Vector2 cursorSizes = new Vector2(64, 128);
-    private Vector2 lerpPosition = new Vector2(0, 0);
-    private Vector2 tempPos = new Vector2();
+    public Vector2 lerpPosition = new Vector2(0, 0);
+    private Vector2 tempPos = new Vector2(0,0);
     public int cursorSize = 64;
     public Texture2D cursorTexture;
 
