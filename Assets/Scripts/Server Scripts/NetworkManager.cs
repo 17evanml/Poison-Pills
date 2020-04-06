@@ -45,12 +45,15 @@ public class NetworkManager : MonoBehaviour
 
     public void BeginGame()
     {
+        Debug.Log("players");
         turnSystem = new TurnSystem(players, this);
+        ServerSend.StartTurn(turnSystem.GetCurrentPlayer());
     }
 
     public void Connect()
     {
         players++;
+        Debug.Log("Connected: " + players);
     }
 
     public void Disconnect(int id)
@@ -60,10 +63,13 @@ public class NetworkManager : MonoBehaviour
 
     public void AdvanceTurn()
     {
+        turnSystem.AdvanceTurn();
+        ServerSend.StartTurn(turnSystem.GetCurrentPlayer());
     }
 
     public void PlayerAuthUpdate(int playerId, bool[] authorities)
     {
+        //Debug.Log("Sent to players");   
         ServerSend.UpdateAuthority(playerId, authorities);
     }
 

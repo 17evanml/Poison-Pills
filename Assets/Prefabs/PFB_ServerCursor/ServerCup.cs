@@ -12,7 +12,6 @@ public class ServerCup : MonoBehaviour
     {
         id = _id;
         username = _username;
-
     }
 
     private void Awake()
@@ -24,6 +23,5 @@ public class ServerCup : MonoBehaviour
     {
         Debug.Log($"Added a: {pill}");
         pillStack.Push(pill);
-
     }
 }

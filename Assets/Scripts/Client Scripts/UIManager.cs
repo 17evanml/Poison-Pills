@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
     public GameObject lobbyMenu;
     public GameObject server;
     public GameObject startMenu;
+    public GameObject gameMenu;
     public InputField usernameField;
     public InputField ipField;
     public InputField portField;
@@ -45,7 +46,6 @@ public class UIManager : MonoBehaviour
         SceneManager.LoadScene(0, LoadSceneMode.Additive);
         lobbyMenu.SetActive(true);
         startMenu.SetActive(false);
-
         //Instantiate(server);
     }
 
@@ -53,12 +53,14 @@ public class UIManager : MonoBehaviour
     {
         Client.instance.ip = "127.0.0.1";
         Client.instance.port = 6942;
+        usernameField.text = "jeff";
         Client.instance.ConnectToServer();
     }
 
     public void BeginGame()
     {
         lobbyMenu.SetActive(false);
+        NetworkManager.instance.BeginGame();
         foreach (ServerClient client in Server.clients.Values)
         {
             if (client.cursor != null)
