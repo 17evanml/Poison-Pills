@@ -6,11 +6,14 @@ public class CupManager : MonoBehaviour
 {
     public static CupManager Instance { get; private set; }
 
+    //Positioning of all cups
     [SerializeField]
     private Vector3 origin;
     [SerializeField]
     private float radius = 5f;
-    private LinkedList<CupInfo> cupInfos = new LinkedList<CupInfo>();
+
+    //Linked list of all cups
+    public Dictionary<int, CupInfo> cupInfos = new Dictionary<int, CupInfo>();
 
     private void Awake()
     {
@@ -32,7 +35,7 @@ public class CupManager : MonoBehaviour
             return;
         }
 
-        cupInfos.AddLast(cup);
+        cupInfos.Add(cup.id, cup);
         RepositionCups();
     }
 
@@ -44,7 +47,7 @@ public class CupManager : MonoBehaviour
             return;
         }
 
-        cupInfos.Remove(cup);
+        cupInfos.Remove(cup.id);
         Destroy(cup.transform.gameObject);
         RepositionCups();
     }
@@ -61,19 +64,13 @@ public class CupManager : MonoBehaviour
         int index = 1;
         float d2r = Mathf.PI / 180f;
 
-        foreach(CupInfo c in cupInfos)
+        foreach(CupInfo c in cupInfos.Values)
         {
             c.transform.position = origin + new Vector3(Mathf.Cos(cupAngle * index * d2r), 0, Mathf.Sin(cupAngle * index * d2r)) * radius;
             index++;
         }
-
-        //Send TCP to all
     }
 
-    public CupInfo GetFirst()
-    {
-        return cupInfos.First.Value;
-    }
 
     public int Count()
     {

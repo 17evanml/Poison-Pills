@@ -50,6 +50,38 @@ public class ClientHandle : MonoBehaviour
     public static void PlayerDisconnect(Packet _packet)
     {
         int _id = _packet.ReadInt();
-        Destroy(GameManager.cursors[_id].gameObject);
+        print("delete");
+        //ThreadManager.ExecuteOnMainThread(() =>
+        //{
+            Destroy(GameManager.cursors[_id].gameObject);
+        //});
+    }
+
+    public static void BeginGame(Packet _packet)
+    {
+        //Add cups to cupmanager
+        Goal goal1 = _packet.ReadGoal();
+        Debug.Log(goal1);
+        Goal goal2 = _packet.ReadGoal();
+        Debug.Log(goal2);
+        CursorGameManager.Instance.CreateAllCups();
+    }
+
+    public static void ReceivePill(Packet _packet)
+    {
+        int _id = _packet.ReadInt();
+        Pill _pill = _packet.ReadPill();
+        CupManager.Instance.cupInfos[_id].ReceivePill(_pill);
+    }
+
+    public static void UpdateAuthority(Packet _packet)
+    {
+        int size = _packet.ReadInt();
+        bool[] authorities = new bool[size];
+        for(int i = 0; i < authorities.Length; i++)
+        {
+            authorities[i] = _packet.ReadBool();
+        }
+
     }
 }

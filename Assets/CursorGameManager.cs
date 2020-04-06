@@ -7,12 +7,15 @@ public class CursorGameManager : MonoBehaviour
 {
     public static CursorGameManager Instance { get; private set; }
     public GameObject testCup;
-    Dictionary<int, Color32> dictionary;
 
+    //Client side buttons
     public GameObject canvas;
+    public RectTransform canvasRectTransform;
+    public RectTransform buttonParent;
     public Button offClick;
     public Button poisonClick;
     public Button fakeClick;
+    public Vector2 offset;
 
     private void Awake()
     {
@@ -24,44 +27,43 @@ public class CursorGameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+
     }
 
-    void Update()
+    public void SwapPillPosition()
     {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            CreateCup();
-        }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            RemoveCup();
+        int r = Random.Range(0, 2);
+        if (r == 1) {
+            Debug.Log("Swapping");
+            Vector3 temp = poisonClick.transform.position;
+            poisonClick.transform.position = fakeClick.transform.position;
+            fakeClick.transform.position = temp;
         }
     }
 
-
-    private void CreateCup()
+    private void CreateCup(CursorManager cm)
     {
-        //GameObject g = new GameObject("Generated");
-        //CupInfo c = g.AddComponent<CupInfo>();
         GameObject g = Instantiate(testCup);
         CupInfo c = g.GetComponent<CupInfo>();
         if (c)
         {
-            c.Initialize(1, "Bill", Random.ColorHSV());
+            c.Initialize(cm.id, cm.name, cm.color);
         }
         CupManager.Instance.AddCup(c);
     }
 
-    private void RemoveCup()
+    public void CreateAllCups()
     {
-        if (CupManager.Instance.Count() > 0)
+        foreach (CursorManager cm in GameManager.cursors.Values)
         {
-            CupManager.Instance.RemoveCup(CupManager.Instance.GetFirst());
+            CreateCup(cm);
         }
+
     }
 
     public void NextTurn()
     {
-
+        //this needs to be called for all players
     }
 }
