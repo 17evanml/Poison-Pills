@@ -33,4 +33,10 @@ public class PillDisplay : MonoBehaviour {
             currentPos.y -= spacing.y;
         }
     }
+
+    void Update() {
+        if (Input.GetKeyDown(KeyCode.Z)) {
+            AddPill(new Pill((Color32) Color.red, (Color32) Color.blue, false));
+        }
+    }
 }
