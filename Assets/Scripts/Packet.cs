@@ -12,7 +12,9 @@ public enum ServerPackets
     playerPosition,
     playerDisconnect,
     beginGame,
-    receivePill
+    receivePill,
+    updateAuthority,
+    startTurn
 }
 
 /// <summary>Sent from client to server.</summary>
@@ -20,7 +22,8 @@ public enum ClientPackets
 {
     welcomeReceived = 1,
     cursorMovement,
-    placePill
+    placePill,
+    revealTarget
 }
 
 public class Packet : IDisposable

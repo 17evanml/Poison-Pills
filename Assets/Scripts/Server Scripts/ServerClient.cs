@@ -246,6 +246,7 @@ public class ServerClient
         Debug.Log($"{tcp.socket.Client.RemoteEndPoint} has disconnected.");
         //Debug.Log(Environment.StackTrace);
         ServerSend.PlayerDisconnect(id, cursor);
+        NetworkManager.instance.Disconnect(id);
         ThreadManager.ExecuteOnMainThread(() =>
         {
             UnityEngine.Object.Destroy(cursor.gameObject);
