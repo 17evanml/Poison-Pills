@@ -129,6 +129,8 @@ public class Server
             {
                 { (int)ClientPackets.welcomeReceived, ServerHandle.WelcomeReceived },
                 { (int)ClientPackets.cursorMovement, ServerHandle.CursorMovement },
+                {(int)ClientPackets.placePill, ServerHandle.PlacePill },
+
             };
         Debug.Log("Initialized packets.");
     }

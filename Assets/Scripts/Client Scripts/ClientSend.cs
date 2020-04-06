@@ -46,5 +46,20 @@ public class ClientSend : MonoBehaviour
             SendUDPData(_packet);
         }
     }
+
+    public static void PlacePill(Pill _pill, CupInfo _cup)
+    {
+        Debug.Log("Send placepill packet");
+        using (Packet _packet = new Packet((int)ClientPackets.placePill))
+        {
+            _packet.Write(Client.instance.myId);
+            _packet.Write(UIManager.instance.usernameField.text);
+            _packet.Write(_cup.id);
+            _packet.Write(_pill);
+
+            SendTCPData(_packet);
+        }
+
+    }
     #endregion
 }

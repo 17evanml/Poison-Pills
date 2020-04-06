@@ -125,5 +125,49 @@ public class ServerSend
         }
     }
 
+    public static void BeginGame(ServerCursor _cursor)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.beginGame))
+        {
+            int target1 = Random.Range(1, GameManager.cursors.Count);
+            int goal1 = 0;
+            Goal g1 = new Goal(target1, (Goal.goalOptions)goal1);
+            int target2 = Random.Range(1, GameManager.cursors.Count);
+            int goal2 = 0;
+            Goal g2 = new Goal(target2, (Goal.goalOptions)goal2);
+            _packet.Write(g1);
+            _packet.Write(g2);
+            //Add all cups to cup manager for each player
+            SendTCPData(_cursor.id, _packet);
+        }
+    }
+
+    public static void ReceivePill(ServerCursor _cursor, Pill _pill)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.receivePill))
+        {
+            _packet.Write(_cursor.id);
+            _packet.Write(_pill);
+
+            SendTCPDataToAll(_packet);
+        }
+    }
+
+    public static void UpdateAuthority(int _toClient, bool[] authorities)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.updateAuthority))
+        {
+            _packet.Write(authorities.Length);
+            for (int i = 0; i < authorities.Length; i++)
+            {
+                _packet.Write(authorities[i]);
+            }
+
+            SendTCPData(_toClient, _packet);
+        }
+
+    }
+
+
     #endregion
 }

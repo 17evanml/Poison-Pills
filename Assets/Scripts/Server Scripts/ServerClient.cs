@@ -11,6 +11,7 @@ public class ServerClient
 
     public int id;
     public ServerCursor cursor;
+    public ServerCup cup;
     public TCP tcp;
     public UDP udp;
 
@@ -215,6 +216,7 @@ public class ServerClient
     {
         Debug.Log(NetworkManager.instance);
         cursor = NetworkManager.instance.InstantiatePlayer();
+        cup = cursor.GetComponent<ServerCup>();
         cursor.Initialize(id, _playerName, new Color32(255, 0,0,255));
         // Send all players to the new player
         foreach (ServerClient _client in Server.clients.Values)
@@ -243,7 +245,7 @@ public class ServerClient
     {
         Debug.Log($"{tcp.socket.Client.RemoteEndPoint} has disconnected.");
         //Debug.Log(Environment.StackTrace);
-
+        ServerSend.PlayerDisconnect(id, cursor);
         ThreadManager.ExecuteOnMainThread(() =>
         {
             UnityEngine.Object.Destroy(cursor.gameObject);
