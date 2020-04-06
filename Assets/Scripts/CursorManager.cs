@@ -42,6 +42,39 @@ public class CursorManager : MonoBehaviour
         }
     }
 
+
+    public void StartTurn()
+    {
+        SetCursorLarge();
+        EnableSpotlight();
+    }
+
+    public void EndTurn()
+    {
+        SetCursorSmall();
+        DisableSpotlight();
+    }
+
+    private void EnableSpotlight()
+    {
+
+    }
+
+    private void DisableSpotlight()
+    {
+
+    }
+
+    private void SetCursorLarge()
+    {
+        cursorSize = (int)cursorSizes.y;
+    }
+
+    private void SetCursorSmall()
+    {
+        cursorSize = (int)cursorSizes.x;
+    }
+
     public void SetMousePosition(Vector2 _mousePosition)
     {
         mousePosition = _mousePosition;

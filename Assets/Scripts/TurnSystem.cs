@@ -12,35 +12,50 @@ public class TurnSystem
     private enum RoundType { Reveal, Place, End }
     public enum Actions { Reveal, Place }
     private RoundType round = RoundType.Reveal;
-    public TurnSystem(int _numplayers, NetworkManager _listener)
+
+
+    public TurnSystem(int _numPlayers, NetworkManager _listener)
     {
         listener = _listener;
+        numPlayers = _numPlayers;
+        playerActions = new bool[numPlayers][];
+
         for (int i = 0; i < numPlayers; i++)
         {
-            playerActions = new bool[numPlayers][];
             playerActions[i] = new bool[2];
             for (int j = 0; j < playerActions[i].Length; j++)
             {
                 playerActions[i][j] = false;
             }
         }
-        numPlayers = _numplayers;
         currentPlayer = 0;
-        playerActions[0][0] = true;
+        Debug.Log((int)Actions.Reveal);
+        playerActions[0][(int)Actions.Reveal] = true;
+        NotifyManager(0);
+        for(int i = 0; i < numPlayers; i++) {
+            NotifyManager(i);
+        }
     }
 
-    public bool[] getPlayerAuthority(int playerId)
+    public bool[] GetPlayerAuthority(int playerId)
     {
         playerId--;
         return playerActions[playerId];
+    }
+
+    public int GetCurrentPlayer()
+    {
+        return currentPlayer;
     }
 
     public bool[] AdvanceTurn()
     {
         if (round == RoundType.Reveal)
         {
+            Debug.Log("Reveal Round");
             ResetAuthority(currentPlayer);
             NextPlayer();
+            Debug.Log(currentPlayer);
             if (currentPlayer == 0)
             {
                 AdvanceRound();
@@ -73,6 +88,7 @@ public class TurnSystem
 
     private void ResetAuthority(int playerIndex)
     {
+        Debug.Log($"resetting authority for player {playerIndex}");
         for (int i = 0; i < playerActions[playerIndex].Length; i++)
         {
         playerActions[playerIndex][i] = false;
@@ -131,6 +147,6 @@ public class TurnSystem
     private void NotifyManager(int playerIndex)
     {
         playerIndex++;
-        listener.PlayerAuthUpdate(playerIndex, playerActions[playerIndex + 1]);
+        listener.PlayerAuthUpdate(playerIndex, playerActions[playerIndex - 1]);
     }
 }
