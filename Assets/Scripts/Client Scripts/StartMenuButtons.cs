@@ -6,7 +6,6 @@ using TMPro;
 
 public class StartMenuButtons : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    //public TextMeshProUGUI ;
     public TMP_Text text;  
 
     public void OnPointerEnter(PointerEventData eventData)
