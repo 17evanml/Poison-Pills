@@ -17,4 +17,9 @@ public class StartMenuButtons : MonoBehaviour, IPointerEnterHandler, IPointerExi
     {
         text.fontStyle = TMPro.FontStyles.Normal;
     }
+
+    public void UnboldOnClick()
+    {
+        text.fontStyle = TMPro.FontStyles.Normal;
+    }
 }
