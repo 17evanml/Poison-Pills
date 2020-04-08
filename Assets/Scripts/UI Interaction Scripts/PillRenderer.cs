@@ -4,9 +4,17 @@ using UnityEngine;
 
 /// <summary> Visual Representation of a Pill. </summary>
 public class PillRenderer : MonoBehaviour {
+    [Header ("Pill Settings")]
     public Pill pill; // Pill Data
     public MeshRenderer bottomCapsule, topCapsule;
+    [Header ("Pilsl Settings")]
     public Material mat;
+
+
+
+
+    // NEW STUFF
+    // public Vector3 
 
 
     // private Material bottom, top; // Seperate Sprite Renderers for Bottom and Top Capsules
@@ -35,4 +43,22 @@ public class PillRenderer : MonoBehaviour {
         Debug.Log(topCapsule.material.name);
         Debug.Log(topCapsule.material.color);
     }
+
+    public void BarMaximize() {
+
+    }
+
+    public void BarMinimize() {
+
+    }
+
+    public void PillMaximize() {
+
+    }
+
+    public void PillMinimize() {
+
+    }
+
+
 }
