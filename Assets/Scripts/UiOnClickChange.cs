@@ -17,7 +17,16 @@ public class UiOnClickChange : UIBase
     /// </summary>
     public override void OnClick()
     {
-
+        var seq = LeanTween.sequence();
+        seq.append(0.1f); // delay
+        seq.append(() => { // fire an event before start
+            Debug.Log("I have started");
+        });
+        //seq.append(LeanTween.move(gameObject, deltaPosition, 1f));
+        seq.append(LeanTween.scale(gameObject, Vector3.zero, speed).setDelay(delay).setEase(onClick));
+        seq.append(() => { // fire event after tween
+            Debug.Log("We are done now");
+        }); ;
     }
 
 }
