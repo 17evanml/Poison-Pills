@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class UiOnClickDisappear : UIBase
 {
+    private Vector3 onClickPosition = Vector3.zero;
+    public Vector3 onClickScale = Vector3.zero;
+    public Vector3 deltaPosition = Vector3.zero;
+
     void Start()
     {
         offHoverScale = transform.localScale;
@@ -16,7 +20,9 @@ public class UiOnClickDisappear : UIBase
     /// </summary>
     public override void OnClick()
     {
-        
+        beenClicked = true;
+        LeanTween.move(gameObject, onClickPosition, 1f).setEase(onClickMoveType);
+        LeanTween.scale(gameObject, onClickScale, speed).setDelay(delay).setEase(onClickType).setDestroyOnComplete(true);
     }
 
 }
