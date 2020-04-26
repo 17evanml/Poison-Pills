@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UiOnClickDisappear : UIBase
 {
-    [HideInInspector] public Vector3 onClickPosition = Vector3.zero;
+    private Vector3 onClickPosition = Vector3.zero;
     public Vector3 onClickScale = Vector3.zero;
     public Vector3 deltaPosition = Vector3.zero;
 
