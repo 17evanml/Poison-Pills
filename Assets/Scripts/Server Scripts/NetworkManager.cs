@@ -63,6 +63,7 @@ public class NetworkManager : MonoBehaviour
 
     public void AdvanceTurn()
     {
+        Debug.Log("Advance");
         turnSystem.AdvanceTurn();
         ServerSend.StartTurn(turnSystem.GetCurrentPlayer());
     }
