@@ -6,7 +6,6 @@ using TMPro;
 
 public class StartMenuButtons : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    //public TextMeshProUGUI ;
     public TMP_Text text;  
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -15,6 +14,11 @@ public class StartMenuButtons : MonoBehaviour, IPointerEnterHandler, IPointerExi
     }
 
     public void OnPointerExit(PointerEventData eventData)
+    {
+        text.fontStyle = TMPro.FontStyles.Normal;
+    }
+
+    public void UnboldOnClick()
     {
         text.fontStyle = TMPro.FontStyles.Normal;
     }
