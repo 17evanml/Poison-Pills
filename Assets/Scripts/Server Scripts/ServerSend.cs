@@ -125,18 +125,12 @@ public class ServerSend
         }
     }
 
-    public static void BeginGame(ServerCursor _cursor)
+    public static void BeginGame(ServerCursor _cursor, int target1, int target2)
     {
         using (Packet _packet = new Packet((int)ServerPackets.beginGame))
         {
-            //int target1 = Random.Range(1, GameManager.cursors.Count);
-            int target1 = 1;
-            int goal1 = 0;
-            Goal g1 = new Goal(target1, (Goal.goalOptions)goal1);
-            //int target2 = Random.Range(1, GameManager.cursors.Count);
-            int target2 = 1;
-            int goal2 = 0;
-            Goal g2 = new Goal(target2, (Goal.goalOptions)goal2);
+            Goal g1 = new Goal(target1, (Goal.goalOptions)0);
+            Goal g2 = new Goal(target2, (Goal.goalOptions)0);
             _packet.Write(g1);
             _packet.Write(g2);
             //Add all cups to cup manager for each player

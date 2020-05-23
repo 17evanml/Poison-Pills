@@ -52,13 +52,13 @@ public class TurnSystem
     {
         if (round == RoundType.Reveal)
         {
-            Debug.Log("Reveal Round");
             ResetAuthority(currentPlayer);
             NextPlayer();
             Debug.Log(currentPlayer);
             if (currentPlayer == 0)
             {
                 AdvanceRound();
+                AuthorityOn(currentPlayer, Actions.Place);
             }
             else
             {
@@ -67,6 +67,7 @@ public class TurnSystem
         }
         else if (round == RoundType.Place)
         {
+            Debug.Log(round);
             ResetAuthority(currentPlayer);
             NextPlayerBanana();
             if (currentPlayer == 0)

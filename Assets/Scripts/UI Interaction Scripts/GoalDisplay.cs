@@ -13,7 +13,6 @@ public class GoalDisplay : MonoBehaviour {
         // Assigns goal text based on Goal data
         if (goal.goal == Goal.goalOptions.die) { goalText.text = "Kill "; }
         else if (goal.goal == Goal.goalOptions.live) { goalText.text = "Save "; }
-
         goalText.text += GameManager.cursors[goal.id].username;
     }
 }
