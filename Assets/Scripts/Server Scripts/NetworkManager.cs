@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class NetworkManager : MonoBehaviour
 {
+    const int SURIVIALPOINTS = 1;
+    const int KILLPOINTS = 2;
     public static NetworkManager instance;
     private int players = 0;
     public TurnSystem turnSystem;
     public GameObject cursorPrefab;
     List<int> targets;
+    List<Goal> goals;
+    public int[] playerPoints;
     private void Awake()
     {
 
@@ -34,6 +38,7 @@ public class NetworkManager : MonoBehaviour
 
     private void Start()
     {
+        goals = new List<Goal>();
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 30;
         Server.Start(50, 6942);
@@ -49,6 +54,7 @@ public class NetworkManager : MonoBehaviour
         Debug.Log("players");
         turnSystem = new TurnSystem(players, this);
         GenerateTargets();
+        playerPoints = new int[players + 1];
         ServerSend.StartTurn(turnSystem.GetCurrentPlayer());
     }
 
@@ -76,14 +82,14 @@ public class NetworkManager : MonoBehaviour
         ServerSend.UpdateAuthority(playerId, authorities);
     }
 
-    public int[] GiveTargets(int selfID)
+    public Goal[] GiveTargets(int selfID)
     {
-        int[] ret = new int[2];
+        Goal[] ret = new Goal[2];
         //for debug purposes only
-        if(players == 1)
+        if (players == 1)
         {
-            ret[0] = 1;
-            ret[1] = 1;
+            ret[0] = new Goal(selfID, 1, Goal.goalOptions.die);
+            ret[1] = new Goal(selfID, 1, Goal.goalOptions.die);
             return ret;
         }
 
@@ -94,14 +100,16 @@ public class NetworkManager : MonoBehaviour
         {
             target1 = Random.Range(0, targets.Count - 1);
         }
-        ret[0] = targets[target1];
+        ret[0] = new Goal(selfID, targets[target1], Goal.goalOptions.die);
         targets.RemoveAt(target1);
         while (targets[target2] == selfID)
         {
             target2 = Random.Range(0, targets.Count - 1);
         }
-        ret[1] = targets[target2];
+        ret[1] = new Goal(selfID, targets[target2], Goal.goalOptions.die); ;
         targets.RemoveAt(target2);
+        goals.Add(ret[0]);
+        goals.Add(ret[1]);
         return ret;
     }
 
@@ -110,6 +118,7 @@ public class NetworkManager : MonoBehaviour
         targets = new List<int>();
         for (int i = 1; i <= players; i++)
         {
+            Debug.Log(i);
             for (int j = 0; j < 4; j++)
             {
                 targets.Add(i);
@@ -122,4 +131,24 @@ public class NetworkManager : MonoBehaviour
         turnSystem.debugSetRound(_round);
     }
 
+    public void CalculatePoints()
+    {
+        bool[] deaths = new bool[players + 1];
+        for (int i = 1; i <= players; i++)
+        {
+            deaths[i] = Server.clients[i].cup.isAlive();
+            if (deaths[i])
+            {
+                playerPoints[i] += SURIVIALPOINTS;
+            }
+        }
+
+        foreach (Goal goal in goals)
+        {
+            if (deaths[goal.id])
+            {
+                playerPoints[goal.myId] += KILLPOINTS;
+            }
+        }
+    }
 }

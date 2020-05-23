@@ -14,6 +14,7 @@ public class TurnSystem
     private bool[][] playerActions;
     private enum RoundType { Reveal, Place, End }
     public enum Actions { Reveal, Place }
+    [SerializeField]
     private RoundType round = RoundType.Reveal;
 
     public void debugSetRound(int _round)
@@ -43,7 +44,8 @@ public class TurnSystem
         Debug.Log((int)Actions.Reveal);
         playerActions[0][(int)Actions.Reveal] = true;
         NotifyManager(0);
-        for(int i = 0; i < numPlayers; i++) {
+        for (int i = 0; i < numPlayers; i++)
+        {
             NotifyManager(i);
         }
     }
@@ -56,7 +58,7 @@ public class TurnSystem
 
     public int GetCurrentPlayer()
     {
-        return currentPlayer+1;
+        return currentPlayer + 1;
     }
 
     public bool[] AdvanceTurn()
@@ -81,7 +83,7 @@ public class TurnSystem
             Debug.Log(round);
             ResetAuthority(currentPlayer);
             NextPlayerBanana();
-            if (currentPlayer == 0)
+            if (currentPlayer == -1)
             {
                 AdvanceRound();
             }
@@ -93,6 +95,11 @@ public class TurnSystem
         else if (round == RoundType.End)
         {
             ResetAuthority(currentPlayer);
+            NetworkManager.instance.CalculatePoints();
+            for (int i = 0; i < numPlayers; i++)
+            {
+                Debug.Log($"Player {i+1}: {NetworkManager.instance.playerPoints[i+1]}");
+            }
         }
 
         return playerActions[currentPlayer];
@@ -103,7 +110,7 @@ public class TurnSystem
         Debug.Log($"resetting authority for player {playerIndex}");
         for (int i = 0; i < playerActions[playerIndex].Length; i++)
         {
-        playerActions[playerIndex][i] = false;
+            playerActions[playerIndex][i] = false;
         }
         NotifyManager(playerIndex);
     }

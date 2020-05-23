@@ -200,6 +200,7 @@ public class Packet : IDisposable
     }
     public void Write(Goal _value)
     {
+        Write(_value.myId);
         Write(_value.id);
         Write((int)_value.goal);
     }
@@ -401,7 +402,7 @@ public class Packet : IDisposable
     }
     public Goal ReadGoal(bool _moveReadPos = true)
     {
-        return new Goal(ReadInt(_moveReadPos), (Goal.goalOptions)ReadInt(_moveReadPos));
+        return new Goal(ReadInt(_moveReadPos), ReadInt(_moveReadPos), (Goal.goalOptions)ReadInt(_moveReadPos));
 
     }
     #endregion

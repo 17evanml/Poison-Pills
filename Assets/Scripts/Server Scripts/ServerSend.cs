@@ -125,12 +125,10 @@ public class ServerSend
         }
     }
 
-    public static void BeginGame(ServerCursor _cursor, int target1, int target2)
+    public static void BeginGame(ServerCursor _cursor, Goal g1, Goal g2)
     {
         using (Packet _packet = new Packet((int)ServerPackets.beginGame))
         {
-            Goal g1 = new Goal(target1, (Goal.goalOptions)0);
-            Goal g2 = new Goal(target2, (Goal.goalOptions)0);
             _packet.Write(g1);
             _packet.Write(g2);
             //Add all cups to cup manager for each player
