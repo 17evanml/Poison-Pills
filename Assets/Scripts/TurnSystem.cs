@@ -1,11 +1,14 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public class TurnSystem
 {
     private NetworkManager listener;
     private int numPlayers;
+    [SerializeField]
     private int currentPlayer;
     private bool dir = true;
     private bool[][] playerActions;
@@ -45,7 +48,7 @@ public class TurnSystem
 
     public int GetCurrentPlayer()
     {
-        return currentPlayer;
+        return currentPlayer+1;
     }
 
     public bool[] AdvanceTurn()
