@@ -61,13 +61,13 @@ public class ClientHandle : MonoBehaviour
     {
         //Add cups to cupmanager
         Goal goal1 = _packet.ReadGoal();
-        //Debug.Log(goal1);
+        Debug.Log(goal1);
         Goal goal2 = _packet.ReadGoal();
         //Debug.Log(goal2);
         GameManager.instance.GetComponent<GoalDisplay>().goal = goal1;
-        UIManager.instance.gameMenu.SetActive(true); 
+        UIManager.instance.GameDisplay.SetActive(true); 
         GameManager.instance.GetComponent<GoalDisplay>().Initialize();
-
+        Camera.main.GetComponent<CameraManager>().gameStarted = true;
         CursorGameManager.Instance.CreateAllCups();
     }
 
