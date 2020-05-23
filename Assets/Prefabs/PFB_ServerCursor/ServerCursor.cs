@@ -8,7 +8,7 @@ public class ServerCursor : MonoBehaviour
     public string username;
     public Color32 color;
 
-    public Vector2 cursorPos = Vector2.zero;
+    public Vector3 cursorPos = Vector2.zero;
 
     public void Initialize(int _id, string _username, Color32 _color)
     {
@@ -23,7 +23,7 @@ public class ServerCursor : MonoBehaviour
         ServerSend.CursorPosition(this);
     }
 
-    public void SetPos(Vector2 _cursorPos)
+    public void SetPos(Vector3 _cursorPos)
     {
         cursorPos = _cursorPos;
     }

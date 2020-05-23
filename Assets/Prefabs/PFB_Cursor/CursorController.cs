@@ -14,11 +14,14 @@ public class CursorController : MonoBehaviour
     public GameObject cup;
     private CupInfo oldCup;
 
+    private Camera cam;
+
     public bool[] authorities = { false, false };
     public enum Actions { Reveal, Place }
 
     public void Awake()
     {
+        cam = Camera.main;
         Cursor.visible = false;
         Color32 poisonColor = GetPoisonColor(cursorManager.id);
         Color32 fakeColor = GetFakeColor(cursorManager.id);
@@ -104,7 +107,7 @@ public class CursorController : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("not yoru turn to reveal");
+                    Debug.Log("not your turn to reveal");
                 }
             }
         }
@@ -116,12 +119,8 @@ public class CursorController : MonoBehaviour
         cursorManager.mousePosition.x = Input.mousePosition.x;
         cursorManager.mousePosition.y = Screen.height - Input.mousePosition.y;
 
-        //Make it relative to center of the screen
-        cursorManager.mousePosition.x -= Screen.width / 2;
-        cursorManager.mousePosition.y -= Screen.height / 2;
-
-        cursorManager.mousePosition.x /= Screen.width / 2;
-        cursorManager.mousePosition.y /= Screen.height / 2;
+        //Get world coordinates of cursor
+        cursorManager.mousePosition = cam.ScreenToWorldPoint(new Vector3(cursorManager.mousePosition.x, cursorManager.mousePosition.y, cam.nearClipPlane));
 
         //Send information to server
         ClientSend.CursorMovement(cursorManager.mousePosition);
