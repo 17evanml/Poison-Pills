@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 public class CameraManager : MonoBehaviour {
-    // private GameObject cameraObject = gameo
     public bool gameStarted = false;
     public Vector3 position;
     public Vector3 rotation;
@@ -32,7 +31,6 @@ public class CameraManager : MonoBehaviour {
             gameStarted = !gameStarted;
         }
 
-
         if (!gameStarted) {
             position = offPosition;
             rotation = offRotation;
@@ -48,8 +46,5 @@ public class CameraManager : MonoBehaviour {
         
         DepthOfField depth = (DepthOfField) gameObject.GetComponent<Volume>().profile.components[0];
         depth.focusDistance.value = Mathf.Lerp(depth.focusDistance.value, focus, Time.deltaTime * speedMod);
-        // gameObject
-
-
     }
 }
