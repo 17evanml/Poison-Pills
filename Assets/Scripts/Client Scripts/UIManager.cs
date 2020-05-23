@@ -6,17 +6,15 @@ using UnityEngine.SceneManagement;
 public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
-
-    public GameObject lobbyMenu;
-    public GameObject server;
-    public GameObject startMenu;
-    public GameObject gameMenu;
+    public GameObject StartMenu;
+    public GameObject HostMenu;
+    public GameObject JoinMenu;
+    public GameObject GameDisplay;
     public InputField usernameField;
     public InputField ipField;
     public InputField portField;
-    public Button startServer;
-    public Button beginGame;
-    public Button selfConnect;
+    //public Button beginGame;
+    //public Button selfConnect;
 
     private void Awake()
     {
@@ -31,23 +29,30 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void HostGame()
+    {
+        StartMenu.SetActive(false);
+        HostMenu.SetActive(true);
+        SceneManager.LoadScene(1, LoadSceneMode.Additive);
+        //Instantiate(server);
+    }
+
+    public void JoinFriends()
+    {
+        StartMenu.SetActive(false);
+        JoinMenu.SetActive(true);
+    }
+
     /// <summary>Attempts to connect to the server.</summary>
     public void ConnectToServer()
     {
-        startMenu.SetActive(false);
+        JoinMenu.SetActive(false);
         usernameField.interactable = false;
         Client.instance.ip = ipField.text;
         Client.instance.port = int.Parse(portField.text);
         Client.instance.ConnectToServer();
     }
 
-    public void StartServer()
-    {
-        SceneManager.LoadScene(1, LoadSceneMode.Additive);
-        lobbyMenu.SetActive(true);
-        startMenu.SetActive(false);
-        //Instantiate(server);
-    }
 
     public void SelfConnect()
     {
@@ -59,7 +64,7 @@ public class UIManager : MonoBehaviour
 
     public void BeginGame()
     {
-        lobbyMenu.SetActive(false);
+        HostMenu.SetActive(false);
         NetworkManager.instance.BeginGame();
         foreach (ServerClient client in Server.clients.Values)
         {
