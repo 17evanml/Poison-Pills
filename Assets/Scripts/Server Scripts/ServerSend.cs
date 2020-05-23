@@ -129,10 +129,12 @@ public class ServerSend
     {
         using (Packet _packet = new Packet((int)ServerPackets.beginGame))
         {
-            int target1 = Random.Range(1, GameManager.cursors.Count);
+            //int target1 = Random.Range(1, GameManager.cursors.Count);
+            int target1 = 1;
             int goal1 = 0;
             Goal g1 = new Goal(target1, (Goal.goalOptions)goal1);
-            int target2 = Random.Range(1, GameManager.cursors.Count);
+            //int target2 = Random.Range(1, GameManager.cursors.Count);
+            int target2 = 1;
             int goal2 = 0;
             Goal g2 = new Goal(target2, (Goal.goalOptions)goal2);
             _packet.Write(g1);
@@ -151,6 +153,31 @@ public class ServerSend
 
             SendTCPDataToAll(_packet);
         }
+    }
+
+    public static void UpdateAuthority(int _toClient, bool[] authorities)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.updateAuthority))
+        {
+            _packet.Write(authorities.Length);
+            for (int i = 0; i < authorities.Length; i++)
+            {
+                _packet.Write(authorities[i]);
+            }
+            SendTCPData(_toClient, _packet);
+        }
+
+    }
+
+    public static void StartTurn(int _toClient)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.startTurn))
+        {
+            _packet.Write(_toClient);
+
+            SendTCPDataToAll(_packet);
+        }
+
     }
 
 

@@ -61,9 +61,13 @@ public class ClientHandle : MonoBehaviour
     {
         //Add cups to cupmanager
         Goal goal1 = _packet.ReadGoal();
-        Debug.Log(goal1);
+        //Debug.Log(goal1);
         Goal goal2 = _packet.ReadGoal();
-        Debug.Log(goal2);
+        //Debug.Log(goal2);
+        GameManager.instance.GetComponent<GoalDisplay>().goal = goal1;
+        UIManager.instance.gameMenu.SetActive(true); 
+        GameManager.instance.GetComponent<GoalDisplay>().Initialize();
+
         CursorGameManager.Instance.CreateAllCups();
     }
 
@@ -72,5 +76,33 @@ public class ClientHandle : MonoBehaviour
         int _id = _packet.ReadInt();
         Pill _pill = _packet.ReadPill();
         CupManager.Instance.cupInfos[_id].ReceivePill(_pill);
+    }
+
+    public static void UpdateAuthority(Packet _packet)
+    {
+        int size = _packet.ReadInt();
+        bool[] authorities = new bool[size];
+        for(int i = 0; i < authorities.Length; i++)
+        {
+            authorities[i] = _packet.ReadBool();
+        }
+
+        GameManager.cursors[Client.instance.myId].GetComponent<CursorController>().SetAuthorities(authorities);
+    }
+
+    public static void StartTurn(Packet _packet)
+    {
+        int currentPlayer = _packet.ReadInt();
+        for(int i = 1; i <= GameManager.cursors.Count; i++)
+        {
+            if(currentPlayer == i)
+            {
+                GameManager.cursors[i].StartTurn();
+            }
+            else
+            {
+                GameManager.cursors[i].EndTurn();
+            }
+        }
     }
 }
