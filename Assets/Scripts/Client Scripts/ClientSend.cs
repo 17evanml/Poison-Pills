@@ -61,5 +61,17 @@ public class ClientSend : MonoBehaviour
         }
 
     }
+
+    public static void RevealTarget(int _target)
+    {
+        Debug.Log("Send Reveal packet");
+        using (Packet _packet = new Packet((int)ClientPackets.revealTarget))
+        {
+            _packet.Write(Client.instance.myId);
+            _packet.Write(_target);
+            SendTCPData(_packet);
+        }
+
+    }
     #endregion
 }

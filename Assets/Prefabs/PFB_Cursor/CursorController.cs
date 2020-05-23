@@ -14,10 +14,12 @@ public class CursorController : MonoBehaviour
     public GameObject cup;
     private CupInfo oldCup;
 
+    public bool[] authorities = { false, false };
+    public enum Actions { Reveal, Place }
+
     public void Awake()
     {
         Cursor.visible = false;
-
         Color32 poisonColor = GetPoisonColor(cursorManager.id);
         Color32 fakeColor = GetFakeColor(cursorManager.id);
         pillPoison = new Pill(cursorManager.color, poisonColor, true);
@@ -46,18 +48,7 @@ public class CursorController : MonoBehaviour
         }
     }
 
-    //Server manager needs to call functions
-    private void StartTurn()
-    {
-        SetCursorLarge();
-        EnableSpotlight();
-    }
 
-    private void EndTurn()
-    {
-        SetCursorSmall();
-        DisableSpotlight();
-    }
 
     private void MouseRaycast()
     {
@@ -95,30 +86,28 @@ public class CursorController : MonoBehaviour
             //If the gameobject has a cupInfo component
             if (cup)
             {
-                cup.OnClick(this);
+                if (authorities[(int)Actions.Place])
+                {
+                    cup.OnClick(this);
+                }
+                else
+                {
+                    Debug.Log("Not your turn to place a pill");
+
+                }
+            }
+            else
+            {
+                if (authorities[(int)Actions.Reveal])
+                {
+                    ClientSend.RevealTarget(1);
+                }
+                else
+                {
+                    Debug.Log("not yoru turn to reveal");
+                }
             }
         }
-    }
-
-
-    private void EnableSpotlight()
-    {
-
-    }
-
-    private void DisableSpotlight()
-    {
-
-    }
-
-    private void SetCursorLarge()
-    {
-        cursorManager.cursorSize = (int)cursorManager.cursorSizes.y;
-    }
-
-    private void SetCursorSmall()
-    {
-        cursorManager.cursorSize = (int)cursorManager.cursorSizes.x;
     }
 
     void UpdateCursorPosition()
@@ -136,5 +125,10 @@ public class CursorController : MonoBehaviour
 
         //Send information to server
         ClientSend.CursorMovement(cursorManager.mousePosition);
+    }
+
+    public void SetAuthorities(bool[] _authorities)
+    {
+        authorities = _authorities;
     }
 }
