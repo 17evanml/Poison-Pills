@@ -14303,6 +14303,7 @@ GameObject:
   - component: {fileID: 5043470872175405140}
   - component: {fileID: 4081673819121799778}
   - component: {fileID: 7753384214645419675}
+  - component: {fileID: 1990285851468659349}
   m_Layer: 0
   m_Name: cup
   m_TagString: Untagged
@@ -14375,3 +14376,21 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &1990285851468659349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8333167640950184519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f57265a60a17a5b448ddb06aa490a3cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 0
+  username: 
+  color:
+    serializedVersion: 2
+    rgba: 0
+  hover: 0
