@@ -83,9 +83,11 @@ public class TurnSystem
             Debug.Log(round);
             ResetAuthority(currentPlayer);
             NextPlayerBanana();
-            if (currentPlayer == -1)
+            if (currentPlayer < 0)
             {
                 AdvanceRound();
+                currentPlayer = 0;
+                AdvanceTurn();
             }
             else
             {
