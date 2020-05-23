@@ -23,8 +23,12 @@ public class NetworkManager : MonoBehaviour
         }
     }
 
-    private void Update()
+    public void Update()
     {
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            debugSetRound(1);
+        }
     }
 
 
@@ -113,7 +117,9 @@ public class NetworkManager : MonoBehaviour
         }
     }
 
-
-
+    public void debugSetRound(int _round)
+    {
+        turnSystem.debugSetRound(_round);
+    }
 
 }

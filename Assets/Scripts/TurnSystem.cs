@@ -16,6 +16,14 @@ public class TurnSystem
     public enum Actions { Reveal, Place }
     private RoundType round = RoundType.Reveal;
 
+    public void debugSetRound(int _round)
+    {
+        round = (TurnSystem.RoundType)_round;
+        currentPlayer = 0;
+        AuthorityOn(currentPlayer, Actions.Place);
+        Debug.Log(round);
+
+    }
 
     public TurnSystem(int _numPlayers, NetworkManager _listener)
     {
