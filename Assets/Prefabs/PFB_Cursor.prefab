@@ -50,5 +50,6 @@ MonoBehaviour:
     rgba: 0
   mousePosition: {x: 0, y: 0}
   cursorSizes: {x: 64, y: 128}
+  lerpPosition: {x: 0, y: 0}
   cursorSize: 64
-  cursorTexture: {fileID: 2800000, guid: 1022a0b4f9a42ac419880afc83b412b8, type: 3}
+  cursorTexture: {fileID: 2800000, guid: 3858c9e602540da40a09e004436fd16e, type: 3}
