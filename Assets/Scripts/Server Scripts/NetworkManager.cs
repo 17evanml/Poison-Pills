@@ -25,10 +25,6 @@ public class NetworkManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.Space))
-        {
-            InstantiatePlayer();
-        }
     }
 
 
@@ -79,6 +75,15 @@ public class NetworkManager : MonoBehaviour
     public int[] GiveTargets(int selfID)
     {
         int[] ret = new int[2];
+        //for debug purposes only
+        if(players == 1)
+        {
+            ret[0] = 1;
+            ret[1] = 1;
+            return ret;
+        }
+
+
         int target1 = Random.Range(0, targets.Count - 1);
         int target2 = Random.Range(0, targets.Count - 1);
         while (targets[target1] == selfID)
@@ -101,7 +106,7 @@ public class NetworkManager : MonoBehaviour
         targets = new List<int>();
         for (int i = 1; i <= players; i++)
         {
-            for (int j = 0; j < 20; j++)
+            for (int j = 0; j < 4; j++)
             {
                 targets.Add(i);
             }
