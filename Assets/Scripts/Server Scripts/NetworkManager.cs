@@ -78,15 +78,15 @@ public class NetworkManager : MonoBehaviour
 
     public int[] GiveTargets(int selfID)
     {
-        int target1 = Random.Range(1, targets.Count);
-        int target2 = Random.Range(1, targets.Count);
+        int target1 = Random.Range(0, targets.Count-1);
+        int target2 = Random.Range(0, targets.Count-1);
         while(targets[target1] == selfID) {
-            int select = Random.Range(1, targets.Count);
+            int select = Random.Range(0, targets.Count-1);
         }
         targets.RemoveAt(target1);
         while (targets[target2] == selfID)
         {
-            int select = Random.Range(1, targets.Count);
+            int select = Random.Range(0, targets.Count-1);
         }
         targets.RemoveAt(target2);
         int[] ret = { target1, target2 };
@@ -98,7 +98,7 @@ public class NetworkManager : MonoBehaviour
         targets = new List<int>();
         for (int i = 1; i <= players; i++)
         {
-            for(int j = 0; j < players-1; j++)
+            for(int j = 0; j < 20; j++)
             {
                 targets.Add(i);
             }
