@@ -53,30 +53,48 @@ public class CupInfo : MonoBehaviour
 
     public void OnClick(CursorController player)
     {
-        Debug.Log("Entered onclick");
+        Debug.Log($"{player.cursorManager.username} entered OnClick for {username}'s cup");
+
+        //Forces player to click off the cup before clicking on another cup
         if (!clickable)
         {
             return;
         }
         clickable = false;
-        //Notify server that you clicked a cup
+
+        Debug.Log($"{player.cursorManager.username} continued OnClick for {username}'s cup");
+
+        //Add offclick to background
         CursorGameManager.Instance.offClick.onClick.AddListener(OffClick);
+
+        //Set the pills 
         tempFakePill = player.pillFake;
         tempPoisonPill = player.pillPoison;
+
+        //Checks that pills are valid
+        if(tempFakePill == null || tempPoisonPill == null)
+        {
+            Debug.Log($"One of {player.cursorManager.username}'s pills are invalid");
+        }
+
+        //Swap button position randomly
         CursorGameManager.Instance.SwapPillPosition();
-        CursorGameManager.Instance.poisonClick.onClick.AddListener(AddPoisonPill);
-        //CursorGameManager.Instance.poisonClick.onClick.Invoke();
-        CursorGameManager.Instance.fakeClick.onClick.AddListener(AddFakePill);
-        //Debug.Log(CursorGameManager.Instance.poisonClick.onClick.GetPersistentMethodName(1));
+
+        //Center the buttons
         Vector2 objPos = Camera.main.WorldToScreenPoint(transform.position);
+
+        //Enable the canvas
         CursorGameManager.Instance.canvas.SetActive(true);
+
+        //Add listeners
+        CursorGameManager.Instance.poisonClick.onClick.AddListener(AddPoisonPill);
+        CursorGameManager.Instance.fakeClick.onClick.AddListener(AddFakePill);
         CursorGameManager.Instance.buttonParent.anchoredPosition = objPos - CursorGameManager.Instance.canvasRectTransform.anchoredPosition + CursorGameManager.Instance.offset;
     }
 
     public void OffClick()
     {
-        //Notify Server that you clicked off 
-
+        Debug.Log($"OFFCLICK: {tempPoisonPill}");
         //DISABLES UI
         CursorGameManager.Instance.canvas.SetActive(false);
 
@@ -99,7 +117,7 @@ public class CupInfo : MonoBehaviour
         }
         else
         {
-            Debug.LogError("TempPoisonPill in CupInfo is null");
+            Debug.Log("TempPoisonPill in CupInfo is null");
         }
     }
 
@@ -113,7 +131,7 @@ public class CupInfo : MonoBehaviour
         }
         else
         {
-            Debug.LogError("TempFakePill in CupInfo is null");
+            Debug.Log("TempFakePill in CupInfo is null");
         }
     }
 
