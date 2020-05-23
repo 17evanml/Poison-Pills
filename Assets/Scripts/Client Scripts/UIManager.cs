@@ -43,7 +43,7 @@ public class UIManager : MonoBehaviour
 
     public void StartServer()
     {
-        SceneManager.LoadScene(0, LoadSceneMode.Additive);
+        SceneManager.LoadScene(1, LoadSceneMode.Additive);
         lobbyMenu.SetActive(true);
         startMenu.SetActive(false);
         //Instantiate(server);
