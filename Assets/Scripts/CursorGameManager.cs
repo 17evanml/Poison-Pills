@@ -19,6 +19,8 @@ public class CursorGameManager : MonoBehaviour
 
     private void Awake()
     {
+        canvas.SetActive(true);
+        canvas.SetActive(false);
         if (Instance == null)
         {
             Instance = this;
@@ -27,15 +29,12 @@ public class CursorGameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-
     }
 
     public void SwapPillPosition()
     {
-        int r = Random.Range(0, 2);
-        if (r == 1) {
-            Debug.Log("Swapping");
+        if (Random.Range(0, 2) == 1) {
+            Debug.Log("Randomly swapping pill position.");
             Vector3 temp = poisonClick.transform.position;
             poisonClick.transform.position = fakeClick.transform.position;
             fakeClick.transform.position = temp;
