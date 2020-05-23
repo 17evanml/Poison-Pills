@@ -132,6 +132,6 @@ public class Server
                 {(int)ClientPackets.placePill, ServerHandle.PlacePill },
                 {(int)ClientPackets.revealTarget, ServerHandle.RevealTarget},
             };
-        Debug.Log("Initialized packets.");
+        //Debug.Log("Initialized packets.");
     }
 }

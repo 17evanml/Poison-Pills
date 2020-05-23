@@ -8,6 +8,7 @@ public class NetworkManager : MonoBehaviour
     private int players = 0;
     public TurnSystem turnSystem;
     public GameObject cursorPrefab;
+    List<int> targets;
     private void Awake()
     {
 
@@ -24,7 +25,7 @@ public class NetworkManager : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space))
         {
             InstantiatePlayer();
         }
@@ -47,6 +48,7 @@ public class NetworkManager : MonoBehaviour
     {
         Debug.Log("players");
         turnSystem = new TurnSystem(players, this);
+        GenerateTargets();
         ServerSend.StartTurn(turnSystem.GetCurrentPlayer());
     }
 
@@ -72,6 +74,35 @@ public class NetworkManager : MonoBehaviour
     {
         //Debug.Log("Sent to players");   
         ServerSend.UpdateAuthority(playerId, authorities);
+    }
+
+    public int[] GiveTargets(int selfID)
+    {
+        int target1 = Random.Range(1, targets.Count);
+        int target2 = Random.Range(1, targets.Count);
+        while(targets[target1] == selfID) {
+            int select = Random.Range(1, targets.Count);
+        }
+        targets.RemoveAt(target1);
+        while (targets[target2] == selfID)
+        {
+            int select = Random.Range(1, targets.Count);
+        }
+        targets.RemoveAt(target2);
+        int[] ret = { target1, target2 };
+        return ret;
+    }
+
+    public void GenerateTargets()
+    {
+        targets = new List<int>();
+        for (int i = 1; i <= players; i++)
+        {
+            for(int j = 0; j < players-1; j++)
+            {
+                targets.Add(i);
+            }
+        }
     }
 
 
