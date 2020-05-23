@@ -370,7 +370,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fe99ee88f46b47478ebb45ec53744ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testCup: {fileID: 2359417681267865306, guid: f1a8946eaebafad4983e1107e1f6a572, type: 3}
+  testCup: {fileID: 8333167640950184519, guid: f4f76a566870c4f778baaa519fc387af, type: 3}
   canvas: {fileID: 1008997737}
   canvasRectTransform: {fileID: 1008997736}
   buttonParent: {fileID: 1008997735}
@@ -390,8 +390,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfe38a07d54833148a556ebf920ad368, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  origin: {x: 0, y: 0, z: 0}
-  radius: 5
+  origin: {x: 0, y: 2.3, z: -3}
+  radius: 2.32
 --- !u!114 &177935361
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2080,6 +2080,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: cup (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8333167640950184519, guid: f4f76a566870c4f778baaa519fc387af,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f4f76a566870c4f778baaa519fc387af, type: 3}
@@ -4139,6 +4144,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: cup (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8333167640950184519, guid: f4f76a566870c4f778baaa519fc387af,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f4f76a566870c4f778baaa519fc387af, type: 3}
 --- !u!1 &1420266300
@@ -5124,6 +5134,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: cup (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8333167640950184519, guid: f4f76a566870c4f778baaa519fc387af,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f4f76a566870c4f778baaa519fc387af, type: 3}
 --- !u!1001 &1679456492
@@ -5207,6 +5222,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: cup
+      objectReference: {fileID: 0}
+    - target: {fileID: 8333167640950184519, guid: f4f76a566870c4f778baaa519fc387af,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f4f76a566870c4f778baaa519fc387af, type: 3}
@@ -5617,6 +5637,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: cup (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8333167640950184519, guid: f4f76a566870c4f778baaa519fc387af,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f4f76a566870c4f778baaa519fc387af, type: 3}

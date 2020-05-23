@@ -14304,6 +14304,7 @@ GameObject:
   - component: {fileID: 4081673819121799778}
   - component: {fileID: 7753384214645419675}
   - component: {fileID: 1990285851468659349}
+  - component: {fileID: -7967052287556893837}
   m_Layer: 0
   m_Name: cup
   m_TagString: Untagged
@@ -14320,7 +14321,7 @@ Transform:
   m_GameObject: {fileID: 8333167640950184519}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.0067868996, y: 0.006786899, z: 0.0067868982}
+  m_LocalScale: {x: 0.003193033, y: 0.003193033, z: 0.003193033}
   m_Children:
   - {fileID: 37355664954878316}
   - {fileID: 37355666412965928}
@@ -14394,3 +14395,17 @@ MonoBehaviour:
     serializedVersion: 2
     rgba: 0
   hover: 0
+--- !u!64 &-7967052287556893837
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8333167640950184519}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 2721197308297523282, guid: 9fbbd1990138641b8904784c2e169b62, type: 3}
