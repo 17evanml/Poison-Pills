@@ -63,7 +63,6 @@ public class CupInfo : MonoBehaviour
         CursorGameManager.Instance.offClick.onClick.AddListener(OffClick);
         tempFakePill = player.pillFake;
         tempPoisonPill = player.pillPoison;
-        Debug.Log($"{tempFakePill}, {tempPoisonPill}");
         CursorGameManager.Instance.SwapPillPosition();
         CursorGameManager.Instance.poisonClick.onClick.AddListener(AddPoisonPill);
         //CursorGameManager.Instance.poisonClick.onClick.Invoke();
