@@ -78,18 +78,20 @@ public class NetworkManager : MonoBehaviour
 
     public int[] GiveTargets(int selfID)
     {
+        int[] ret = new int[2];
         int target1 = Random.Range(0, targets.Count-1);
         int target2 = Random.Range(0, targets.Count-1);
         while(targets[target1] == selfID) {
             int select = Random.Range(0, targets.Count-1);
         }
+        ret[0] = targets[target1];
         targets.RemoveAt(target1);
         while (targets[target2] == selfID)
         {
             int select = Random.Range(0, targets.Count-1);
         }
+        ret[1] = targets[target2];
         targets.RemoveAt(target2);
-        int[] ret = { target1, target2 };
         return ret;
     }
 
