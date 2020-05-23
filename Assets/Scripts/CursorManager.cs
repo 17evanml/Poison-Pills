@@ -35,10 +35,12 @@ public class CursorManager : MonoBehaviour
         {
             GUI.color = color;
             tempPos = cam.WorldToScreenPoint(mousePosition);
-            lerpPosition += tempPos;
-            lerpPosition /= 2;
-            lerpPosition += Vector2.one * 16;
-            GUI.DrawTexture(new Rect(lerpPosition.x - (cursorSize / 2), lerpPosition.y - (cursorSize / 2), cursorSize, cursorSize), cursorTexture);
+            tempPos += Vector2.one * 16;
+            GUI.DrawTexture(new Rect(tempPos.x - (cursorSize / 2), tempPos.y - (cursorSize / 2), cursorSize, cursorSize), cursorTexture);
+            //lerpPosition = tempPos;
+            //lerpPosition /= 2;
+            //lerpPosition += Vector2.one * 16;
+            //GUI.DrawTexture(new Rect(lerpPosition.x - (cursorSize / 2), lerpPosition.y - (cursorSize / 2), cursorSize, cursorSize), cursorTexture);
         }
     }
 
