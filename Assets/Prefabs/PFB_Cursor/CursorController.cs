@@ -116,11 +116,11 @@ public class CursorController : MonoBehaviour
     void UpdateCursorPosition()
     {
         //Get mouse position
-        cursorManager.mousePosition.x = Input.mousePosition.x;
-        cursorManager.mousePosition.y = Screen.height - Input.mousePosition.y;
+        float mouseX = Input.mousePosition.x;
+        float mouseY = Screen.height - Input.mousePosition.y;
 
         //Get world coordinates of cursor
-        cursorManager.mousePosition = cam.ScreenToWorldPoint(new Vector3(cursorManager.mousePosition.x, cursorManager.mousePosition.y, cam.nearClipPlane));
+        cursorManager.mousePosition = cam.ScreenToWorldPoint(new Vector3(mouseX, mouseY, cam.nearClipPlane));
 
         //Send information to server
         ClientSend.CursorMovement(cursorManager.mousePosition);
