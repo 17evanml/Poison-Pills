@@ -5,34 +5,31 @@ using UnityEngine;
 
 public abstract class UIBase : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
     [Header ("General Settings")]
-    public float delay = 0.5f;
-    public float speed = 0.5f;
+    public float delay = 0.1f;
+    public float speed = 0.1f;
     [HideInInspector] public bool beenClicked = false;
 
     [Header ("On Hover Settings")]
     public Vector3 deltaScale = Vector3.zero;
     [HideInInspector] public Vector3 onHoverScale = Vector3.one;
-    public LeanTweenType onHover = LeanTweenType.easeInElastic;
+    public LeanTweenType onHoverType = LeanTweenType.easeInElastic;
 
     [Header ("Off Hover Settings")]
     [HideInInspector] public Vector3 offHoverScale = Vector3.one;
-    public LeanTweenType offHover = LeanTweenType.easeOutElastic;
+    public LeanTweenType offHoverType = LeanTweenType.easeOutElastic;
 
     [Header ("On Click Settings")]
-    public Vector3 onClickScale = Vector3.zero;
-    public Vector3 deltaPosition = Vector3.zero;
-    [HideInInspector] public Vector3 onClickPosition = Vector3.zero;
-    public LeanTweenType onClick = LeanTweenType.easeOutElastic;
-    public LeanTweenType onClickMove = LeanTweenType.easeOutElastic;
+    public LeanTweenType onClickType = LeanTweenType.easeOutElastic;
+    public LeanTweenType onClickMoveType = LeanTweenType.easeOutElastic;
 
     public void OnPointerEnter(PointerEventData data) {
         if (!beenClicked)
-            LeanTween.scale(gameObject, onHoverScale, speed).setDelay(delay).setEase(onHover);
+            LeanTween.scale(gameObject, onHoverScale, speed).setDelay(delay).setEase(onHoverType);
     }
 
     public void OnPointerExit(PointerEventData data) {
         if (!beenClicked)
-            LeanTween.scale(gameObject, offHoverScale, speed).setDelay(delay).setEase(offHover);
+            LeanTween.scale(gameObject, offHoverScale, speed).setDelay(delay).setEase(offHoverType);
     }
 
     public abstract void OnClick();
