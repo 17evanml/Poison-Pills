@@ -43,7 +43,7 @@ public class UIManager : MonoBehaviour
 
     public void StartServer()
     {
-        SceneManager.LoadScene(0, LoadSceneMode.Additive);
+        SceneManager.LoadScene(1, LoadSceneMode.Additive);
         lobbyMenu.SetActive(true);
         startMenu.SetActive(false);
         //Instantiate(server);
@@ -65,9 +65,9 @@ public class UIManager : MonoBehaviour
         {
             if (client.cursor != null)
             {
-                ServerSend.BeginGame(client.cursor);
+                int[] targets = NetworkManager.instance.GiveTargets(client.id);
+                ServerSend.BeginGame(client.cursor, targets[0], targets[1]);
             }
         }
     }
-
 }

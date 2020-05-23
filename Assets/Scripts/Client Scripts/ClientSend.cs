@@ -35,7 +35,7 @@ public class ClientSend : MonoBehaviour
 
     /// <summary>Sends player input to the server.</summary>
     /// <param name="_inputs"></param>
-    public static void CursorMovement(Vector2 _position)
+    public static void CursorMovement(Vector3 _position)
     {
         using (Packet _packet = new Packet((int)ClientPackets.cursorMovement))
         {

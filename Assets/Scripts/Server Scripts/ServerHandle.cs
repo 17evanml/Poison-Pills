@@ -43,6 +43,7 @@ public class ServerHandle
         }
         else
         {
+            Debug.Log("addpill");
             Server.clients[_cupId].cup.AddPill(_pill);
             NetworkManager.instance.AdvanceTurn();
         }
