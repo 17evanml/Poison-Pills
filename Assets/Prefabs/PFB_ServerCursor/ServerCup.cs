@@ -24,4 +24,22 @@ public class ServerCup : MonoBehaviour
         Debug.Log($"Added a: {pill}");
         pillStack.Push(pill);
     }
+
+    public bool isAlive()
+    {
+        int poison = 0;
+        foreach (Pill p in pillStack)
+        {
+            if (p.poison)
+            {
+                poison++;
+            }
+        }
+
+        if (poison % 2 == 1)
+        {
+            return false;
+        }
+        return true;
+    }
 }

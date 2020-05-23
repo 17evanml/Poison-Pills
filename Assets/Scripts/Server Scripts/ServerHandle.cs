@@ -45,6 +45,7 @@ public class ServerHandle
         {
             Debug.Log("addpill");
             Server.clients[_cupId].cup.AddPill(_pill);
+            ServerSend.ReceivePill(Server.clients[_cupId].cursor, _pill);
             NetworkManager.instance.AdvanceTurn();
         }
 
