@@ -1,16 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary> Visual Representation of a Pill. </summary>
 public class PillRenderer : MonoBehaviour {
     [Header ("Pill Settings")]
-    public Pill pill; // Pill Data
-    public MeshRenderer bottomCapsule, topCapsule;
-    [Header ("Pilsl Settings")]
-    public Material mat;
+    [HideInInspector] public Pill pill; // Pill Data
+    public Image bottomCapsule, topCapsule;
+    // [Header ("Pilsl Settings")]
+    // public Material mat;
 
+    /// <summary> Initialize Pill Renderer GameObject </summary>
+    void Initialize() {
+        bottomCapsule.color = pill.pillColor;
+        topCapsule.color = pill.playerColor;
+    }
 
+    /// <summary> Debug Test Pill Renderer GameObject </summary>
+    void DebugInitialize() {
+        pill = new Pill((Color32) Color.red, (Color32) Color.yellow, true);
+    }
 
 
     // NEW STUFF
@@ -21,27 +31,13 @@ public class PillRenderer : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
-
-        // bottomCapsule.gameObject.transform.GetComponent<Renderer>().material.color = Color.red;
-        // mat.SetColor("_Color", pill.pillColor);
-
-        // bottomCapsule.material.SetColor("_Color", pill.pillColor);
-
-        var block = new MaterialPropertyBlock();
-        block.SetColor("_BaseColor", pill.pillColor);
-        bottomCapsule.gameObject.GetComponent<Renderer>().SetPropertyBlock(block);
-
-        block.SetColor("_BaseColor", pill.playerColor);
-        topCapsule.gameObject.GetComponent<Renderer>().SetPropertyBlock(block);
-        
-        
-
-        // topCapsule.material.SetColor("_Color", Color.red);
+        DebugInitialize();
+        Initialize();
     }
 
     void Update() {
-        Debug.Log(topCapsule.material.name);
-        Debug.Log(topCapsule.material.color);
+        // Debug.Log(topCapsule.material.name);
+        // Debug.Log(topCapsule.material.color);
     }
 
     public void BarMaximize() {
