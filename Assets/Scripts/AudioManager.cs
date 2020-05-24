@@ -47,7 +47,6 @@ public class AudioManager : MonoBehaviour
 
     public void PlayMusic(string name)
     {
-        Debug.Log("got to play music function"); 
         Sound music = Array.Find(musicTracks, track => track.name == name);
         if (music == null)
         {
@@ -55,7 +54,6 @@ public class AudioManager : MonoBehaviour
             return; 
         } else
         {
-            Debug.Log("playing track"); 
             music.source.Play(); 
         }
     }
