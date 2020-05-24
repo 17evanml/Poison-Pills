@@ -10173,8 +10173,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: OnClick
+      - m_Target: {fileID: 1854113415}
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -22626,6 +22626,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PFB_TestButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 3087061177569138470, guid: 36598443cbd194885b6c1130bb0e2fbd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3087061177569138471, guid: 36598443cbd194885b6c1130bb0e2fbd,
         type: 3}
