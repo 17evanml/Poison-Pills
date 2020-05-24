@@ -6,15 +6,19 @@ public class ServerCursor : MonoBehaviour
 {
     public int id;
     public string username;
-    public Color32 color;
+    public Color32 cursorColor;
+    public Color32 pill1Color;
+    public Color32 pill2Color;
 
     public Vector3 cursorPos = Vector2.zero;
 
-    public void Initialize(int _id, string _username, Color32 _color)
+    public void Initialize(int _id, string _username, Color32 _cursorColor, Color32 _pill1Color, Color32 _pill2Color)
     {
         id = _id;
         username = _username;
-        color = _color;
+        cursorColor = _cursorColor;
+        pill1Color = _pill1Color;
+        pill2Color = _pill2Color;
     }
 
     // Update is called once per frame

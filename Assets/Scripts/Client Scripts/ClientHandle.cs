@@ -24,8 +24,15 @@ public class ClientHandle : MonoBehaviour
         string _username = _packet.ReadString();
         Vector3 _position = _packet.ReadVector3();
         Quaternion _rotation = _packet.ReadQuaternion();
-        Color32 _color = _packet.ReadColor();
-        GameManager.instance.SpawnCursor(_id, _username, _position, _rotation, _color);
+        Debug.Log("Receiving the color");
+        Color32 _cursorColor = _packet.ReadColor();
+        Debug.Log(_cursorColor);
+        //int pillColor = Random.Range(0, 2);
+        Color32 _pill1Color = _packet.ReadColor();
+        Debug.Log(_pill1Color);
+        Color32 _pill2Color = _packet.ReadColor();
+        Debug.Log(_pill2Color);
+        GameManager.instance.SpawnCursor(_id, _username, _position, _rotation, _cursorColor, _pill1Color, _pill2Color);
     }
 
     public static void CursorPosition(Packet _packet)
@@ -53,7 +60,7 @@ public class ClientHandle : MonoBehaviour
         print("delete");
         //ThreadManager.ExecuteOnMainThread(() =>
         //{
-            Destroy(GameManager.cursors[_id].gameObject);
+        Destroy(GameManager.cursors[_id].gameObject);
         //});
     }
 
@@ -65,7 +72,7 @@ public class ClientHandle : MonoBehaviour
         Goal goal2 = _packet.ReadGoal();
         //Debug.Log(goal2);
         GameManager.instance.GetComponent<GoalDisplay>().goal = goal1;
-        UIManager.instance.GameDisplay.SetActive(true); 
+        UIManager.instance.GameDisplay.SetActive(true);
         GameManager.instance.GetComponent<GoalDisplay>().Initialize();
         Camera.main.GetComponent<CameraManager>().gameStarted = true;
         CursorGameManager.Instance.CreateAllCups();
@@ -82,7 +89,7 @@ public class ClientHandle : MonoBehaviour
     {
         int size = _packet.ReadInt();
         bool[] authorities = new bool[size];
-        for(int i = 0; i < authorities.Length; i++)
+        for (int i = 0; i < authorities.Length; i++)
         {
             authorities[i] = _packet.ReadBool();
         }
@@ -93,9 +100,9 @@ public class ClientHandle : MonoBehaviour
     public static void StartTurn(Packet _packet)
     {
         int currentPlayer = _packet.ReadInt();
-        for(int i = 1; i <= GameManager.cursors.Count; i++)
+        for (int i = 1; i <= GameManager.cursors.Count; i++)
         {
-            if(currentPlayer == i)
+            if (currentPlayer == i)
             {
                 GameManager.cursors[i].StartTurn();
             }
