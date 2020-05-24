@@ -62,12 +62,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   username: 
-  color:
+  cursorColor:
+    serializedVersion: 2
+    rgba: 0
+  pill1Color:
+    serializedVersion: 2
+    rgba: 0
+  pill2Color:
     serializedVersion: 2
     rgba: 0
   mousePosition: {x: 0, y: 0, z: 0}
   cursorSizes: {x: 64, y: 128}
   lerpPosition: {x: 0, y: 0}
   cursorSize: 64
-  cursorOffset: 16
+  cursorOffset: {x: 20, y: 26}
   cursorTexture: {fileID: 2800000, guid: 3858c9e602540da40a09e004436fd16e, type: 3}

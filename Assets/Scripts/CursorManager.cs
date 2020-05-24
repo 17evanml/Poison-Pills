@@ -16,7 +16,7 @@ public class CursorManager : MonoBehaviour
     private Camera cam;
     
     public int cursorSize = 64;
-    public int cursorOffset = 16;
+    public Vector2 cursorOffset = new Vector2(20, 26);
     public Texture2D cursorTexture;
 
     private void Awake()
@@ -28,30 +28,22 @@ public class CursorManager : MonoBehaviour
     {
         GUI.color = cursorColor;
         tempPos = cam.WorldToScreenPoint(mousePosition);
-        tempPos += Vector2.one * cursorOffset;
+        tempPos += cursorOffset * (cursorSize/64);
         GUI.DrawTexture(new Rect(tempPos.x - (cursorSize / 2), tempPos.y - (cursorSize / 2), cursorSize, cursorSize), cursorTexture);
 
         if (true) //change this to debug manager later
         {
-            GUI.Label(new Rect(tempPos.x - (cursorSize / 2), tempPos.y - (cursorSize / 2) + cursorOffset, cursorSize, cursorSize), username);
+            GUI.color = Color.black;
+            GUI.Label(new Rect(tempPos.x - (cursorSize / 2), tempPos.y + (cursorSize / 2), cursorSize, cursorSize), username, CursorGameManager.Instance.textStyle);
         }
         
 
         /*
         if (Client.instance.myId == id)
         {
-            tempPos = cam.WorldToScreenPoint(mousePosition);
-            tempPos += Vector2.one * cursorOffset;
-            GUI.DrawTexture(new Rect(tempPos.x - (cursorSize / 2), tempPos.y - (cursorSize / 2), cursorSize, cursorSize), cursorTexture);
-        }
-        else
-        {
-            tempPos = cam.WorldToScreenPoint(mousePosition);
-            tempPos += Vector2.one * cursorOffset;
-            GUI.DrawTexture(new Rect(tempPos.x - (cursorSize / 2), tempPos.y - (cursorSize / 2), cursorSize, cursorSize), cursorTexture);
+
         }
         */
-
     }
 
 
