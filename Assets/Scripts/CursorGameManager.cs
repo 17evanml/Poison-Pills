@@ -47,7 +47,8 @@ public class CursorGameManager : MonoBehaviour
         CupInfo c = g.GetComponent<CupInfo>();
         if (c)
         {
-            c.Initialize(cm.id, cm.name, cm.color);
+            c.Initialize(cm.id, cm.name, cm.cursorColor);
+            c.color = cm.cursorColor;
         }
         CupManager.Instance.AddCup(c);
     }

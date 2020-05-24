@@ -99,8 +99,12 @@ public class ServerSend
             _packet.Write(_cursor.transform.position);
             _packet.Write(_cursor.transform.rotation);
             _packet.Write(_cursor.cursorColor);
+            Debug.Log("Sending the color");
+            Debug.Log(_cursor.cursorColor);
             _packet.Write(_cursor.pill1Color);
-            _packet.Write(_cursor.pill1Color);
+            Debug.Log(_cursor.pill1Color);
+            _packet.Write(_cursor.pill2Color);
+            Debug.Log(_cursor.pill2Color);
             SendTCPData(_toClient, _packet);
         }
     }

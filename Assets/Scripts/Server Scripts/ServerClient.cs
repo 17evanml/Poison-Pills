@@ -216,7 +216,7 @@ public class ServerClient
     {
         cursor = NetworkManager.instance.InstantiatePlayer();
         cup = cursor.GetComponent<ServerCup>();
-        cursor.Initialize(id, _playerName, new Color32(255, 0,0,255), new Color32(255, 0, 0, 255), new Color32(255, 0, 0, 255));
+        cursor.Initialize(id, _playerName, NetworkManager.instance.playerColors[id-1], NetworkManager.instance.pill1Colors[id - 1], NetworkManager.instance.pill2Colors[id - 1]);
         // Send all players to the new player
         foreach (ServerClient _client in Server.clients.Values)
         {
