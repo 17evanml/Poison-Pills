@@ -13,6 +13,9 @@ public class NetworkManager : MonoBehaviour
     List<int> targets;
     List<Goal> goals;
     public int[] playerPoints;
+    public Color32[] playerColors;
+    public Color32[] pill1Colors;
+    public Color32[] pill2Colors;
     private void Awake()
     {
 
@@ -136,8 +139,8 @@ public class NetworkManager : MonoBehaviour
         bool[] deaths = new bool[players + 1];
         for (int i = 1; i <= players; i++)
         {
-            deaths[i] = Server.clients[i].cup.isAlive();
-            if (deaths[i])
+            deaths[i] = !Server.clients[i].cup.isAlive();
+            if (!deaths[i])
             {
                 playerPoints[i] += SURIVIALPOINTS;
             }

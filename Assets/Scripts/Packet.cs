@@ -186,10 +186,10 @@ public class Packet : IDisposable
     }
     public void Write(Color32 _value)
     {
-        Write(_value.a);
-        Write(_value.b);
-        Write(_value.g);
         Write(_value.r);
+        Write(_value.g);
+        Write(_value.b);
+        Write(_value.a);
     }
     public void Write(Pill _value)
     {

@@ -23,10 +23,10 @@ public class CursorController : MonoBehaviour
     {
         cam = Camera.main;
         Cursor.visible = false;
-        Color32 poisonColor = GetPoisonColor(cursorManager.id);
-        Color32 fakeColor = GetFakeColor(cursorManager.id);
-        pillPoison = new Pill(cursorManager.color, poisonColor, true);
-        pillFake = new Pill(cursorManager.color, fakeColor, false);
+        //Color32 poisonColor = GetPoisonColor(cursorManager.id);
+        //Color32 fakeColor = GetFakeColor(cursorManager.id);
+        pillPoison = new Pill(cursorManager.pill1Color, cursorManager.cursorColor, true);
+        pillFake = new Pill(cursorManager.pill2Color, cursorManager.cursorColor, false);
     }
 
     public Color32 GetPoisonColor(int id)
