@@ -9,7 +9,7 @@ public class StartMenu : MonoBehaviour
 
     void Awake()
     {
-        AudioManager.instance.PlayMusic(Constants.smMusic); 
+        AudioManager.instance.PlayMusic(Constants.SM_MUSIC); 
     }
 
     public void Quit()

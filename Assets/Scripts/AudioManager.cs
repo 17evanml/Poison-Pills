@@ -1,27 +1,31 @@
 ﻿using UnityEngine.Audio; 
 using UnityEngine;
 using System;
+using System.Collections;
 
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance { get; private set; }
     public Sound[] musicTracks;
-    public Sound[] sfxTracks;
-    
+    public AudioClip[] sfxClips;
+
+    private AudioSource sfxSource; 
+    private IEnumerator coroutine;
 
     private void Awake()
     {
-        if (instance == null)
+        if (instance != null && instance != this)
         {
-            instance = this;
+            Destroy(gameObject);
+            return;
         }
         else
         {
-            Destroy(gameObject);
-            return; 
+            instance = this;
         }
+        DontDestroyOnLoad(gameObject);
 
-        foreach(Sound music in musicTracks)
+        foreach (Sound music in musicTracks)
         {
             music.source = gameObject.AddComponent<AudioSource>(); 
             music.source.clip = music.audioClip;
@@ -29,20 +33,31 @@ public class AudioManager : MonoBehaviour
             music.source.volume = music.volume;
             music.source.pitch = music.pitch; 
         }
-
-        foreach(Sound sfx in sfxTracks)
-        {
-            sfx.source = gameObject.AddComponent<AudioSource>();
-            sfx.source.clip = sfx.audioClip;
-            sfx.source.loop = sfx.loop;
-            sfx.source.volume = sfx.volume;
-            sfx.source.pitch = sfx.pitch;
-        }
     }
 
     public void AdjustVolume(float newVolume)
     {
-        AudioListener.volume = newVolume;
+        StopCoroutine(coroutine);
+        coroutine = AdjustVolumeHelper(newVolume, 1f);
+        StartCoroutine(coroutine);
+    }
+
+    private IEnumerator AdjustVolumeHelper(float newVolume, float lerpSpeed)
+    {
+        while (AudioListener.volume != newVolume)
+        {
+            // Lerps the Master Volume to the new Volume
+            // LerpSpeed affects how fast the volume changes
+            AudioListener.volume = Mathf.Lerp(AudioListener.volume, newVolume, Time.deltaTime * lerpSpeed);
+
+            // Makes it so the Loop isn't infinite. Play with the floats to change the volume clip boundary.
+            if (AudioListener.volume > newVolume - 0.1f || AudioListener.volume < newVolume + 0.1f)
+            {
+                AudioListener.volume = newVolume;
+                break;
+            }
+            yield return null; // Continues in the next frame
+        }
     }
 
     public void PlayMusic(string name)
@@ -60,7 +75,7 @@ public class AudioManager : MonoBehaviour
 
     public void PlaySFX(string name)
     {
-        Sound sfx = Array.Find(sfxTracks, track => track.name == name);
+        AudioClip sfx = Array.Find(sfxClips, clip => clip.name == name);
         if (sfx == null)
         {
             Debug.LogWarning("SFX could not be played: " + name + " is not found.");
@@ -68,7 +83,7 @@ public class AudioManager : MonoBehaviour
         }
         else
         {
-            sfx.source.Play();
+            sfxSource.PlayOneShot(sfx, 0.5f); 
         }
     }
 
