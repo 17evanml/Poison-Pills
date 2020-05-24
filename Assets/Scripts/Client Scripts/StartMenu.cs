@@ -7,6 +7,12 @@ public class StartMenu : MonoBehaviour
 {
     // load new scenes or hook up netcode for hosting/joining a game here
 
+    void Awake()
+    {
+        Debug.Log("start menu awake.");
+        AudioManager.instance.PlayMusic(Constants.smMusic); 
+    }
+
     public void Quit()
     {
         Debug.Log("Quitting game...");
