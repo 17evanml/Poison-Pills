@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
         cm.username = _username;
         cm.cursorColor = _cursorColor;
         cm.pill1Color = _pill1Color;
-        cm.pill2Color = _pill1Color;
+        cm.pill2Color = _pill2Color;
         cursors.Add(_id, _cursor.GetComponent<CursorManager>());
     }
 

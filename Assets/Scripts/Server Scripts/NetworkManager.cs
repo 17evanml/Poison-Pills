@@ -13,6 +13,9 @@ public class NetworkManager : MonoBehaviour
     List<int> targets;
     List<Goal> goals;
     public int[] playerPoints;
+    public Color32[] playerColors;
+    public Color32[] pill1Colors;
+    public Color32[] pill2Colors;
     private void Awake()
     {
 
