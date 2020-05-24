@@ -98,7 +98,9 @@ public class ServerSend
             _packet.Write(_cursor.username);
             _packet.Write(_cursor.transform.position);
             _packet.Write(_cursor.transform.rotation);
-            _packet.Write(_cursor.color);
+            _packet.Write(_cursor.cursorColor);
+            _packet.Write(_cursor.pill1Color);
+            _packet.Write(_cursor.pill1Color);
             SendTCPData(_toClient, _packet);
         }
     }

@@ -136,8 +136,8 @@ public class NetworkManager : MonoBehaviour
         bool[] deaths = new bool[players + 1];
         for (int i = 1; i <= players; i++)
         {
-            deaths[i] = Server.clients[i].cup.isAlive();
-            if (deaths[i])
+            deaths[i] = !Server.clients[i].cup.isAlive();
+            if (!deaths[i])
             {
                 playerPoints[i] += SURIVIALPOINTS;
             }

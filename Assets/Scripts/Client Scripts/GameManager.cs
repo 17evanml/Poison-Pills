@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
     /// <param name="_name">The player's name.</param>
     /// <param name="_position">The player's starting position.</param>
     /// <param name="_rotation">The player's starting rotation.</param>
-    public void SpawnCursor(int _id, string _username, Vector3 _position, Quaternion _rotation, Color32 _color)
+    public void SpawnCursor(int _id, string _username, Vector3 _position, Quaternion _rotation, Color32 _cursorColor, Color32 _pill1Color, Color32 _pill2Color)
     {
         GameObject _cursor;
         if (_id == Client.instance.myId)
@@ -43,10 +43,12 @@ public class GameManager : MonoBehaviour
         {
             _cursor = Instantiate(cursorPrefab, _position, _rotation);
         }
-
-        _cursor.GetComponent<CursorManager>().id = _id;
-        _cursor.GetComponent<CursorManager>().username = _username;
-        _cursor.GetComponent<CursorManager>().color = _color;
+        CursorManager cm = _cursor.GetComponent<CursorManager>();
+        cm.id = _id;
+        cm.username = _username;
+        cm.cursorColor = _cursorColor;
+        cm.pill1Color = _pill1Color;
+        cm.pill2Color = _pill1Color;
         cursors.Add(_id, _cursor.GetComponent<CursorManager>());
     }
 

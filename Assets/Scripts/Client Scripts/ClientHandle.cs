@@ -24,8 +24,10 @@ public class ClientHandle : MonoBehaviour
         string _username = _packet.ReadString();
         Vector3 _position = _packet.ReadVector3();
         Quaternion _rotation = _packet.ReadQuaternion();
-        Color32 _color = _packet.ReadColor();
-        GameManager.instance.SpawnCursor(_id, _username, _position, _rotation, _color);
+        Color32 _cursorColor = _packet.ReadColor();
+        Color32 _pill1Color = _packet.ReadColor();
+        Color32 _pill2Color = _packet.ReadColor();
+        GameManager.instance.SpawnCursor(_id, _username, _position, _rotation, _cursorColor, _pill1Color, _pill2Color);
     }
 
     public static void CursorPosition(Packet _packet)
