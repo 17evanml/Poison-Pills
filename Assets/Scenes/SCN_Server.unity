@@ -163,8 +163,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6efba6efdbb549cbb056f52d8e083e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  turnSystem:
+    currentPlayer: 0
+    round: 0
   cursorPrefab: {fileID: 4595221850270429955, guid: 59c64c7a81ce34d7898bb034decacdfd,
     type: 3}
+  playerPoints: 
+  playerColors:
+  - serializedVersion: 2
+    rgba: 4284111615
+  - serializedVersion: 2
+    rgba: 4284075007
+  - serializedVersion: 2
+    rgba: 4282312262
+  - serializedVersion: 2
+    rgba: 4293309502
+  - serializedVersion: 2
+    rgba: 4291982583
+  - serializedVersion: 2
+    rgba: 4286347645
+  pill1Colors:
+  - serializedVersion: 2
+    rgba: 4278190236
+  - serializedVersion: 2
+    rgba: 4278234106
+  - serializedVersion: 2
+    rgba: 4283491886
+  - serializedVersion: 2
+    rgba: 4289230336
+  - serializedVersion: 2
+    rgba: 4286393013
+  - serializedVersion: 2
+    rgba: 4281874488
+  pill2Colors:
+  - serializedVersion: 2
+    rgba: 4289440767
+  - serializedVersion: 2
+    rgba: 4289455359
+  - serializedVersion: 2
+    rgba: 4289855390
+  - serializedVersion: 2
+    rgba: 4294961310
+  - serializedVersion: 2
+    rgba: 4292127743
+  - serializedVersion: 2
+    rgba: 4291414473
 --- !u!4 &97349107
 Transform:
   m_ObjectHideFlags: 0

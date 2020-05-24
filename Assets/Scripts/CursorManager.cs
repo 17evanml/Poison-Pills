@@ -6,8 +6,9 @@ public class CursorManager : MonoBehaviour
 {
     public int id;
     public string username;
-    public Color32 color = new Color32(255, 255, 255, 255);
-
+    public Color32 cursorColor = new Color32();
+    public Color32 pill1Color = new Color32();
+    public Color32 pill2Color = new Color32();
     public Vector3 mousePosition;
     public Vector2 cursorSizes = new Vector2(64, 128);
     public Vector2 lerpPosition = new Vector2(0, 0);
@@ -25,7 +26,7 @@ public class CursorManager : MonoBehaviour
 
     void OnGUI()
     {
-        GUI.color = color;
+        GUI.color = cursorColor;
         tempPos = cam.WorldToScreenPoint(mousePosition);
         tempPos += Vector2.one * cursorOffset;
         GUI.DrawTexture(new Rect(tempPos.x - (cursorSize / 2), tempPos.y - (cursorSize / 2), cursorSize, cursorSize), cursorTexture);
