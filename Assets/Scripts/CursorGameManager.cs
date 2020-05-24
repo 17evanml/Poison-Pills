@@ -17,6 +17,8 @@ public class CursorGameManager : MonoBehaviour
     public Button fakeClick;
     public Vector2 offset;
 
+    public GUIStyle textStyle;
+
     private void Awake()
     {
         canvas.SetActive(true);
