@@ -105,7 +105,7 @@ public class NetworkManager : MonoBehaviour
         }
         ret[0] = new Goal(selfID, targets[target1], Goal.goalOptions.die);
         targets.RemoveAt(target1);
-        while (targets[target2] == selfID)
+        while (targets[target2] == selfID || targets[target2] == ret[0].id)
         {
             target2 = Random.Range(0, targets.Count - 1);
         }
