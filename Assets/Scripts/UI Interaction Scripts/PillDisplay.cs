@@ -68,21 +68,21 @@ public class PillDisplay : UIBase {
         beenClicked = true;
         if (state) {
             // Sets the Scale of All GameObjects to display Pill Sprites
-            LeanTween.scale(image_outline.gameObject, vector_outlineLarge, speed);
-            LeanTween.scale(image_fill.gameObject, vector_fillLarge, speed);
-            LeanTween.scale(text_pillCount.gameObject, Vector3.zero, speed);
-            LeanTween.scale(text_pillSprite.gameObject, vector_pillSpriteText, speed);
+            LeanTween.scale(image_outline.gameObject, vector_outlineLarge, speed).setEase(onClickType);
+            LeanTween.scale(image_fill.gameObject, vector_fillLarge, speed).setEase(onClickType);
+            LeanTween.scale(text_pillCount.gameObject, Vector3.zero, speed).setEase(onClickType);
+            LeanTween.scale(text_pillSprite.gameObject, vector_pillSpriteText, speed).setEase(onClickType);
             for(int i = 0; i < list_pills.Count; i++) {
-                LeanTween.scale(list_pills[i], vector_pillSprite, speed);
+                LeanTween.scale(list_pills[i], vector_pillSprite, speed).setEase(onClickType);
             }
         } else {
             // Sets the Scale of All GameObjects to display Pill Count
-            LeanTween.scale(image_outline.gameObject, vector_outlineSmall, speed);
-            LeanTween.scale(image_fill.gameObject, vector_fillSmall, speed);
-            LeanTween.scale(text_pillCount.gameObject, vector_pillCount, speed);
-            LeanTween.scale(text_pillSprite.gameObject, Vector3.zero, speed);
+            LeanTween.scale(image_outline.gameObject, vector_outlineSmall, speed).setEase(onClickType);
+            LeanTween.scale(image_fill.gameObject, vector_fillSmall, speed).setEase(onClickType);
+            LeanTween.scale(text_pillCount.gameObject, vector_pillCount, speed).setEase(onClickType);
+            LeanTween.scale(text_pillSprite.gameObject, Vector3.zero, speed).setEase(onClickType);
             for(int i = 0; i < list_pills.Count; i++) {
-                LeanTween.scale(list_pills[i], Vector3.zero, speed);
+                LeanTween.scale(list_pills[i], Vector3.zero, speed).setEase(onClickType);
             }
         }
         state = !state; // Reverses State
@@ -100,7 +100,7 @@ public class PillDisplay : UIBase {
 
         // Tween the Scale if Pills are currently being displayed
         if (!state) {
-            LeanTween.scale(newPill, vector_pillSprite, 0.5f);
+            LeanTween.scale(newPill, vector_pillSprite, 0.5f).setEase(onClickType);
         }
         
         list_pills.Add(newPill); // Add the new GameObject to list_pills
