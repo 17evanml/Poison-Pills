@@ -9,7 +9,6 @@ public class StartMenu : MonoBehaviour
 
     void Awake()
     {
-        Debug.Log("start menu awake.");
         AudioManager.instance.PlayMusic(Constants.smMusic); 
     }
 
