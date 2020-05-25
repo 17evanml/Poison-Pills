@@ -31,8 +31,8 @@ public class ServerHandle
         string _username = _packet.ReadString();
         int _cupId = _packet.ReadInt();
         Pill _pill = _packet.ReadPill();
-        Debug.Log(_pill);
-        Debug.Log(_cupId);
+        //Debug.Log(_pill.pillColor);
+        //Debug.Log(_pill.playerColor);
         if (_fromClient != _clientIdCheck)
         {
             Debug.Log($"Player \"{_username}\" (ID: {_fromClient}) has assumed the wrong client ID ({_clientIdCheck})!");
@@ -43,7 +43,6 @@ public class ServerHandle
         }
         else
         {
-            Debug.Log("addpill");
             Server.clients[_cupId].cup.AddPill(_pill);
             ServerSend.ReceivePill(Server.clients[_cupId].cursor, _pill);
             NetworkManager.instance.AdvanceTurn();
