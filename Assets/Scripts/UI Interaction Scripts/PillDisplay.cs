@@ -93,6 +93,7 @@ public class PillDisplay : UIBase {
     public void AddPill(Pill pillData) {
         // Instantiate a new Pill at correct Location and Set Scale to Zero
         GameObject newPill = Instantiate(gameObject_pill, Vector3.zero, Quaternion.identity);
+        newPill.GetComponent<PillRenderer>().pill = pillData;
         newPill.transform.parent = transform;
         newPill.transform.localPosition = vector_spawn;
         

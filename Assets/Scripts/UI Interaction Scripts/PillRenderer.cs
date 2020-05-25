@@ -12,8 +12,16 @@ public class PillRenderer : MonoBehaviour {
 
     /// <summary> Initialize Pill Renderer GameObject </summary>
     void Initialize() {
-        bottomCapsule.color = pill.pillColor;
-        topCapsule.color = pill.playerColor;
+
+        // Debug.Log(topCapsule.color);
+        bottomCapsule.color = pill.playerColor;
+        topCapsule.color = pill.pillColor;
+        Debug.Log("BOTTOM COLOR: " + pill.playerColor);
+        Debug.Log("TOP COLOR: " + pill.pillColor);
+
+
+        Debug.Log("TOP COLOR 2: " + topCapsule.color);
+        Debug.Log("BOTTOM COLOR 2: " + bottomCapsule.color);
     }
 
     /// <summary> Debug Test Pill Renderer GameObject </summary>
@@ -23,7 +31,7 @@ public class PillRenderer : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
-        DebugInitialize();
+        // DebugInitialize();
         Initialize();
     }
 
