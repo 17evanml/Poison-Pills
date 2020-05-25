@@ -178,6 +178,20 @@ public class ServerSend
 
     }
 
+    public static void EndRound(int[] points, bool[] deaths)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.endRound))
+        {
+            _packet.Write(points.Length);
+            for(int i = 0; i < points.Length; i++)
+            {
+                _packet.Write(points[i]);
+                _packet.Write(deaths[i]);
+            }
+            SendTCPDataToAll(_packet);
+        }
+    }
+
 
     #endregion
 }

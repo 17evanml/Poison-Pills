@@ -14,7 +14,8 @@ public enum ServerPackets
     beginGame,
     receivePill,
     updateAuthority,
-    startTurn
+    startTurn,
+    endRound,
 }
 
 /// <summary>Sent from client to server.</summary>

@@ -53,4 +53,10 @@ public class GameManager : MonoBehaviour
         cursors.Add(_id, _cursor.GetComponent<CursorManager>());
     }
 
+
+    public void UpdateScores(int[] scores)
+    {
+        Debug.Log("Update!");
+        displayManager.tempScore(scores);
+    }
 }
