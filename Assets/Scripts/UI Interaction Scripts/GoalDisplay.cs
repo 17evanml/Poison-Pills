@@ -11,8 +11,8 @@ public class GoalDisplay : MonoBehaviour {
     // Start is called before the first frame update
     public void Initialize() {
         // Assigns goal text based on Goal data
-        if (goal.goal == Goal.goalOptions.die) { goalText.text = "Kill "; }
-        else if (goal.goal == Goal.goalOptions.live) { goalText.text = "Save "; }
+        if (goal.goalState == Goal.GoalState.die) { goalText.text = "Kill "; }
+        else if (goal.goalState == Goal.GoalState.live) { goalText.text = "Save "; }
         goalText.text += GameManager.cursors[goal.id].username;
     }
 }
