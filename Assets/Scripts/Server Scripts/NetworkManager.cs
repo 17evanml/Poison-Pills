@@ -116,20 +116,21 @@ public class NetworkManager : MonoBehaviour
             return ret;
         }
 
-
+        int goalState1 = Random.Range(0, 2);
+        int goalState2 = Random.Range(0, 2);
         int target1 = Random.Range(0, targets.Count - 1);
         int target2 = Random.Range(0, targets.Count - 1);
         while (targets[target1] == selfID)
         {
             target1 = Random.Range(0, targets.Count - 1);
         }
-        ret[0] = new Goal(selfID, targets[target1], Goal.GoalState.die);
+        ret[0] = new Goal(selfID, targets[target1], (Goal.GoalState)goalState1);
         targets.RemoveAt(target1);
         while (targets[target2] == selfID || targets[target2] == ret[0].id)
         {
             target2 = Random.Range(0, targets.Count - 1);
         }
-        ret[1] = new Goal(selfID, targets[target2], Goal.GoalState.die); ;
+        ret[1] = new Goal(selfID, targets[target2], (Goal.GoalState)goalState2); ;
         targets.RemoveAt(target2);
 
         goals.Add(ret[0]);
@@ -174,11 +175,19 @@ public class NetworkManager : MonoBehaviour
 
         foreach (Goal goal in goals)
         {
-            Debug.Log(goal);
-            if (deaths[goal.id])
+            if(goal.goalState.Equals(Goal.GoalState.die) && deaths[goal.id]) {
+                playerPoints[goal.myId] += KILLPOINTS;
+            } else if(goal.goalState.Equals(Goal.GoalState.live) && !deaths[goal.id])
             {
                 playerPoints[goal.myId] += KILLPOINTS;
             }
         }
+
+        UpdatePoints(playerPoints, deaths);
+    }
+
+    public void UpdatePoints(int[] points, bool[] deaths)
+    {
+        ServerSend.EndRound(points, deaths);
     }
 }
