@@ -46,6 +46,17 @@ public class CursorGameManager : MonoBehaviour
     private void CreateCup(CursorManager cm)
     {
         GameObject g = Instantiate(testCup);
+
+        // // This Part does not do anything
+        // Debug.Log("Before: " + g.GetComponent<Renderer>().materials[0].color);
+        // g.GetComponent<Renderer>().materials[0].color = cm.cursorColor;
+        // Debug.Log("After: " + g.GetComponent<Renderer>().materials[0].color);
+
+        // This part Sets the Entire Mesh to be one Color
+        var block = new MaterialPropertyBlock();
+        block.SetColor("_BaseColor", cm.cursorColor);
+        g.GetComponent<Renderer>().SetPropertyBlock(block);
+
         CupInfo c = g.GetComponent<CupInfo>();
         if (c)
         {

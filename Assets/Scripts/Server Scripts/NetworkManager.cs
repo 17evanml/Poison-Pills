@@ -91,6 +91,7 @@ public class NetworkManager : MonoBehaviour
         //for debug purposes only
         if (players == 1)
         {
+<<<<<<< HEAD
             ret[0] = new Goal(selfID, 1, Goal.goalOptions.die);
             ret[1] = new Goal(selfID, 1, Goal.goalOptions.die);
             goals.Add(ret[0]);
@@ -111,6 +112,10 @@ public class NetworkManager : MonoBehaviour
             }
             goals.Add(ret[0]);
             goals.Add(ret[1]);
+=======
+            ret[0] = new Goal(selfID, 1, Goal.GoalState.die);
+            ret[1] = new Goal(selfID, 1, Goal.GoalState.die);
+>>>>>>> d62f073d3b46816d6ea42bb1335a0d7014f28d33
             return ret;
         }
 
