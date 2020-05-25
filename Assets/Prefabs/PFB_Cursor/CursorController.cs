@@ -25,8 +25,6 @@ public class CursorController : MonoBehaviour
         Cursor.visible = false;
         //Color32 poisonColor = GetPoisonColor(cursorManager.id);
         //Color32 fakeColor = GetFakeColor(cursorManager.id);
-        pillPoison = new Pill(cursorManager.pill1Color, cursorManager.cursorColor, true);
-        pillFake = new Pill(cursorManager.pill2Color, cursorManager.cursorColor, false);
     }
 
     public Color32 GetPoisonColor(int id)
@@ -129,5 +127,32 @@ public class CursorController : MonoBehaviour
     public void SetAuthorities(bool[] _authorities)
     {
         authorities = _authorities;
+    }
+
+    public Pill GetPillFake()
+    {
+        if(pillFake == null)
+        {
+            return pillFake = new Pill(cursorManager.pill2Color, cursorManager.cursorColor, false);
+        }
+        else
+        {
+            return pillFake;
+
+        }
+
+    }
+
+    public Pill GetPillPoison()
+    {
+        if(pillPoison == null)
+        {
+            return pillPoison = new Pill(cursorManager.pill1Color, cursorManager.cursorColor, true);
+        }
+        else
+        {
+            return pillPoison;
+        }
+
     }
 }

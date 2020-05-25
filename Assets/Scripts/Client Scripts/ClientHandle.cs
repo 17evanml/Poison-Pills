@@ -29,9 +29,9 @@ public class ClientHandle : MonoBehaviour
         Debug.Log(_cursorColor);
         //int pillColor = Random.Range(0, 2);
         Color32 _pill1Color = _packet.ReadColor();
-        Debug.Log(_pill1Color);
+        //Debug.Log(_pill1Color);
         Color32 _pill2Color = _packet.ReadColor();
-        Debug.Log(_pill2Color);
+        //Debug.Log(_pill2Color);
         GameManager.instance.SpawnCursor(_id, _username, _position, _rotation, _cursorColor, _pill1Color, _pill2Color);
     }
 
