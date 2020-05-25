@@ -71,6 +71,7 @@ public class UIManager : MonoBehaviour
             if (client.cursor != null)
             {
                 Goal[] targets = NetworkManager.instance.GiveTargets(client.id);
+                
                 ServerSend.BeginGame(client.cursor, targets[0], targets[1]);
             }
         }

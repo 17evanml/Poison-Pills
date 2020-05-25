@@ -93,6 +93,26 @@ public class NetworkManager : MonoBehaviour
         {
             ret[0] = new Goal(selfID, 1, Goal.GoalState.die);
             ret[1] = new Goal(selfID, 1, Goal.GoalState.die);
+            goals.Add(ret[0]);
+            goals.Add(ret[1]);
+            return ret;
+        }
+        else if (players == 2)
+        {
+            if (selfID == 1)
+            {
+                ret[0] = new Goal(selfID, 2, Goal.GoalState.die);
+                ret[1] = new Goal(selfID, 2, Goal.GoalState.die);
+            }
+            else
+            {
+                ret[0] = new Goal(selfID, 1, Goal.GoalState.die);
+                ret[1] = new Goal(selfID, 1, Goal.GoalState.die);
+            }
+            ret[0] = new Goal(selfID, 1, Goal.GoalState.die);
+            ret[1] = new Goal(selfID, 1, Goal.GoalState.die);
+            goals.Add(ret[0]);
+            goals.Add(ret[1]);
             return ret;
         }
 
@@ -105,14 +125,19 @@ public class NetworkManager : MonoBehaviour
         }
         ret[0] = new Goal(selfID, targets[target1], Goal.GoalState.die);
         targets.RemoveAt(target1);
-        while (targets[target2] == selfID)
+        while (targets[target2] == selfID || targets[target2] == ret[0].id)
         {
             target2 = Random.Range(0, targets.Count - 1);
         }
         ret[1] = new Goal(selfID, targets[target2], Goal.GoalState.die); ;
         targets.RemoveAt(target2);
+
         goals.Add(ret[0]);
         goals.Add(ret[1]);
+        foreach(Goal goal in goals)
+        {
+            Debug.Log(goal);
+        }
         return ret;
     }
 
@@ -140,6 +165,7 @@ public class NetworkManager : MonoBehaviour
         for (int i = 1; i <= players; i++)
         {
             deaths[i] = !Server.clients[i].cup.isAlive();
+            Debug.Log($"Player: {i} is {deaths[i]}");
             if (!deaths[i])
             {
                 playerPoints[i] += SURIVIALPOINTS;
@@ -148,6 +174,7 @@ public class NetworkManager : MonoBehaviour
 
         foreach (Goal goal in goals)
         {
+            Debug.Log(goal);
             if (deaths[goal.id])
             {
                 playerPoints[goal.myId] += KILLPOINTS;

@@ -25,11 +25,6 @@ public class CursorController : MonoBehaviour
         Cursor.visible = false;
         //Color32 poisonColor = GetPoisonColor(cursorManager.id);
         //Color32 fakeColor = GetFakeColor(cursorManager.id);
-
-        Debug.Log($"Fake Pill Colors: Pill: {pillFake.pillColor}, Player {pillFake.playerColor} ");
-        Debug.Log($"Real Pill Colors: Pill: {pillPoison.pillColor}, Player {pillPoison.playerColor} ");
-
-
     }
 
     public Color32 GetPoisonColor(int id)
