@@ -21,7 +21,7 @@ public class ServerCup : MonoBehaviour
 
     public void AddPill(Pill pill)
     {
-        Debug.Log($"Added a: {pill}");
+        //Debug.Log($"Added a: {pill}");
         pillStack.Push(pill);
     }
 
