@@ -91,9 +91,8 @@ public class NetworkManager : MonoBehaviour
         //for debug purposes only
         if (players == 1)
         {
-<<<<<<< HEAD
-            ret[0] = new Goal(selfID, 1, Goal.goalOptions.die);
-            ret[1] = new Goal(selfID, 1, Goal.goalOptions.die);
+            ret[0] = new Goal(selfID, 1, Goal.GoalState.die);
+            ret[1] = new Goal(selfID, 1, Goal.GoalState.die);
             goals.Add(ret[0]);
             goals.Add(ret[1]);
             return ret;
@@ -102,20 +101,18 @@ public class NetworkManager : MonoBehaviour
         {
             if (selfID == 1)
             {
-                ret[0] = new Goal(selfID, 2, Goal.goalOptions.die);
-                ret[1] = new Goal(selfID, 2, Goal.goalOptions.die);
+                ret[0] = new Goal(selfID, 2, Goal.GoalState.die);
+                ret[1] = new Goal(selfID, 2, Goal.GoalState.die);
             }
             else
             {
-                ret[0] = new Goal(selfID, 1, Goal.goalOptions.die);
-                ret[1] = new Goal(selfID, 1, Goal.goalOptions.die);
+                ret[0] = new Goal(selfID, 1, Goal.GoalState.die);
+                ret[1] = new Goal(selfID, 1, Goal.GoalState.die);
             }
-            goals.Add(ret[0]);
-            goals.Add(ret[1]);
-=======
             ret[0] = new Goal(selfID, 1, Goal.GoalState.die);
             ret[1] = new Goal(selfID, 1, Goal.GoalState.die);
->>>>>>> d62f073d3b46816d6ea42bb1335a0d7014f28d33
+            goals.Add(ret[0]);
+            goals.Add(ret[1]);
             return ret;
         }
 
@@ -126,13 +123,13 @@ public class NetworkManager : MonoBehaviour
         {
             target1 = Random.Range(0, targets.Count - 1);
         }
-        ret[0] = new Goal(selfID, targets[target1], Goal.goalOptions.die);
+        ret[0] = new Goal(selfID, targets[target1], Goal.GoalState.die);
         targets.RemoveAt(target1);
         while (targets[target2] == selfID || targets[target2] == ret[0].id)
         {
             target2 = Random.Range(0, targets.Count - 1);
         }
-        ret[1] = new Goal(selfID, targets[target2], Goal.goalOptions.die); ;
+        ret[1] = new Goal(selfID, targets[target2], Goal.GoalState.die); ;
         targets.RemoveAt(target2);
 
         goals.Add(ret[0]);
