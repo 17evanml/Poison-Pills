@@ -6,20 +6,20 @@ using UnityEngine;
 public class Goal {
     public int myId; //Owning player ID
     public int id; // Target Player ID
-    public enum goalOptions { die, live } // What goals you can be given
-    public goalOptions goal; // Players' goal
+    public enum GoalState { die, live } // What goals you can be given
+    public GoalState goalState; // Players' goal
 
     /// <summary> Representation of a Player Goal. </summary>
     /// <param name="id"> Target Player ID. </param>
     /// <param name="goal"> Current Player Goal. </param>
-    public Goal (int myId, int id, goalOptions goal) {
+    public Goal (int myId, int id, GoalState goal) {
         this.myId = myId;
         this.id = id;
-        this.goal = goal;
+        this.goalState = goal;
     }
 
     public override string ToString()
     {
-        return ($"Goal: Player: {myId}, Target: {id}, goal: {goal.ToString()}");
+        return ($"Goal: Player: {myId}, Target: {id}, goal: {goalState.ToString()}");
     }
 }
