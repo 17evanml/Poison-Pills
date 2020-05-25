@@ -60,7 +60,7 @@ public class PillDisplay : UIBase {
 
     void Update() {
         text_pillCount.text = list_pills.Count.ToString(); // Set PillCount to List's Count
-        DebugTester(); // Only for Debugging Purposes (Uses Q)
+        // DebugTester(); // Only for Debugging Purposes (Uses Q)
     }
 
     /// <summary> The Function being called upon being Clicked </summary>

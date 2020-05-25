@@ -71,11 +71,13 @@ public class ClientHandle : MonoBehaviour
         Debug.Log(goal1);
         Goal goal2 = _packet.ReadGoal();
         //Debug.Log(goal2);
-        GameManager.instance.GetComponent<GoalDisplay>().goal = goal1;
+        GameManager.instance.displayManager.goal_1 = goal1; // Sets the First Goal
+        GameManager.instance.displayManager.goal_2 = goal2; // Sets the Second Goal
         UIManager.instance.GameDisplay.SetActive(true);
-        GameManager.instance.GetComponent<GoalDisplay>().Initialize();
-        Camera.main.GetComponent<CameraManager>().gameStarted = true;
+        GameManager.instance.displayManager.playerCount = GameManager.cursors.Count; // Sets the Number of Displays Needed
         CursorGameManager.Instance.CreateAllCups();
+        GameManager.instance.displayManager.Initialize(); // Calls Initialize in Display Manager
+        Camera.main.GetComponent<CameraManager>().gameStarted = true;
     }
 
     public static void ReceivePill(Packet _packet)
