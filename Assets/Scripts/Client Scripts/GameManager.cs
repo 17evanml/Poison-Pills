@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public GameObject localCursorPrefab;
     public GameObject cursorPrefab;
     public GameObject cupPrefab;
+    public DisplayManager displayManager;
 
     private void Awake()
     {

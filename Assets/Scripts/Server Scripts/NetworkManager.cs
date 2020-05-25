@@ -91,8 +91,8 @@ public class NetworkManager : MonoBehaviour
         //for debug purposes only
         if (players == 1)
         {
-            ret[0] = new Goal(selfID, 1, Goal.goalOptions.die);
-            ret[1] = new Goal(selfID, 1, Goal.goalOptions.die);
+            ret[0] = new Goal(selfID, 1, Goal.GoalState.die);
+            ret[1] = new Goal(selfID, 1, Goal.GoalState.die);
             return ret;
         }
 
@@ -103,13 +103,13 @@ public class NetworkManager : MonoBehaviour
         {
             target1 = Random.Range(0, targets.Count - 1);
         }
-        ret[0] = new Goal(selfID, targets[target1], Goal.goalOptions.die);
+        ret[0] = new Goal(selfID, targets[target1], Goal.GoalState.die);
         targets.RemoveAt(target1);
         while (targets[target2] == selfID)
         {
             target2 = Random.Range(0, targets.Count - 1);
         }
-        ret[1] = new Goal(selfID, targets[target2], Goal.goalOptions.die); ;
+        ret[1] = new Goal(selfID, targets[target2], Goal.GoalState.die); ;
         targets.RemoveAt(target2);
         goals.Add(ret[0]);
         goals.Add(ret[1]);
