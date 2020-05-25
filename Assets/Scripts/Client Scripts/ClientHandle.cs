@@ -114,4 +114,18 @@ public class ClientHandle : MonoBehaviour
             }
         }
     }
+
+    public static void EndRound(Packet _packet)
+    {
+        int players = _packet.ReadInt();
+        int[] points = new int[players];
+        bool[] deaths = new bool[players];
+        for(int i = 0; i < points.Length; i++)
+        {
+            points[i] = _packet.ReadInt();
+            deaths[i] = _packet.ReadBool();
+        }
+        Debug.Log("EndRound Clientside");
+        GameManager.instance.UpdateScores(points);
+    }
 }

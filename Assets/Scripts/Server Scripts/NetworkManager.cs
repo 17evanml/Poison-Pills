@@ -182,5 +182,12 @@ public class NetworkManager : MonoBehaviour
                 playerPoints[goal.myId] += KILLPOINTS;
             }
         }
+
+        UpdatePoints(playerPoints, deaths);
+    }
+
+    public void UpdatePoints(int[] points, bool[] deaths)
+    {
+        ServerSend.EndRound(points, deaths);
     }
 }

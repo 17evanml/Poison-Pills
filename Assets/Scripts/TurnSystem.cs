@@ -52,6 +52,7 @@ public class TurnSystem
 
     public bool[] GetPlayerAuthority(int playerId)
     {
+        //Translate from netcode ID(starting at 1) to internal ID(starting at 0)
         playerId--;
         return playerActions[playerId];
     }
@@ -97,11 +98,15 @@ public class TurnSystem
         else if (round == RoundType.End)
         {
             ResetAuthority(currentPlayer);
-            NetworkManager.instance.CalculatePoints();
+            listener.CalculatePoints();
+            // Debug Only
             for (int i = 0; i < numPlayers; i++)
             {
                 Debug.Log($"Player {i+1}: {NetworkManager.instance.playerPoints[i+1]}");
             }
+            //
+
+
         }
 
         return playerActions[currentPlayer];
@@ -167,7 +172,13 @@ public class TurnSystem
 
     private void NotifyManager(int playerIndex)
     {
+        //Translate from internal ID (starting at 0) to netcode ID (starting at 1)
         playerIndex++;
         listener.PlayerAuthUpdate(playerIndex, playerActions[playerIndex - 1]);
+    }
+
+    private void NotifyManager(int[] points)
+    {
+
     }
 }
