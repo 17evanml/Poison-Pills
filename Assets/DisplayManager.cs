@@ -62,4 +62,20 @@ public class DisplayManager : MonoBehaviour {
     string FormatScore() {
         return null;
     }
+
+    public string tempScore(int[] points)
+    {
+        Debug.Log(points.Length);
+        string tempPoints = "";
+        for (int i = 1; i < points.Length; i++)
+        {
+            Debug.Log($"Index: {i}");
+            tempPoints += GameManager.cursors[i].username;
+            tempPoints += ": ";
+            tempPoints += points[i];
+            tempPoints += "\n";
+        }
+        score.text = tempPoints;
+        return tempPoints;
+    }
 }
