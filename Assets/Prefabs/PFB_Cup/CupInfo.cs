@@ -139,6 +139,7 @@ public class CupInfo : MonoBehaviour
     {
         Debug.Log("addpill cupinfo");
         ClientSend.PlacePill(pill, this);
+        // GameManager.instance.displayManager.pillDisplays[id - 1].AddPill(pill);
         //somehow in server do ur magic
         OffClick();
         CursorGameManager.Instance.NextTurn();
@@ -147,6 +148,7 @@ public class CupInfo : MonoBehaviour
     public void ReceivePill(Pill pill)
     {
         pillStack.Push(pill);
+        GameManager.instance.displayManager.pillDisplays[id - 1].AddPill(pill);
 
     }
 
