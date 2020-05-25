@@ -68,11 +68,13 @@ public class CupInfo : MonoBehaviour
         CursorGameManager.Instance.offClick.onClick.AddListener(OffClick);
 
         //Set the pills 
-        tempFakePill = player.pillFake;
-        tempPoisonPill = player.pillPoison;
+        tempFakePill = player.GetPillFake();
+        tempPoisonPill = player.GetPillPoison();
+        //Debug.Log($"Fake Pill Colors: Pill: {tempFakePill.pillColor}, Player {tempFakePill.playerColor} ");
+        //Debug.Log($"Real Pill Colors: Pill: {tempPoisonPill.pillColor}, Player {tempPoisonPill.playerColor} ");
 
         //Checks that pills are valid
-        if(tempFakePill == null || tempPoisonPill == null)
+        if (tempFakePill == null || tempPoisonPill == null)
         {
             Debug.Log($"One of {player.cursorManager.username}'s pills are invalid");
         }
@@ -94,7 +96,7 @@ public class CupInfo : MonoBehaviour
 
     public void OffClick()
     {
-        Debug.Log($"OFFCLICK: {tempPoisonPill}");
+        //Debug.Log($"OFFCLICK: {tempPoisonPill}");
         //DISABLES UI
         CursorGameManager.Instance.canvas.SetActive(false);
 
@@ -123,7 +125,7 @@ public class CupInfo : MonoBehaviour
 
     public void AddFakePill()
     {
-        Debug.Log($"AddFakePill: {tempFakePill}");
+        //Debug.Log($"AddFakePill: {tempFakePill}");
         if (tempFakePill != null)
         {
             Debug.Log("fakepill is not null");
@@ -138,6 +140,7 @@ public class CupInfo : MonoBehaviour
     public void AddPill(Pill pill)
     {
         Debug.Log("addpill cupinfo");
+        //Debug.Log($"Pill Colors: Pill: {pill.pillColor}, Player {pill.playerColor} ");
         ClientSend.PlacePill(pill, this);
         // GameManager.instance.displayManager.pillDisplays[id - 1].AddPill(pill);
         //somehow in server do ur magic
