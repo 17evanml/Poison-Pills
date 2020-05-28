@@ -76,4 +76,11 @@ public class UIManager : MonoBehaviour
             }
         }
     }
+
+    public void EndHost()
+    {
+        NetworkManager.instance.ServerClose();
+        Server.clients.Clear();
+        SceneManager.UnloadSceneAsync(1);
+    }
 }
