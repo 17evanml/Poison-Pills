@@ -134,4 +134,11 @@ public class Server
             };
         //Debug.Log("Initialized packets.");
     }
+
+    public static void Close()
+    {
+        clients.Clear();
+        udpListener.Close();
+        tcpListener.Stop();
+    }
 }

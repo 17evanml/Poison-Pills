@@ -307,14 +307,15 @@ public class Client : MonoBehaviour
             {(int)ServerPackets.receivePill, ClientHandle.ReceivePill},
             {(int)ServerPackets.updateAuthority, ClientHandle.UpdateAuthority},
             {(int)ServerPackets.startTurn, ClientHandle.StartTurn},
-            {(int)ServerPackets.endRound, ClientHandle.EndRound}
+            {(int)ServerPackets.endRound, ClientHandle.EndRound},
+            {(int)ServerPackets.serverClose, ClientHandle.serverClose}
 
         };
         Debug.Log("Initialized packets.");
     }
 
     /// <summary>Disconnects from the server and stops all network traffic.</summary>
-    private void Disconnect()
+    public void Disconnect()
     {
         if (isConnected)
         {
