@@ -128,4 +128,16 @@ public class ClientHandle : MonoBehaviour
         Debug.Log("EndRound Clientside");
         GameManager.instance.UpdateScores(points);
     }
+
+    public static void serverClose(Packet _packet)
+    {
+        for(int i = 1; i <= GameManager.cursors.Count; i++)
+        {
+            Destroy(GameManager.cursors[i].gameObject);
+            //Destroy(GameManager.cups[i]);
+        }
+        GameManager.cursors.Clear();
+
+        Client.instance.Disconnect();
+    }
 }
