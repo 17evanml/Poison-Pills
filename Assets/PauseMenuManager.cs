@@ -21,20 +21,24 @@ public class PauseMenuManager : MonoBehaviour {
 
         DontDestroyOnLoad(gameObject); // AudioManager transfers between Scenes
 
-        if (SceneManager.GetActiveScene().name == "SCN_StartMenu") {
-            background.SetActive(false);
-        } else {
-            background.SetActive(true);
-            inGame = true;
-            options.SetActive(true);
-            options.GetComponent<RectTransform>().localScale = Vector3.zero;
-        }
+        // if (SceneManager.GetActiveScene().name == "SCN_StartMenu") {
+        //     background.SetActive(false);
+        // } else {
+        //     background.SetActive(true);
+        //     inGame = true;
+        //     options.SetActive(true);
+        //     options.GetComponent<RectTransform>().localScale = Vector3.zero;
+        // }
     }
 
     // Update is called once per frame
     void Update() {
+        if (Input.GetKeyDown(KeyCode.A)) {
+            Initialize(true);
+        }
+
         if (inGame) {
-            if (Input.GetKeyDown(KeyCode.Escape)) {
+            if (Input.GetKeyDown(KeyCode.U)) {
                 if (!optionOpen) {
                     LeanTween.scale(options, new Vector3(0.5f, 0.5f, 0.5f), 1f).setEase(LeanTweenType.easeInOutElastic);
                     optionOpen = !optionOpen;
@@ -43,6 +47,17 @@ public class PauseMenuManager : MonoBehaviour {
                     optionOpen = !optionOpen;
                 }
             }
+        }
+    }
+
+    void Initialize(bool isInGame) {
+        inGame = isInGame;
+        background.SetActive(isInGame);
+        options.SetActive(isInGame);
+        if (isInGame) {
+            options.GetComponent<RectTransform>().localScale = Vector3.zero;
+        } else {
+            options.GetComponent<RectTransform>().localScale = Vector3.one * 0.5f;
         }
     }
 }
