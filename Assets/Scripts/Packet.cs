@@ -16,6 +16,7 @@ public enum ServerPackets
     updateAuthority,
     startTurn,
     endRound,
+    serverClose,
 }
 
 /// <summary>Sent from client to server.</summary>

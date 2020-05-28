@@ -72,6 +72,15 @@ public class NetworkManager : MonoBehaviour
         players--;
     }
 
+    public void CloseServer()
+    {
+        for (int i = 0; i < Server.clients.Count; i++)
+        {
+            Server.clients[i].tcp.Disconnect();
+        }
+
+    }
+
     public void AdvanceTurn()
     {
         Debug.Log("Advance");
@@ -109,8 +118,6 @@ public class NetworkManager : MonoBehaviour
                 ret[0] = new Goal(selfID, 1, Goal.GoalState.die);
                 ret[1] = new Goal(selfID, 1, Goal.GoalState.die);
             }
-            ret[0] = new Goal(selfID, 1, Goal.GoalState.die);
-            ret[1] = new Goal(selfID, 1, Goal.GoalState.die);
             goals.Add(ret[0]);
             goals.Add(ret[1]);
             return ret;
@@ -135,7 +142,7 @@ public class NetworkManager : MonoBehaviour
 
         goals.Add(ret[0]);
         goals.Add(ret[1]);
-        foreach(Goal goal in goals)
+        foreach (Goal goal in goals)
         {
             Debug.Log(goal);
         }
@@ -175,9 +182,11 @@ public class NetworkManager : MonoBehaviour
 
         foreach (Goal goal in goals)
         {
-            if(goal.goalState.Equals(Goal.GoalState.die) && deaths[goal.id]) {
+            if (goal.goalState.Equals(Goal.GoalState.die) && deaths[goal.id])
+            {
                 playerPoints[goal.myId] += KILLPOINTS;
-            } else if(goal.goalState.Equals(Goal.GoalState.live) && !deaths[goal.id])
+            }
+            else if (goal.goalState.Equals(Goal.GoalState.live) && !deaths[goal.id])
             {
                 playerPoints[goal.myId] += KILLPOINTS;
             }
@@ -189,5 +198,18 @@ public class NetworkManager : MonoBehaviour
     public void UpdatePoints(int[] points, bool[] deaths)
     {
         ServerSend.EndRound(points, deaths);
+    }
+
+    public void ServerClose()
+    {
+        ServerSend.ServerClose();
+        for (int i = 1; i <= players; i++)
+        {
+            if (Server.clients[i] != null)
+            {
+                Destroy(Server.clients[i].cursor.gameObject);
+            }
+        }
+        Server.Close();
     }
 }
