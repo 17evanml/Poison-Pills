@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
     public InputField usernameField;
     public InputField ipField;
     public InputField portField;
+    public RevealManager revealManager;
     //public Button beginGame;
     //public Button selfConnect;
 
