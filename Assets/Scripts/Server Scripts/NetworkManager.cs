@@ -72,6 +72,7 @@ public class NetworkManager : MonoBehaviour
         players--;
     }
 
+
     public void CloseServer()
     {
         for (int i = 0; i < Server.clients.Count; i++)
@@ -118,6 +119,8 @@ public class NetworkManager : MonoBehaviour
                 ret[0] = new Goal(selfID, 1, Goal.GoalState.die);
                 ret[1] = new Goal(selfID, 1, Goal.GoalState.die);
             }
+            ret[0] = new Goal(selfID, 1, Goal.GoalState.die);
+            ret[1] = new Goal(selfID, 1, Goal.GoalState.die);
             goals.Add(ret[0]);
             goals.Add(ret[1]);
             return ret;
