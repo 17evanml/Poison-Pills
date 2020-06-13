@@ -14,28 +14,27 @@ public class RevealManager : MonoBehaviour {
         
     }
 
-    void Initialize() {
-        goal1.text = GameManager.instance.displayManager.goal_1.ToString();
-        goal2.text = GameManager.instance.displayManager.goal_2.ToString(); 
+    public void Initialize() {
+        goal1.text = GameManager.cursors[GameManager.instance.displayManager.goal_1.id].username;
+        goal2.text = GameManager.cursors[GameManager.instance.displayManager.goal_2.id].username;; 
     }
 
     // Update is called once per frame
     void Update() {
-        if (Input.GetKeyDown(KeyCode.Escape)) {
-            goal1.GetComponentInParent<Button>().gameObject.SetActive(true);
-            goal2.GetComponentInParent<Button>().gameObject.SetActive(true);
-        } else if (Input.GetKeyUp(KeyCode.Escape)) {
-            goal1.GetComponentInParent<Button>().gameObject.SetActive(false);
-            goal2.GetComponentInParent<Button>().gameObject.SetActive(false);
-        }
+        // if (Input.GetKeyDown(KeyCode.Escape)) {
+        //     goal1.GetComponentInParent<Button>().gameObject.SetActive(true);
+        //     goal2.GetComponentInParent<Button>().gameObject.SetActive(true);
+        // } else if (Input.GetKeyUp(KeyCode.Escape)) {
+        //     goal1.GetComponentInParent<Button>().gameObject.SetActive(false);
+        //     goal2.GetComponentInParent<Button>().gameObject.SetActive(false);
+        // }
     }
 
-    void OnClick(bool right) {
+    public void OnClick(bool right) {
+        currentGoals.text += GameManager.cursors[Client.instance.myId].username + ": ";
         if (right) {
-            currentGoals.text += GameManager.cups[GameManager.instance.displayManager.goal_2.myId] + ": ";
             currentGoals.text += goal2.text + "\n";
         } else {
-            currentGoals.text += GameManager.cups[GameManager.instance.displayManager.goal_1.myId] + ": ";
             currentGoals.text += goal1.text + "\n";
         }
         goal1.GetComponentInParent<Button>().gameObject.SetActive(false);
