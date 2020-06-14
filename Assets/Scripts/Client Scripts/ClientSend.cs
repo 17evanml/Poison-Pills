@@ -63,7 +63,7 @@ public class ClientSend : MonoBehaviour
 
     }
 
-    public static void RevealTarget(int _target)
+    public static void RevealTarget(Goal _target)
     {
         Debug.Log("Send Reveal packet");
         using (Packet _packet = new Packet((int)ClientPackets.revealTarget))

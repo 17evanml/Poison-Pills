@@ -53,7 +53,7 @@ public class ServerHandle
     public static void RevealTarget(int _fromClient, Packet _packet)
     {
         int _clientIdCheck = _packet.ReadInt();
-        int _target = _packet.ReadInt();
+        Goal _goal = _packet.ReadGoal();
         //Debug.Log("Reveal");
         if (_fromClient != _clientIdCheck)
         {
@@ -66,7 +66,7 @@ public class ServerHandle
         else
         {
             Debug.Log("Reveal");
-            //Server.clients[_cupId].cup.AddPill(_pill);
+            ServerSend.RevealTarget(_fromClient, _goal);
             NetworkManager.instance.AdvanceTurn();
         }
 

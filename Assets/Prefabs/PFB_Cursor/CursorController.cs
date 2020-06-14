@@ -101,7 +101,6 @@ public class CursorController : MonoBehaviour
             {
                 if (authorities[(int)Actions.Reveal])
                 {
-                    ClientSend.RevealTarget(1);
                 }
                 else
                 {

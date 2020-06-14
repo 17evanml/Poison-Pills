@@ -76,7 +76,7 @@ public class ClientHandle : MonoBehaviour
         UIManager.instance.GameDisplay.SetActive(true);
         GameManager.instance.displayManager.playerCount = GameManager.cursors.Count; // Sets the Number of Displays Needed
         CursorGameManager.Instance.CreateAllCups();
-        GameManager.instance.displayManager.Initialize(); // Calls Initialize in Display Manager
+        UIManager.instance.InitializeGoals(); // Calls Initialize in Display Manager
         UIManager.instance.revealManager.Initialize(); // Calls Initialize on Reveal Manager
         Camera.main.GetComponent<CameraManager>().gameStarted = true;
     }
@@ -141,5 +141,10 @@ public class ClientHandle : MonoBehaviour
         GameManager.cursors.Clear();
 
         Client.instance.Disconnect();
+    }
+
+    public static void revealTarget(Packet _packet)
+    {
+        Goal goal = _packet.ReadGoal();
     }
 }
