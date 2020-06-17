@@ -39,9 +39,14 @@ public class UIManager : MonoBehaviour
     public Vector2 offset; // Offset for each Display Prefab from the Cup
     public Canvas canvas; // Reference to the Canvas
 
+    [Header("Reveal Canvas References")]
+    public TMP_Text currentGoals;
+    public TMP_Text goal1;
+    public TMP_Text goal2;
+
     //public Button beginGame;
     //public Button selfConnect;
-
+    #region Start Menu Button Functions
     private void Awake()
     {
         if (instance == null)
@@ -109,7 +114,9 @@ public class UIManager : MonoBehaviour
         Server.clients.Clear();
         SceneManager.UnloadSceneAsync(1);
     }
+    #endregion
 
+    #region Goal and score UI
     ///<summary> Initializes the UI for the Player for goal text and score text.</summary>
     public void InitializeGoals()
     {
@@ -170,4 +177,34 @@ public class UIManager : MonoBehaviour
         score.text = tempPoints;
         return tempPoints;
     }
+    #endregion
+
+    #region Reveal UI
+    public void InitializeRevealButtons()
+    {  
+        //this is a terrible way to do this. Arjun and Evan should talk about the best way to solve this.
+        goal1.GetComponentInParent<Button>().onClick.AddListener(() => { OnRevealClick(false);});
+        goal2.GetComponentInParent<Button>().onClick.AddListener(() => { OnRevealClick(true);});
+        goal1.text = GameManager.cursors[goal_1.id].username;
+        goal2.text = GameManager.cursors[goal_2.id].username;
+    }
+    
+
+    public void OnRevealClick(bool right)
+    {
+        currentGoals.text += GameManager.cursors[Client.instance.myId].username + ": ";
+        if (right)
+        {
+            currentGoals.text += goal2.text + "\n";
+        }
+        else
+        {
+            currentGoals.text += goal1.text + "\n";
+        }
+        goal1.GetComponentInParent<Button>().gameObject.SetActive(false);
+        goal2.GetComponentInParent<Button>().gameObject.SetActive(false);
+        // Initialize Next UI
+        // Talk to Evan if we should seperate the 2 UI Canvas
+    }
+    #endregion
 }

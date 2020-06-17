@@ -71,13 +71,13 @@ public class ClientHandle : MonoBehaviour
         Debug.Log(goal1);
         Goal goal2 = _packet.ReadGoal();
         //Debug.Log(goal2);
-        GameManager.instance.displayManager.goal_1 = goal1; // Sets the First Goal
-        GameManager.instance.displayManager.goal_2 = goal2; // Sets the Second Goal
+        UIManager.instance.goal_1 = goal1; // Sets the First Goal
+        UIManager.instance.goal_2 = goal2; // Sets the Second Goal
         UIManager.instance.GameDisplay.SetActive(true);
-        GameManager.instance.displayManager.playerCount = GameManager.cursors.Count; // Sets the Number of Displays Needed
+        UIManager.instance.playerCount = GameManager.cursors.Count; // Sets the Number of Displays Needed
         CursorGameManager.Instance.CreateAllCups();
         UIManager.instance.InitializeGoals(); // Calls Initialize in Display Manager
-        UIManager.instance.revealManager.Initialize(); // Calls Initialize on Reveal Manager
+        UIManager.instance.InitializeRevealButtons(); // Calls Initialize on Reveal Manager
         Camera.main.GetComponent<CameraManager>().gameStarted = true;
     }
 

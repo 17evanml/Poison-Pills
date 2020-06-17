@@ -15,8 +15,8 @@ public class RevealManager : MonoBehaviour {
     }
 
     public void Initialize() {
-        goal1.text = GameManager.cursors[GameManager.instance.displayManager.goal_1.id].username;
-        goal2.text = GameManager.cursors[GameManager.instance.displayManager.goal_2.id].username;; 
+        goal1.text = GameManager.cursors[UIManager.instance.goal_1.id].username;
+        goal2.text = GameManager.cursors[UIManager.instance.goal_2.id].username;
     }
 
     // Update is called once per frame
