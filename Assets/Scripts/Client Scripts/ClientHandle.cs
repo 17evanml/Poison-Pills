@@ -130,6 +130,7 @@ public class ClientHandle : MonoBehaviour
         GameManager.instance.UpdateScores(points);
     }
 
+
     public static void serverClose(Packet _packet)
     {
         for(int i = 1; i <= GameManager.cursors.Count; i++)
