@@ -201,5 +201,15 @@ public class ServerSend
         }
     }
 
+    public static void RevealTarget(int fromPlayer, Goal _goal)
+    {   
+        using (Packet _packet = new Packet((int)ServerPackets.revealTarget))
+        {
+            _packet.Write(_goal);
+            SendTCPDataToAll(fromPlayer, _packet);
+        }
+
+    }
+
     #endregion
 }

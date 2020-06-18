@@ -308,7 +308,8 @@ public class Client : MonoBehaviour
             {(int)ServerPackets.updateAuthority, ClientHandle.UpdateAuthority},
             {(int)ServerPackets.startTurn, ClientHandle.StartTurn},
             {(int)ServerPackets.endRound, ClientHandle.EndRound},
-            {(int)ServerPackets.serverClose, ClientHandle.serverClose}
+            {(int)ServerPackets.serverClose, ClientHandle.serverClose},
+            {(int)ServerPackets.revealTarget, ClientHandle.revealTarget}
 
         };
         Debug.Log("Initialized packets.");

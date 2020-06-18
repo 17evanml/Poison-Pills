@@ -17,6 +17,7 @@ public enum ServerPackets
     startTurn,
     endRound,
     serverClose,
+    revealTarget
 }
 
 /// <summary>Sent from client to server.</summary>
