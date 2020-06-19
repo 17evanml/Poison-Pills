@@ -63,7 +63,7 @@ public class CursorGameManager : MonoBehaviour
             c.Initialize(cm.id, cm.name, cm.cursorColor);
             c.color = cm.cursorColor;
         }
-        CupManager.Instance.AddCup(c);
+        GameManager.instance.AddCup(c);
     }
 
     public void CreateAllCups()

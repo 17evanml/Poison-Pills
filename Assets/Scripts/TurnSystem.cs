@@ -41,7 +41,7 @@ public class TurnSystem
             }
         }
         currentPlayer = 0;
-        Debug.Log((int)Actions.Reveal);
+        //Debug.Log((int)Actions.Reveal);
         playerActions[0][(int)Actions.Reveal] = true;
         NotifyManager(0);
         for (int i = 0; i < numPlayers; i++)
@@ -68,7 +68,7 @@ public class TurnSystem
         {
             ResetAuthority(currentPlayer);
             NextPlayer();
-            Debug.Log(currentPlayer);
+            //Debug.Log(currentPlayer);
             if (currentPlayer == 0)
             {
                 AdvanceRound();
@@ -81,7 +81,7 @@ public class TurnSystem
         }
         else if (round == RoundType.Place)
         {
-            Debug.Log(round);
+            //Debug.Log(round);
             ResetAuthority(currentPlayer);
             NextPlayerBanana();
             if (currentPlayer < 0)
@@ -99,12 +99,12 @@ public class TurnSystem
         {
             ResetAuthority(currentPlayer);
             listener.CalculatePoints();
-            // Debug Only
+            /*// Debug Only
             for (int i = 0; i < numPlayers; i++)
             {
                 Debug.Log($"Player {i+1}: {NetworkManager.instance.playerPoints[i+1]}");
             }
-            //
+            */
 
 
         }
@@ -114,7 +114,7 @@ public class TurnSystem
 
     private void ResetAuthority(int playerIndex)
     {
-        Debug.Log($"resetting authority for player {playerIndex}");
+        Debug.Log($"resetting authority for player {playerIndex+1}");
         for (int i = 0; i < playerActions[playerIndex].Length; i++)
         {
             playerActions[playerIndex][i] = false;

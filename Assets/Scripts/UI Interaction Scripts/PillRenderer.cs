@@ -16,12 +16,12 @@ public class PillRenderer : MonoBehaviour {
         // Debug.Log(topCapsule.color);
         bottomCapsule.color = pill.playerColor;
         topCapsule.color = pill.pillColor;
-        Debug.Log("BOTTOM COLOR: " + pill.playerColor);
-        Debug.Log("TOP COLOR: " + pill.pillColor);
+        //Debug.Log("BOTTOM COLOR: " + pill.playerColor);
+        //Debug.Log("TOP COLOR: " + pill.pillColor);
 
 
-        Debug.Log("TOP COLOR 2: " + topCapsule.color);
-        Debug.Log("BOTTOM COLOR 2: " + bottomCapsule.color);
+        //Debug.Log("TOP COLOR 2: " + topCapsule.color);
+        //Debug.Log("BOTTOM COLOR 2: " + bottomCapsule.color);
     }
 
     /// <summary> Debug Test Pill Renderer GameObject </summary>
