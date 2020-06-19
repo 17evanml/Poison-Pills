@@ -34,7 +34,7 @@ public class CursorManager : MonoBehaviour
         if (true) //change this to debug manager later
         {
             GUI.color = Color.black;
-            GUI.Label(new Rect(tempPos.x - (cursorSize / 2), tempPos.y + (cursorSize / 2), cursorSize, cursorSize), username, CursorGameManager.Instance.textStyle);
+            GUI.Label(new Rect(tempPos.x - (cursorSize / 2), tempPos.y + (cursorSize / 2), cursorSize, cursorSize), username, GameManager.instance.textStyle);
         }
         
 

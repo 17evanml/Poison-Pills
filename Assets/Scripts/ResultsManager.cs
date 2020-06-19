@@ -38,7 +38,7 @@ public class ResultsManager : MonoBehaviour {
     ///<summary> Sets the size of all UI elements. </summary>
     ///<param name="scaleVector"> The Local Scale that all UI Elements should be set to </param>
     private void SetUISize(CupInfo cupInfo, Vector3 scaleVector) {
-        UI_pillDisplay = GameManager.instance.displayManager.pillDisplays[cupInfo.id - 1]; // Sets the Correct Cup Display based on CupInfo
+        UI_pillDisplay = UIManager.instance.pillDisplays[cupInfo.id - 1]; // Sets the Correct Cup Display based on CupInfo
         IMG_playerSprite.rectTransform.localScale = scaleVector; // Sets the Player Sprite's Scale
         TMP_playerName.rectTransform.localScale = scaleVector; // Sets the Player Name's Scale
         TMP_resultHeader.rectTransform.localScale = scaleVector; // Sets the Result Header's Scale

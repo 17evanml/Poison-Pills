@@ -24,10 +24,9 @@ public class ClientHandle : MonoBehaviour
         string _username = _packet.ReadString();
         Vector3 _position = _packet.ReadVector3();
         Quaternion _rotation = _packet.ReadQuaternion();
-        Debug.Log("Receiving the color");
+        //Debug.Log("Receiving the color");
         Color32 _cursorColor = _packet.ReadColor();
-        Debug.Log(_cursorColor);
-        //int pillColor = Random.Range(0, 2);
+        //Debug.Log(_cursorColor);
         Color32 _pill1Color = _packet.ReadColor();
         //Debug.Log(_pill1Color);
         Color32 _pill2Color = _packet.ReadColor();
@@ -68,14 +67,14 @@ public class ClientHandle : MonoBehaviour
     {
         //Add cups to cupmanager
         Goal goal1 = _packet.ReadGoal();
-        Debug.Log(goal1);
+        //Debug.Log(goal1);
         Goal goal2 = _packet.ReadGoal();
         //Debug.Log(goal2);
         UIManager.instance.goal_1 = goal1; // Sets the First Goal
         UIManager.instance.goal_2 = goal2; // Sets the Second Goal
         UIManager.instance.GameDisplay.SetActive(true);
         UIManager.instance.playerCount = GameManager.cursors.Count; // Sets the Number of Displays Needed
-        CursorGameManager.Instance.CreateAllCups();
+        GameManager.instance.CreateAllCups();
         UIManager.instance.InitializeGoals(); // Calls Initialize in Display Manager
         UIManager.instance.InitializeRevealButtons(); // Calls Initialize on Reveal Manager
         Camera.main.GetComponent<CameraManager>().gameStarted = true;
@@ -85,7 +84,7 @@ public class ClientHandle : MonoBehaviour
     {
         int _id = _packet.ReadInt();
         Pill _pill = _packet.ReadPill();
-        CupManager.Instance.cupInfos[_id].ReceivePill(_pill);
+        GameManager.cups[_id].ReceivePill(_pill);
     }
 
     public static void UpdateAuthority(Packet _packet)

@@ -2,21 +2,44 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Client Object dictionaries")]
     public static GameManager instance;
 
     public static Dictionary<int, CursorManager> cursors = new Dictionary<int, CursorManager>();
     public static Dictionary<int, CupInfo> cups = new Dictionary<int, CupInfo>();
 
+    [Header("Client objects")]
     public GameObject localCursorPrefab;
     public GameObject cursorPrefab;
     public GameObject cupPrefab;
-    public DisplayManager displayManager;
 
+    [Header("Client side buttons")]
+    public GameObject canvas;
+    public RectTransform canvasRectTransform;
+    public RectTransform buttonParent;
+    public Button offClick;
+    public Button poisonClick;
+    public Button fakeClick;
+    public Vector2 offset;
+
+    public GUIStyle textStyle;
+
+    [Header("Cup placement")]
+    [SerializeField]
+    private Vector3 origin;
+    [SerializeField]
+    private float radius = 5f;
+
+
+    #region GameManager
     private void Awake()
     {
+        canvas.SetActive(true);
+        canvas.SetActive(false);
         if (instance == null)
         {
             instance = this;
@@ -57,12 +80,116 @@ public class GameManager : MonoBehaviour
 
     public void UpdateScores(int[] scores)
     {
-        Debug.Log("Update!");
-        displayManager.tempScore(scores);
+        //Debug.Log("Update!");
+        UIManager.instance.tempScore(scores);
     }
 
     public void Disconnect()
     {
         SceneManager.LoadScene(0, LoadSceneMode.Single);
     }
+    #endregion
+
+    #region CursorGameManger
+    public void SwapPillPosition()
+    {
+        if (Random.Range(0, 2) == 1)
+        {
+            Debug.Log("Randomly swapping pill position.");
+            Vector3 temp = poisonClick.transform.position;
+            poisonClick.transform.position = fakeClick.transform.position;
+            fakeClick.transform.position = temp;
+        }
+    }
+
+    private void CreateCup(CursorManager cm)
+    {
+        GameObject g = Instantiate(cupPrefab);
+
+        // // This Part does not do anything
+        // Debug.Log("Before: " + g.GetComponent<Renderer>().materials[0].color);
+        // g.GetComponent<Renderer>().materials[0].color = cm.cursorColor;
+        // Debug.Log("After: " + g.GetComponent<Renderer>().materials[0].color);
+
+        // This part Sets the Entire Mesh to be one Color
+        var block = new MaterialPropertyBlock();
+        block.SetColor("_BaseColor", cm.cursorColor);
+        g.GetComponent<Renderer>().SetPropertyBlock(block);
+
+        CupInfo c = g.GetComponent<CupInfo>();
+        if (c)
+        {
+            c.Initialize(cm.id, cm.name, cm.cursorColor);
+            c.color = cm.cursorColor;
+        }
+        GameManager.instance.AddCup(c);
+    }
+
+    public void CreateAllCups()
+    {
+        foreach (CursorManager cm in cursors.Values)
+        {
+            CreateCup(cm);
+        }
+
+    }
+
+    public void NextTurn()
+    {
+        //this needs to be called for all players
+    }
+    #endregion
+
+    #region CupGameManger
+    public void AddCup(CupInfo cup)
+    {
+        if (cup == null)
+        {
+            Debug.LogError("null parameter in AddCup");
+            return;
+        }
+
+        cups.Add(cup.id, cup);
+        RepositionCups();
+    }
+
+    public void RemoveCup(CupInfo cup)
+    {
+        if (cup == null)
+        {
+            Debug.LogError("null parameter in RemoveCup");
+            return;
+        }
+
+        cups.Remove(cup.id);
+        Destroy(cup.transform.gameObject);
+        RepositionCups();
+    }
+
+    private void RepositionCups()
+    {
+        if (cups.Count == 0)
+        {
+            return;
+        }
+
+        //Calculate the position for all the cups
+        float cupAngle = 180f / (cups.Count + 1f);
+        int index = 1;
+        float d2r = Mathf.PI / 180f;
+
+        foreach (CupInfo c in cups.Values)
+        {
+            c.transform.position = origin + new Vector3(Mathf.Cos(cupAngle * index * d2r), 0, Mathf.Sin(cupAngle * index * d2r)) * radius;
+            index++;
+        }
+    }
+
+
+    public int Count()
+    {
+        return cups.Count;
+    }
+
+    #endregion
 }

@@ -54,7 +54,6 @@ public class NetworkManager : MonoBehaviour
 
     public void BeginGame()
     {
-        Debug.Log("players");
         turnSystem = new TurnSystem(players, this);
         GenerateTargets();
         playerPoints = new int[players + 1];
@@ -84,7 +83,7 @@ public class NetworkManager : MonoBehaviour
 
     public void AdvanceTurn()
     {
-        Debug.Log("Advance");
+        //Debug.Log("Advance");
         turnSystem.AdvanceTurn();
         ServerSend.StartTurn(turnSystem.GetCurrentPlayer());
     }
@@ -157,7 +156,7 @@ public class NetworkManager : MonoBehaviour
         targets = new List<int>();
         for (int i = 1; i <= players; i++)
         {
-            Debug.Log(i);
+            //Debug.Log(i);
             for (int j = 0; j < 4; j++)
             {
                 targets.Add(i);
@@ -176,7 +175,7 @@ public class NetworkManager : MonoBehaviour
         for (int i = 1; i <= players; i++)
         {
             deaths[i] = !Server.clients[i].cup.isAlive();
-            Debug.Log($"Player: {i} is {deaths[i]}");
+            //Debug.Log($"Player: {i} is {deaths[i]}");
             if (!deaths[i])
             {
                 playerPoints[i] += SURIVIALPOINTS;

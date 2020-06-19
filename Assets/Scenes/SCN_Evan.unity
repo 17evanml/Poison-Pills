@@ -502,8 +502,6 @@ GameObject:
   m_Component:
   - component: {fileID: 177935362}
   - component: {fileID: 177935361}
-  - component: {fileID: 177935360}
-  - component: {fileID: 177935359}
   - component: {fileID: 177935358}
   m_Layer: 0
   m_Name: GameManager
@@ -525,7 +523,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goalText: {fileID: 463967517}
---- !u!114 &177935359
+--- !u!114 &177935361
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -534,17 +532,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 177935357}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6fe99ee88f46b47478ebb45ec53744ff, type: 3}
+  m_Script: {fileID: 11500000, guid: d5c2e6f206a664d219be4429f0eb61cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testCup: {fileID: 8333167640950184519, guid: f4f76a566870c4f778baaa519fc387af, type: 3}
+  localCursorPrefab: {fileID: 8400364188618401973, guid: c38d109a3d9c345afa07e4a33c6197dc,
+    type: 3}
+  cursorPrefab: {fileID: 1403198803876973213, guid: 7d02573e77b3256418cdb1fb69c5774a,
+    type: 3}
+  cupPrefab: {fileID: 8333167640950184519, guid: f4f76a566870c4f778baaa519fc387af,
+    type: 3}
   canvas: {fileID: 1008997737}
   canvasRectTransform: {fileID: 1008997736}
   buttonParent: {fileID: 1008997735}
   offClick: {fileID: 1008997734}
   poisonClick: {fileID: 1008997733}
   fakeClick: {fileID: 1008997732}
-  offset: {x: 0, y: 55}
+  offset: {x: 0, y: 0}
   textStyle:
     m_Name: 
     m_Normal:
@@ -600,9 +603,9 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 0}
-    m_FontSize: 30
+    m_FontSize: 0
     m_FontStyle: 0
-    m_Alignment: 1
+    m_Alignment: 0
     m_WordWrap: 0
     m_RichText: 1
     m_TextClipping: 0
@@ -612,39 +615,8 @@ MonoBehaviour:
     m_FixedHeight: 0
     m_StretchWidth: 1
     m_StretchHeight: 0
---- !u!114 &177935360
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 177935357}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bfe38a07d54833148a556ebf920ad368, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   origin: {x: 0, y: 2.3, z: -3}
   radius: 2.32
---- !u!114 &177935361
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 177935357}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5c2e6f206a664d219be4429f0eb61cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  localCursorPrefab: {fileID: 8400364188618401973, guid: c38d109a3d9c345afa07e4a33c6197dc,
-    type: 3}
-  cursorPrefab: {fileID: 1403198803876973213, guid: 7d02573e77b3256418cdb1fb69c5774a,
-    type: 3}
-  cupPrefab: {fileID: 2359417681267865306, guid: f1a8946eaebafad4983e1107e1f6a572,
-    type: 3}
-  displayManager: {fileID: 0}
 --- !u!4 &177935362
 Transform:
   m_ObjectHideFlags: 0
@@ -1477,7 +1449,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1443717471}
+      - m_Target: {fileID: 0}
         m_MethodName: 
         m_Mode: 1
         m_Arguments:
@@ -2722,7 +2694,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1443717471}
+      - m_Target: {fileID: 0}
         m_MethodName: 
         m_Mode: 1
         m_Arguments:
@@ -6038,7 +6010,6 @@ GameObject:
   - component: {fileID: 1443717474}
   - component: {fileID: 1443717473}
   - component: {fileID: 1443717472}
-  - component: {fileID: 1443717471}
   m_Layer: 5
   m_Name: Reveal_Canvas
   m_TagString: Untagged
@@ -6046,21 +6017,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1443717471
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1443717470}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fda2cafffcd24f8aab0fd6dbbef0dc4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentGoals: {fileID: 362361151}
-  goal1: {fileID: 2135257762}
-  goal2: {fileID: 1543846343}
 --- !u!114 &1443717472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7955,7 +7911,7 @@ MonoBehaviour:
   usernameField: {fileID: 1364526355}
   ipField: {fileID: 2040161563}
   portField: {fileID: 1906760044}
-  revealManager: {fileID: 1443717471}
+  revealManager: {fileID: 0}
   text_goal_1: {fileID: 567461879}
   text_goal_2: {fileID: 552596971}
   score: {fileID: 1950047116}
