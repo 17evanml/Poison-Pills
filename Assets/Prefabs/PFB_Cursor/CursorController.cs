@@ -10,7 +10,6 @@ public class CursorController : MonoBehaviour
 
     public CursorManager cursorManager;
 
-    public CupManager cupManager;
     public GameObject cup;
     private CupInfo oldCup;
 

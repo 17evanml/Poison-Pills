@@ -132,12 +132,12 @@ public class UIManager : MonoBehaviour
             newDisplay.transform.parent = canvas.gameObject.transform; // Puts it in the Canvas
 
             // Sets the Position of the Button in the Canvas
-            Vector2 objPos = Camera.main.WorldToScreenPoint(CupManager.Instance.cupInfos[i].transform.position);
+            Vector2 objPos = Camera.main.WorldToScreenPoint(GameManager.cups[i].transform.position);
             objPos = objPos - canvas.GetComponent<RectTransform>().anchoredPosition + offset;
             newDisplay.GetComponent<RectTransform>().anchoredPosition = objPos;
 
             pillDisplays.Add(newDisplay.GetComponent<PillDisplay>()); // Adds the Pill Display to the List
-            pillDisplays[i - 1].color_fill = CupManager.Instance.cupInfos[i].color; // Changes the Color of the Pill Prefab to match the Player
+            pillDisplays[i - 1].color_fill = GameManager.cups[i].color; // Changes the Color of the Pill Prefab to match the Player
         }
     }
 
@@ -164,11 +164,11 @@ public class UIManager : MonoBehaviour
 
     public string tempScore(int[] points)
     {
-        Debug.Log(points.Length);
+        //Debug.Log(points.Length);
         string tempPoints = "";
         for (int i = 1; i < points.Length; i++)
         {
-            Debug.Log($"Index: {i}");
+            //Debug.Log($"Index: {i}");
             tempPoints += GameManager.cursors[i].username;
             tempPoints += ": ";
             tempPoints += points[i];
@@ -196,10 +196,12 @@ public class UIManager : MonoBehaviour
         if (right)
         {
             currentGoals.text += goal2.text + "\n";
+            ClientSend.RevealTarget(goal_1);
         }
         else
         {
             currentGoals.text += goal1.text + "\n";
+            ClientSend.RevealTarget(goal_2);
         }
         goal1.GetComponentInParent<Button>().gameObject.SetActive(false);
         goal2.GetComponentInParent<Button>().gameObject.SetActive(false);

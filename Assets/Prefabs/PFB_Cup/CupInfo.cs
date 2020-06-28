@@ -65,7 +65,7 @@ public class CupInfo : MonoBehaviour
         Debug.Log($"{player.cursorManager.username} continued OnClick for {username}'s cup");
 
         //Add offclick to background
-        CursorGameManager.Instance.offClick.onClick.AddListener(OffClick);
+        GameManager.instance.offClick.onClick.AddListener(OffClick);
 
         //Set the pills 
         tempFakePill = player.GetPillFake();
@@ -80,39 +80,39 @@ public class CupInfo : MonoBehaviour
         }
 
         //Swap button position randomly
-        CursorGameManager.Instance.SwapPillPosition();
+        GameManager.instance.SwapPillPosition();
 
         //Center the buttons
         Vector2 objPos = Camera.main.WorldToScreenPoint(transform.position);
 
         //Enable the canvas
-        CursorGameManager.Instance.canvas.SetActive(true);
+        GameManager.instance.canvas.SetActive(true);
 
         //Add listeners
-        CursorGameManager.Instance.poisonClick.onClick.AddListener(AddPoisonPill);
-        CursorGameManager.Instance.fakeClick.onClick.AddListener(AddFakePill);
-        CursorGameManager.Instance.buttonParent.anchoredPosition = objPos - CursorGameManager.Instance.canvasRectTransform.anchoredPosition + CursorGameManager.Instance.offset;
+        GameManager.instance.poisonClick.onClick.AddListener(AddPoisonPill);
+        GameManager.instance.fakeClick.onClick.AddListener(AddFakePill);
+        GameManager.instance.buttonParent.anchoredPosition = objPos - GameManager.instance.canvasRectTransform.anchoredPosition + GameManager.instance.offset;
     }
 
     public void OffClick()
     {
         //Debug.Log($"OFFCLICK: {tempPoisonPill}");
         //DISABLES UI
-        CursorGameManager.Instance.canvas.SetActive(false);
+        GameManager.instance.canvas.SetActive(false);
 
         tempFakePill = null;
         tempPoisonPill = null;
 
-        CursorGameManager.Instance.offClick.onClick.RemoveListener(OffClick);
-        CursorGameManager.Instance.poisonClick.onClick.RemoveListener(AddPoisonPill);
-        CursorGameManager.Instance.fakeClick.onClick.RemoveListener(AddFakePill);
+        GameManager.instance.offClick.onClick.RemoveListener(OffClick);
+        GameManager.instance.poisonClick.onClick.RemoveListener(AddPoisonPill);
+        GameManager.instance.fakeClick.onClick.RemoveListener(AddFakePill);
 
         clickable = true;
     }
 
     public void AddPoisonPill()
     {
-        Debug.Log($"AddPoisonPill: {tempPoisonPill}");
+        //Debug.Log($"AddPoisonPill: {tempPoisonPill}");
         if (tempPoisonPill != null)
         {
             AddPill(tempPoisonPill);
@@ -128,7 +128,7 @@ public class CupInfo : MonoBehaviour
         //Debug.Log($"AddFakePill: {tempFakePill}");
         if (tempFakePill != null)
         {
-            Debug.Log("fakepill is not null");
+            //Debug.Log("fakepill is not null");
             AddPill(tempFakePill);
         }
         else
@@ -139,19 +139,19 @@ public class CupInfo : MonoBehaviour
 
     public void AddPill(Pill pill)
     {
-        Debug.Log("addpill cupinfo");
+        //Debug.Log("addpill cupinfo");
         //Debug.Log($"Pill Colors: Pill: {pill.pillColor}, Player {pill.playerColor} ");
         ClientSend.PlacePill(pill, this);
         // GameManager.instance.displayManager.pillDisplays[id - 1].AddPill(pill);
         //somehow in server do ur magic
         OffClick();
-        CursorGameManager.Instance.NextTurn();
+        GameManager.instance.NextTurn();
     }
 
     public void ReceivePill(Pill pill)
     {
         pillStack.Push(pill);
-        GameManager.instance.displayManager.pillDisplays[id - 1].AddPill(pill);
+        UIManager.instance.pillDisplays[id - 1].AddPill(pill);
 
     }
 
