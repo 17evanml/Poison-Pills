@@ -26,8 +26,13 @@ public class UIManager : MonoBehaviour
     [Header("Goal References")]
     public TMP_Text text_goal_1; // Text Reference used to display Goal 1
     public Goal goal_1; // Data for Goal 1
+    public Image goal_1Background; // Background image for Goal 1
     public TMP_Text text_goal_2; // Text Reference used to display Goal 2
     public Goal goal_2; // Data for Goal 2
+    public Image goal_2Background; // Background image for Goal 2
+
+    public Image timerBackground;
+
 
     [Header("Score References")]
     public TMP_Text score; // Text Reference used to display Score Standing
@@ -97,12 +102,17 @@ public class UIManager : MonoBehaviour
     {
         HostMenu.SetActive(false);
         NetworkManager.instance.BeginGame();
+        SendGoals();
+    }
+
+    private void SendGoals()
+    {
         foreach (ServerClient client in Server.clients.Values)
         {
             if (client.cursor != null)
             {
                 Goal[] targets = NetworkManager.instance.GiveTargets(client.id);
-                
+
                 ServerSend.BeginGame(client.cursor, targets[0], targets[1]);
             }
         }
@@ -123,6 +133,9 @@ public class UIManager : MonoBehaviour
         text_goal_1.text = FormatGoal(goal_1); // Formats the Text for Goal 1
         text_goal_2.text = FormatGoal(goal_2); // Formats the Text for Goal 2
         score.text = FormatScore(); // Formats the Text for the Score
+
+        goal_1Background.color = GameManager.cursors[goal_1.id].cursorColor;
+        goal_2Background.color = GameManager.cursors[goal_2.id].cursorColor;
 
         // WILL BE REMOVED
         // Spawns a PillDisplay prefab for each player in the Game
@@ -176,6 +189,11 @@ public class UIManager : MonoBehaviour
         }
         score.text = tempPoints;
         return tempPoints;
+    }
+    
+    public void UpdateCurrentPlayerColor(int player)
+    {
+        timerBackground.color = GameManager.cursors[player].cursorColor;
     }
     #endregion
 
