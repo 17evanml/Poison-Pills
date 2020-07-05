@@ -102,6 +102,7 @@ public class ClientHandle : MonoBehaviour
     public static void StartTurn(Packet _packet)
     {
         int currentPlayer = _packet.ReadInt();
+        UIManager.instance.UpdateCurrentPlayerColor(currentPlayer);
         for (int i = 1; i <= GameManager.cursors.Count; i++)
         {
             if (currentPlayer == i)

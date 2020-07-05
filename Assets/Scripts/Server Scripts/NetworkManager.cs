@@ -60,6 +60,7 @@ public class NetworkManager : MonoBehaviour
         ServerSend.StartTurn(turnSystem.GetCurrentPlayer());
     }
 
+
     public void Connect()
     {
         players++;

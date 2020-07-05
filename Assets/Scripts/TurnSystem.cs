@@ -10,6 +10,9 @@ public class TurnSystem
     private int numPlayers;
     [SerializeField]
     private int currentPlayer;
+    private int startingPlayer;
+    [SerializeField]
+    private int startingPlayerBananaCount;
     private bool dir = true;
     private bool[][] playerActions;
     private enum RoundType { Reveal, Place, End }
@@ -41,6 +44,7 @@ public class TurnSystem
             }
         }
         currentPlayer = 0;
+        startingPlayer = 0;
         //Debug.Log((int)Actions.Reveal);
         playerActions[0][(int)Actions.Reveal] = true;
         NotifyManager(0);
@@ -69,9 +73,10 @@ public class TurnSystem
             ResetAuthority(currentPlayer);
             NextPlayer();
             //Debug.Log(currentPlayer);
-            if (currentPlayer == 0)
+            if (currentPlayer == startingPlayer)
             {
                 AdvanceRound();
+                startingPlayerBananaCount = 0;
                 AuthorityOn(currentPlayer, Actions.Place);
             }
             else
@@ -99,6 +104,7 @@ public class TurnSystem
         {
             ResetAuthority(currentPlayer);
             listener.CalculatePoints();
+            NewGame();
             /*// Debug Only
             for (int i = 0; i < numPlayers; i++)
             {
@@ -145,28 +151,55 @@ public class TurnSystem
 
     private void NextPlayer()
     {
-        currentPlayer++;
-        if (currentPlayer >= numPlayers)
-        {
-            currentPlayer = 0;
-        }
+        currentPlayer = cyclicAdd(currentPlayer, numPlayers - 1);
     }
 
     private void NextPlayerBanana()
     {
         if (dir)
         {
-            currentPlayer++;
+            currentPlayer = cyclicAdd(currentPlayer, numPlayers - 1);
         }
         else
         {
-            currentPlayer--;
+            currentPlayer = cyclicSubtract(currentPlayer, numPlayers - 1);
         }
 
-        if (currentPlayer >= numPlayers)
+        if (currentPlayer == startingPlayer)
         {
+            startingPlayerBananaCount++;
+            if(startingPlayerBananaCount == 2)
+            {
+                currentPlayer = -1;
+                return;
+            }
             dir = !dir;
-            currentPlayer--;
+            currentPlayer = cyclicSubtract(currentPlayer, numPlayers - 1);
+        }
+    }
+
+    private void NewGame()
+    {
+        startingPlayer++;
+        if (startingPlayer == numPlayers)
+        {
+            //End the game entirely
+        }
+        else
+        {
+            currentPlayer = startingPlayer;
+            round = RoundType.Reveal;
+            for (int i = 0; i < numPlayers; i++)
+            {
+                if (i == startingPlayer)
+                {
+                    AuthorityOn(i, Actions.Reveal);
+                }
+                else
+                {
+                    ResetAuthority(i);
+                }
+            }
         }
     }
 
@@ -180,5 +213,30 @@ public class TurnSystem
     private void NotifyManager(int[] points)
     {
 
+    }
+
+    private int cyclicAdd(int number, int max)
+    {
+        number++;
+        return cyclicNumber(number, max);
+    }
+
+    private int cyclicSubtract(int number, int max)
+    {
+        number--;
+        return cyclicNumber(number, max);
+    }
+
+    private int cyclicNumber(int number, int max)
+    {
+        if (number < 0)
+        {
+            number = max;
+        }
+        else if (number > max)
+        {
+            number = 0;
+        }
+        return number;
     }
 }

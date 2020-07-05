@@ -65,7 +65,7 @@ public class ServerHandle
         }
         else
         {
-            Debug.Log("Reveal");
+            Debug.Log("Reveal Packet Received... Sending to clients");
             ServerSend.RevealTarget(_fromClient, _goal);
             NetworkManager.instance.AdvanceTurn();
         }
