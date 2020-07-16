@@ -8388,7 +8388,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ip: 127.0.0.1
   port: 6942
-  myId: 0
+  myId: 1
 --- !u!4 &1618401624
 Transform:
   m_ObjectHideFlags: 0
@@ -9675,7 +9675,10 @@ MonoBehaviour:
   portField: {fileID: 1906760044}
   revealManager: {fileID: 858666243}
   text_goal_1: {fileID: 381114707}
+  goal_1Background: {fileID: 0}
   text_goal_2: {fileID: 1340330260}
+  goal_2Background: {fileID: 0}
+  timerBackground: {fileID: 0}
   score: {fileID: 292875742}
   pillDisplays: []
   playerCount: 0
