@@ -77,7 +77,8 @@ public class ClientHandle : MonoBehaviour
         GameManager.instance.CreateAllCups();
         UIManager.instance.InitializeGoals(); // Calls Initialize in Display Manager
         UIManager.instance.InitializeRevealButtons(); // Calls Initialize on Reveal Manager
-        Camera.main.GetComponent<CameraManager>().gameStarted = true;
+        Camera.main.GetComponent<CameraManager>().SwitchCameraPosition();
+        Debug.Log(Camera.main.GetComponent<CameraManager>().gameStarted);
     }
 
     public static void ReceivePill(Packet _packet)

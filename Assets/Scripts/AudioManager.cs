@@ -21,7 +21,7 @@ public class AudioManager : MonoBehaviour {
     private void Awake() {
         // Makes sure only 1 AudioManager is in use at any time.
         if (instance != null && instance != this) { 
-            Destroy(gameObject);
+            Destroy(this);
             return;
         } else { 
             instance = this; 

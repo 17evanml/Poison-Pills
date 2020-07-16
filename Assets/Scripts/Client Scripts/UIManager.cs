@@ -138,6 +138,11 @@ public class UIManager : MonoBehaviour
         goal_2Background.color = GameManager.cursors[goal_2.id].cursorColor;
 
         // WILL BE REMOVED
+        
+    }
+
+    public void InitializePillDisplays()
+    {
         // Spawns a PillDisplay prefab for each player in the Game
         for (int i = 1; i <= playerCount; i++)
         {
