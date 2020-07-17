@@ -233,11 +233,13 @@ public class UIManager : MonoBehaviour
         {
             //currentGoals.text += goal2.text + "\n";
             ClientSend.RevealTarget(goal_1);
+            WriteRevealedGoal(goal_1);
         }
         else
         {
             //currentGoals.text += goal1.text + "\n";
             ClientSend.RevealTarget(goal_2);
+            WriteRevealedGoal(goal_2);
         }
         goal1.GetComponentInParent<Button>().gameObject.SetActive(false);
         goal2.GetComponentInParent<Button>().gameObject.SetActive(false);
