@@ -271,6 +271,7 @@ public class UIManager : MonoBehaviour
             revealedGoals[i].transform.GetChild(0).GetComponent<TMP_Text>().text = GameManager.cursors[i+1].username;
             revealedGoals[i].transform.GetChild(1).GetComponent<TMP_Text>().text = "";
             revealedGoals[i].transform.GetChild(2).GetComponent<TMP_Text>().text = "";
+            revealedGoals[i].SetActive(false);
         }
     }
     #endregion
