@@ -138,6 +138,7 @@ public class GameManager : MonoBehaviour
             {
                 UIManager.instance.ToggleRevealUI();
                 UIManager.instance.InitializeRevealButtons(); // Calls Initialize on Reveal Manager
+                UIManager.instance.NextGoalLine();
             }
             else if (round == TurnSystem.RoundType.Place)
             {
