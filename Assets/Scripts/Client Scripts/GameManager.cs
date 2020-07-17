@@ -33,6 +33,8 @@ public class GameManager : MonoBehaviour
     private Vector3 origin;
     [SerializeField]
     private float radius = 5f;
+    [Header("Round Information")]
+    public TurnSystem.RoundType round = TurnSystem.RoundType.Setup;
 
 
     #region GameManager
@@ -124,6 +126,33 @@ public class GameManager : MonoBehaviour
         }
         GameManager.instance.AddCup(c);
     }
+
+    public void BeginTurn(int player, TurnSystem.RoundType _round)
+    {
+        cursors[player].StartTurn();
+        Debug.Log($"Last Round: {round}, Current Round{_round} ");
+        if (_round != round)
+        {
+            round = _round;
+            if (round == TurnSystem.RoundType.Reveal)
+            {
+                UIManager.instance.ToggleRevealUI();
+                UIManager.instance.InitializeRevealButtons(); // Calls Initialize on Reveal Manager
+            }
+            else if (round == TurnSystem.RoundType.Place)
+            {
+                UIManager.instance.TogglePlaceUI();
+            }
+            else if (round == TurnSystem.RoundType.End)
+            {
+                UIManager.instance.ToggleEndUI();
+            }
+        } else if(round == TurnSystem.RoundType.Reveal)
+        {
+            UIManager.instance.NextGoalLine();
+        }
+    }
+
 
     public void CreateAllCups()
     {

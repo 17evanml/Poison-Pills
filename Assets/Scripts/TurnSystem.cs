@@ -15,7 +15,7 @@ public class TurnSystem
     private int startingPlayerBananaCount;
     private bool dir = true;
     private bool[][] playerActions;
-    private enum RoundType { Reveal, Place, End }
+    public enum RoundType { Setup, Reveal, Place, End }
     public enum Actions { Reveal, Place }
     [SerializeField]
     private RoundType round = RoundType.Reveal;
@@ -118,6 +118,10 @@ public class TurnSystem
         return playerActions[currentPlayer];
     }
 
+    public RoundType GetRound()
+    {
+        return round;
+    }
     private void ResetAuthority(int playerIndex)
     {
         Debug.Log($"resetting authority for player {playerIndex+1}");
@@ -239,4 +243,6 @@ public class TurnSystem
         }
         return number;
     }
+
+
 }

@@ -50,7 +50,7 @@ public class DisplayManager : MonoBehaviour {
     string FormatGoal(Goal goal) {
         string tempGoal;
 
-        if (goal.goalState == Goal.GoalState.die) { tempGoal = "Kill "; } // Sets First word
+        if (goal.goalState == Goal.GoalState.Kill) { tempGoal = "Kill "; } // Sets First word
         else { tempGoal = "Save "; } 
 
         tempGoal += GameManager.cursors[goal.id].username; // Sets Second word
