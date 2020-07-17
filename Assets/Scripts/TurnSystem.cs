@@ -165,7 +165,7 @@ public class TurnSystem
         if (currentPlayer == startingPlayer)
         {
             startingPlayerBananaCount++;
-            if (startingPlayerBananaCount == 2)
+            if (startingPlayerBananaCount == 1)
             {
                 currentPlayer = -1;
                 return;
