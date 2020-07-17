@@ -252,12 +252,11 @@ public class UIManager : MonoBehaviour
     }
     public void WriteRevealedGoal(Goal goal)
     {
-
-        revealedGoals[goal.myId].transform.GetChild(1).gameObject.SetActive(false);
-        revealedGoals[goal.myId].transform.GetChild(2).gameObject.SetActive(false);
-        revealedGoals[goal.myId].transform.GetChild(3).gameObject.SetActive(true);
-        revealedGoals[goal.myId].transform.GetChild(3).GetComponent<TMP_Text>().text = $"{goal.goalState} {GameManager.cursors[goal.id].username}";
-
+        revealedGoals[goal.myId-1].transform.GetChild(1).gameObject.SetActive(false);
+        revealedGoals[goal.myId-1].transform.GetChild(2).gameObject.SetActive(false);
+        revealedGoals[goal.myId-1].transform.GetChild(3).gameObject.SetActive(true);
+        revealedGoals[goal.myId-1].transform.GetChild(4).gameObject.SetActive(false);
+        revealedGoals[goal.myId-1].transform.GetChild(3).GetComponent<TMP_Text>().text = $"{goal.goalState} {GameManager.cursors[goal.id].username}";
     }
 
     public void SetOrderNumber()
