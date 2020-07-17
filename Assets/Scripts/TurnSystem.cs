@@ -13,6 +13,7 @@ public class TurnSystem
     private int startingPlayer;
     [SerializeField]
     private int startingPlayerBananaCount;
+    [SerializeField]
     private bool dir = true;
     private bool[][] playerActions;
     public enum RoundType { Setup, Reveal, Place, End }
@@ -124,7 +125,7 @@ public class TurnSystem
     }
     private void ResetAuthority(int playerIndex)
     {
-        Debug.Log($"resetting authority for player {playerIndex+1}");
+        Debug.Log($"resetting authority for player {playerIndex + 1}");
         for (int i = 0; i < playerActions[playerIndex].Length; i++)
         {
             playerActions[playerIndex][i] = false;
@@ -161,7 +162,12 @@ public class TurnSystem
     private void NextPlayerBanana()
     {
 
-        if (dir)
+        if (startingPlayerBananaCount == 3)
+        {
+            currentPlayer = -1;
+            return;
+        }
+        else if (dir)
         {
             currentPlayer = cyclicAdd(currentPlayer, numPlayers - 1);
         }
@@ -173,13 +179,16 @@ public class TurnSystem
         if (currentPlayer == startingPlayer)
         {
             startingPlayerBananaCount++;
-            if (startingPlayerBananaCount == 3)
+            if (startingPlayerBananaCount == 2)
             {
-                currentPlayer = -1;
+                startingPlayerBananaCount++;
                 return;
             }
-            dir = !dir;
-            currentPlayer = cyclicSubtract(currentPlayer, numPlayers - 1);
+            else
+            {
+                dir = !dir;
+                currentPlayer = cyclicSubtract(currentPlayer, numPlayers - 1);
+            }
         }
     }
 
