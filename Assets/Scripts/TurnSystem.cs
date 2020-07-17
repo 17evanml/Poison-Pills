@@ -161,24 +161,24 @@ public class TurnSystem
     private void NextPlayerBanana()
     {
 
-
-        if (currentPlayer == startingPlayer)
-        {
-            startingPlayerBananaCount++;
-            if (startingPlayerBananaCount == 1)
-            {
-                currentPlayer = -1;
-                return;
-            }
-            dir = !dir;
-            currentPlayer = cyclicSubtract(currentPlayer, numPlayers - 1);
-        }
-        else if (dir)
+        if (dir)
         {
             currentPlayer = cyclicAdd(currentPlayer, numPlayers - 1);
         }
         else
         {
+            currentPlayer = cyclicSubtract(currentPlayer, numPlayers - 1);
+        }
+
+        if (currentPlayer == startingPlayer)
+        {
+            startingPlayerBananaCount++;
+            if (startingPlayerBananaCount == 3)
+            {
+                currentPlayer = -1;
+                return;
+            }
+            dir = !dir;
             currentPlayer = cyclicSubtract(currentPlayer, numPlayers - 1);
         }
     }
