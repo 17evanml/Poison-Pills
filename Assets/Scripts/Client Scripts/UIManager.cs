@@ -45,9 +45,14 @@ public class UIManager : MonoBehaviour
     public Canvas canvas; // Reference to the Canvas
 
     [Header("Reveal Canvas References")]
-    public TMP_Text currentGoals;
+    public GameObject revealCanvas;
+    public GameObject goalEntryUnfinished;
+    public GameObject[] revealedGoals;
     public TMP_Text goal1;
     public TMP_Text goal2;
+    public Vector3 originalPosition = new Vector3(-121, -113, 0);
+    public float yOffset;
+    private int currentPlayer = 0;
 
     //public Button beginGame;
     //public Button selfConnect;
@@ -101,8 +106,8 @@ public class UIManager : MonoBehaviour
     public void BeginGame()
     {
         HostMenu.SetActive(false);
-        NetworkManager.instance.BeginGame();
         SendGoals();
+        NetworkManager.instance.BeginGame();
     }
 
     private void SendGoals()
@@ -113,7 +118,7 @@ public class UIManager : MonoBehaviour
             {
                 Goal[] targets = NetworkManager.instance.GiveTargets(client.id);
 
-                ServerSend.BeginGame(client.cursor, targets[0], targets[1]);
+                ServerSend.BeginSection(client.cursor, targets[0], targets[1]);
             }
         }
     }
@@ -166,7 +171,7 @@ public class UIManager : MonoBehaviour
     {
         string tempGoal;
 
-        if (goal.goalState == Goal.GoalState.die) { tempGoal = "Kill "; } // Sets First word
+        if (goal.goalState == Goal.GoalState.Kill) { tempGoal = "Kill "; } // Sets First word
         else { tempGoal = "Save "; }
 
         tempGoal += GameManager.cursors[goal.id].username; // Sets Second word
@@ -202,34 +207,94 @@ public class UIManager : MonoBehaviour
     }
     #endregion
 
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            ToggleRevealUI();
+        }
+    }
     #region Reveal UI
     public void InitializeRevealButtons()
     {  
         //this is a terrible way to do this. Arjun and Evan should talk about the best way to solve this.
-        goal1.GetComponentInParent<Button>().onClick.AddListener(() => { OnRevealClick(false);});
-        goal2.GetComponentInParent<Button>().onClick.AddListener(() => { OnRevealClick(true);});
-        goal1.text = GameManager.cursors[goal_1.id].username;
-        goal2.text = GameManager.cursors[goal_2.id].username;
+        revealedGoals[Client.instance.myId-1].transform.GetChild(1).GetComponent<Button>().onClick.AddListener(() => { OnRevealClick(false);});
+        revealedGoals[Client.instance.myId-1].transform.GetChild(2).GetComponent<Button>().onClick.AddListener(() => { OnRevealClick(true);});
+        revealedGoals[Client.instance.myId - 1].transform.GetChild(1).GetComponent<TMP_Text>().text = $"{goal_1.goalState} {GameManager.cursors[goal_1.id].username}";
+        revealedGoals[Client.instance.myId - 1].transform.GetChild(2).GetComponent<TMP_Text>().text = $"{goal_2.goalState} {GameManager.cursors[goal_2.id].username}";
     }
     
 
     public void OnRevealClick(bool right)
     {
-        currentGoals.text += GameManager.cursors[Client.instance.myId].username + ": ";
+        //currentGoals.text += GameManager.cursors[Client.instance.myId].username + ": ";
         if (right)
         {
-            currentGoals.text += goal2.text + "\n";
+            //currentGoals.text += goal2.text + "\n";
             ClientSend.RevealTarget(goal_1);
         }
         else
         {
-            currentGoals.text += goal1.text + "\n";
+            //currentGoals.text += goal1.text + "\n";
             ClientSend.RevealTarget(goal_2);
         }
         goal1.GetComponentInParent<Button>().gameObject.SetActive(false);
         goal2.GetComponentInParent<Button>().gameObject.SetActive(false);
         // Initialize Next UI
         // Talk to Evan if we should seperate the 2 UI Canvas
+    }
+
+    public void NextGoalLine()
+    {
+        revealedGoals[currentPlayer].SetActive(true);
+        currentPlayer++;
+    }
+    public void WriteRevealedGoal(Goal goal)
+    {
+
+        revealedGoals[goal.myId].transform.GetChild(1).gameObject.SetActive(false);
+        revealedGoals[goal.myId].transform.GetChild(2).gameObject.SetActive(false);
+        revealedGoals[goal.myId].transform.GetChild(3).gameObject.SetActive(true);
+        revealedGoals[goal.myId].transform.GetChild(3).GetComponent<TMP_Text>().text = $"{goal.goalState} {GameManager.cursors[goal.id].username}";
+
+    }
+
+    public void SetOrderNumber()
+    {
+        revealedGoals = new GameObject[GameManager.cursors.Count];
+        Debug.Log(revealedGoals.Length);
+        for(int i = 0; i < revealedGoals.Length; i++)
+        {
+            revealedGoals[i] = Instantiate(goalEntryUnfinished, revealCanvas.transform, false);
+            revealedGoals[i].transform.localPosition = originalPosition + -transform.up * yOffset*i;
+            revealedGoals[i].transform.GetChild(0).GetComponent<TMP_Text>().text = GameManager.cursors[i+1].username;
+            revealedGoals[i].transform.GetChild(1).GetComponent<TMP_Text>().text = "";
+            revealedGoals[i].transform.GetChild(2).GetComponent<TMP_Text>().text = "";
+        }
+    }
+    #endregion
+
+    #region Canvas Toggles
+    public void ToggleRevealUI()
+    {
+        if(revealCanvas.activeSelf == true)
+        {
+            revealCanvas.SetActive(false);
+        } else
+        {
+            revealCanvas.SetActive(true);
+        }
+    }
+
+    public void TogglePlaceUI()
+    {
+
+    }
+
+    public void ToggleEndUI()
+    {
+
     }
     #endregion
 }

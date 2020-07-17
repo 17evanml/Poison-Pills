@@ -10,16 +10,16 @@ public class StartMenuButtons : MonoBehaviour, IPointerEnterHandler, IPointerExi
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        text.fontStyle = TMPro.FontStyles.Bold;
+        //text.fontStyle = TMPro.FontStyles.Bold;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        text.fontStyle = TMPro.FontStyles.Normal;
+        //text.fontStyle = TMPro.FontStyles.Normal;
     }
 
     public void UnboldOnClick()
     {
-        text.fontStyle = TMPro.FontStyles.Normal;
+        //text.fontStyle = TMPro.FontStyles.Normal;
     }
 }

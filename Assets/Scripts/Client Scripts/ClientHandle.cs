@@ -65,6 +65,13 @@ public class ClientHandle : MonoBehaviour
 
     public static void BeginGame(Packet _packet)
     {
+        GameManager.instance.CreateAllCups();
+        Camera.main.GetComponent<CameraManager>().SwitchCameraPosition();
+        UIManager.instance.SetOrderNumber();
+    }
+
+    public static void BeginSection(Packet _packet)
+    {
         //Add cups to cupmanager
         Goal goal1 = _packet.ReadGoal();
         //Debug.Log(goal1);
@@ -73,12 +80,9 @@ public class ClientHandle : MonoBehaviour
         UIManager.instance.goal_1 = goal1; // Sets the First Goal
         UIManager.instance.goal_2 = goal2; // Sets the Second Goal
         UIManager.instance.GameDisplay.SetActive(true);
-        UIManager.instance.playerCount = GameManager.cursors.Count; // Sets the Number of Displays Needed
-        GameManager.instance.CreateAllCups();
         UIManager.instance.InitializeGoals(); // Calls Initialize in Display Manager
-        UIManager.instance.InitializeRevealButtons(); // Calls Initialize on Reveal Manager
-        Camera.main.GetComponent<CameraManager>().SwitchCameraPosition();
-        Debug.Log(Camera.main.GetComponent<CameraManager>().gameStarted);
+
+        UIManager.instance.playerCount = GameManager.cursors.Count; // Sets the Number of Displays Needed
     }
 
     public static void ReceivePill(Packet _packet)
@@ -103,12 +107,15 @@ public class ClientHandle : MonoBehaviour
     public static void StartTurn(Packet _packet)
     {
         int currentPlayer = _packet.ReadInt();
+        TurnSystem.RoundType round = (TurnSystem.RoundType)_packet.ReadInt();
         UIManager.instance.UpdateCurrentPlayerColor(currentPlayer);
+        Debug.Log("Star Turn");
         for (int i = 1; i <= GameManager.cursors.Count; i++)
         {
+            Debug.Log("begin turn");
             if (currentPlayer == i)
             {
-                GameManager.cursors[i].StartTurn();
+                GameManager.instance.BeginTurn(i, round);
             }
             else
             {
@@ -132,7 +139,7 @@ public class ClientHandle : MonoBehaviour
     }
 
 
-    public static void serverClose(Packet _packet)
+    public static void ServerClose(Packet _packet)
     {
         for(int i = 1; i <= GameManager.cursors.Count; i++)
         {
@@ -144,7 +151,7 @@ public class ClientHandle : MonoBehaviour
         Client.instance.Disconnect();
     }
 
-    public static void revealTarget(Packet _packet)
+    public static void RevealTarget(Packet _packet)
     {
         Goal goal = _packet.ReadGoal();
     }

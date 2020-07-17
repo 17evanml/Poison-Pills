@@ -140,14 +140,22 @@ public class ServerSend
         }
     }
 
-    public static void BeginGame(ServerCursor _cursor, Goal g1, Goal g2)
+    public static void BeginSection(ServerCursor _cursor, Goal g1, Goal g2)
     {
-        using (Packet _packet = new Packet((int)ServerPackets.beginGame))
+        using (Packet _packet = new Packet((int)ServerPackets.beginSection))
         {
             _packet.Write(g1);
             _packet.Write(g2);
             //Add all cups to cup manager for each player
             SendTCPData(_cursor.id, _packet);
+        }
+    }
+
+    public static void BeginGame()
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.beginGame))
+        {
+            SendTCPDataToAll( _packet);
         }
     }
 
@@ -176,11 +184,12 @@ public class ServerSend
 
     }
 
-    public static void StartTurn(int _toClient)
+    public static void StartTurn(int _toClient, TurnSystem.RoundType _round)
     {
         using (Packet _packet = new Packet((int)ServerPackets.startTurn))
         {
             _packet.Write(_toClient);
+            _packet.Write((int)_round);
 
             SendTCPDataToAll(_packet);
         }

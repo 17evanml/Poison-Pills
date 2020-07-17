@@ -6,7 +6,7 @@ using UnityEngine;
 public class Goal {
     public int myId; //Owning player ID
     public int id; // Target Player ID
-    public enum GoalState { die, live } // What goals you can be given
+    public enum GoalState { Kill, Save } // What goals you can be given
     public GoalState goalState; // Players' goal
 
     /// <summary> Representation of a Player Goal. </summary>

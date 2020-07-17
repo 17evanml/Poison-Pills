@@ -57,7 +57,8 @@ public class NetworkManager : MonoBehaviour
         turnSystem = new TurnSystem(players, this);
         GenerateTargets();
         playerPoints = new int[players + 1];
-        ServerSend.StartTurn(turnSystem.GetCurrentPlayer());
+        ServerSend.BeginGame();
+        StartCoroutine(GameStartDelay());
     }
 
 
@@ -86,7 +87,7 @@ public class NetworkManager : MonoBehaviour
     {
         //Debug.Log("Advance");
         turnSystem.AdvanceTurn();
-        ServerSend.StartTurn(turnSystem.GetCurrentPlayer());
+        ServerSend.StartTurn(turnSystem.GetCurrentPlayer(), turnSystem.GetRound());
     }
 
     public void PlayerAuthUpdate(int playerId, bool[] authorities)
@@ -101,8 +102,8 @@ public class NetworkManager : MonoBehaviour
         //for debug purposes only
         if (players == 1)
         {
-            ret[0] = new Goal(selfID, 1, Goal.GoalState.die);
-            ret[1] = new Goal(selfID, 1, Goal.GoalState.die);
+            ret[0] = new Goal(selfID, 1, Goal.GoalState.Kill);
+            ret[1] = new Goal(selfID, 1, Goal.GoalState.Kill);
             goals.Add(ret[0]);
             goals.Add(ret[1]);
             return ret;
@@ -111,16 +112,16 @@ public class NetworkManager : MonoBehaviour
         {
             if (selfID == 1)
             {
-                ret[0] = new Goal(selfID, 2, Goal.GoalState.die);
-                ret[1] = new Goal(selfID, 2, Goal.GoalState.die);
+                ret[0] = new Goal(selfID, 2, Goal.GoalState.Kill);
+                ret[1] = new Goal(selfID, 2, Goal.GoalState.Kill);
             }
             else
             {
-                ret[0] = new Goal(selfID, 1, Goal.GoalState.die);
-                ret[1] = new Goal(selfID, 1, Goal.GoalState.die);
+                ret[0] = new Goal(selfID, 1, Goal.GoalState.Kill);
+                ret[1] = new Goal(selfID, 1, Goal.GoalState.Kill);
             }
-            ret[0] = new Goal(selfID, 1, Goal.GoalState.die);
-            ret[1] = new Goal(selfID, 1, Goal.GoalState.die);
+            ret[0] = new Goal(selfID, 1, Goal.GoalState.Kill);
+            ret[1] = new Goal(selfID, 1, Goal.GoalState.Kill);
             goals.Add(ret[0]);
             goals.Add(ret[1]);
             return ret;
@@ -185,11 +186,11 @@ public class NetworkManager : MonoBehaviour
 
         foreach (Goal goal in goals)
         {
-            if (goal.goalState.Equals(Goal.GoalState.die) && deaths[goal.id])
+            if (goal.goalState.Equals(Goal.GoalState.Kill) && deaths[goal.id])
             {
                 playerPoints[goal.myId] += KILLPOINTS;
             }
-            else if (goal.goalState.Equals(Goal.GoalState.live) && !deaths[goal.id])
+            else if (goal.goalState.Equals(Goal.GoalState.Save) && !deaths[goal.id])
             {
                 playerPoints[goal.myId] += KILLPOINTS;
             }
@@ -214,5 +215,11 @@ public class NetworkManager : MonoBehaviour
             }
         }
         Server.Close();
+    }
+
+    IEnumerator GameStartDelay()
+    {
+        yield return new WaitForSeconds(2f);
+        ServerSend.StartTurn(turnSystem.GetCurrentPlayer(), turnSystem.GetRound());
     }
 }
