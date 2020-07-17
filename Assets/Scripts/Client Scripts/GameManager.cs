@@ -142,6 +142,7 @@ public class GameManager : MonoBehaviour
             }
             else if (round == TurnSystem.RoundType.Place)
             {
+                UIManager.instance.ToggleRevealUI();
                 UIManager.instance.TogglePlaceUI();
             }
             else if (round == TurnSystem.RoundType.End)
