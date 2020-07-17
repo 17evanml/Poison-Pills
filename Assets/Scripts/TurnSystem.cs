@@ -164,12 +164,12 @@ public class TurnSystem
 
         if (currentPlayer == startingPlayer)
         {
-            if(startingPlayerBananaCount == 2)
+            startingPlayerBananaCount++;
+            if (startingPlayerBananaCount == 2)
             {
                 currentPlayer = -1;
                 return;
             }
-            startingPlayerBananaCount++;
             dir = !dir;
             currentPlayer = cyclicSubtract(currentPlayer, numPlayers - 1);
         }
