@@ -233,11 +233,13 @@ public class UIManager : MonoBehaviour
         {
             //currentGoals.text += goal2.text + "\n";
             ClientSend.RevealTarget(goal_1);
+            WriteRevealedGoal(goal_1);
         }
         else
         {
             //currentGoals.text += goal1.text + "\n";
             ClientSend.RevealTarget(goal_2);
+            WriteRevealedGoal(goal_2);
         }
         goal1.GetComponentInParent<Button>().gameObject.SetActive(false);
         goal2.GetComponentInParent<Button>().gameObject.SetActive(false);
@@ -252,12 +254,11 @@ public class UIManager : MonoBehaviour
     }
     public void WriteRevealedGoal(Goal goal)
     {
-
-        revealedGoals[goal.myId].transform.GetChild(1).gameObject.SetActive(false);
-        revealedGoals[goal.myId].transform.GetChild(2).gameObject.SetActive(false);
-        revealedGoals[goal.myId].transform.GetChild(3).gameObject.SetActive(true);
-        revealedGoals[goal.myId].transform.GetChild(3).GetComponent<TMP_Text>().text = $"{goal.goalState} {GameManager.cursors[goal.id].username}";
-
+        revealedGoals[goal.myId-1].transform.GetChild(1).gameObject.SetActive(false);
+        revealedGoals[goal.myId-1].transform.GetChild(2).gameObject.SetActive(false);
+        revealedGoals[goal.myId-1].transform.GetChild(3).gameObject.SetActive(true);
+        revealedGoals[goal.myId-1].transform.GetChild(4).gameObject.SetActive(false);
+        revealedGoals[goal.myId-1].transform.GetChild(3).GetComponent<TMP_Text>().text = $"{goal.goalState} {GameManager.cursors[goal.id].username}";
     }
 
     public void SetOrderNumber()
@@ -271,6 +272,7 @@ public class UIManager : MonoBehaviour
             revealedGoals[i].transform.GetChild(0).GetComponent<TMP_Text>().text = GameManager.cursors[i+1].username;
             revealedGoals[i].transform.GetChild(1).GetComponent<TMP_Text>().text = "";
             revealedGoals[i].transform.GetChild(2).GetComponent<TMP_Text>().text = "";
+            revealedGoals[i].SetActive(false);
         }
     }
     #endregion

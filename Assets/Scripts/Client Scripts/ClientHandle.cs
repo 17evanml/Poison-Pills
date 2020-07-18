@@ -154,5 +154,6 @@ public class ClientHandle : MonoBehaviour
     public static void RevealTarget(Packet _packet)
     {
         Goal goal = _packet.ReadGoal();
+        UIManager.instance.WriteRevealedGoal(goal);
     }
 }
