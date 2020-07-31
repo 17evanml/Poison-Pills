@@ -201,6 +201,8 @@ public class TurnSystem
         }
         else
         {
+            NetworkManager.instance.GenerateTargets();
+            NetworkManager.instance.SendGoals();
             currentPlayer = startingPlayer;
             round = RoundType.Reveal;
             for (int i = 0; i < numPlayers; i++)
