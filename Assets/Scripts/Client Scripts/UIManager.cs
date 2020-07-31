@@ -106,21 +106,8 @@ public class UIManager : MonoBehaviour
     public void BeginGame()
     {
         HostMenu.SetActive(false);
-        SendGoals();
+        NetworkManager.instance.SendGoals();
         NetworkManager.instance.BeginGame();
-    }
-
-    private void SendGoals()
-    {
-        foreach (ServerClient client in Server.clients.Values)
-        {
-            if (client.cursor != null)
-            {
-                Goal[] targets = NetworkManager.instance.GiveTargets(client.id);
-
-                ServerSend.BeginSection(client.cursor, targets[0], targets[1]);
-            }
-        }
     }
 
     public void EndHost()
@@ -241,8 +228,6 @@ public class UIManager : MonoBehaviour
             ClientSend.RevealTarget(goal_2);
             WriteRevealedGoal(goal_2);
         }
-        goal1.GetComponentInParent<Button>().gameObject.SetActive(false);
-        goal2.GetComponentInParent<Button>().gameObject.SetActive(false);
         // Initialize Next UI
         // Talk to Evan if we should seperate the 2 UI Canvas
     }
@@ -261,6 +246,17 @@ public class UIManager : MonoBehaviour
         revealedGoals[goal.myId-1].transform.GetChild(3).GetComponent<TMP_Text>().text = $"{goal.goalState} {GameManager.cursors[goal.id].username}";
     }
 
+    public void ResetRevealedGoals()
+    {
+        for(int i = 0; i < revealedGoals.Length; i++)
+        {
+            revealedGoals[i].transform.GetChild(1).gameObject.SetActive(true);
+            revealedGoals[i].transform.GetChild(2).gameObject.SetActive(true);
+            revealedGoals[i].transform.GetChild(3).gameObject.SetActive(false);
+            revealedGoals[i].transform.GetChild(4).gameObject.SetActive(true);
+        }
+    }
+
     public void SetOrderNumber()
     {
         revealedGoals = new GameObject[GameManager.cursors.Count];
@@ -269,7 +265,9 @@ public class UIManager : MonoBehaviour
         {
             revealedGoals[i] = Instantiate(goalEntryUnfinished, revealCanvas.transform, false);
             revealedGoals[i].transform.localPosition = originalPosition + -transform.up * yOffset*i;
-            revealedGoals[i].transform.GetChild(0).GetComponent<TMP_Text>().text = GameManager.cursors[i+1].username;
+            TMP_Text playerName = revealedGoals[i].transform.GetChild(0).GetComponent<TMP_Text>();
+            playerName.text = GameManager.cursors[i+1].username;
+            playerName.color = GameManager.cursors[i + 1].cursorColor;
             revealedGoals[i].transform.GetChild(1).GetComponent<TMP_Text>().text = "";
             revealedGoals[i].transform.GetChild(2).GetComponent<TMP_Text>().text = "";
             revealedGoals[i].SetActive(false);

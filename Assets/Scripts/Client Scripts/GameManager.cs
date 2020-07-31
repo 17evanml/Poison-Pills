@@ -147,6 +147,7 @@ public class GameManager : MonoBehaviour
             }
             else if (round == TurnSystem.RoundType.End)
             {
+                UIManager.instance.ResetRevealedGoals();
                 UIManager.instance.ToggleEndUI();
             }
         } else if(round == TurnSystem.RoundType.Reveal)

@@ -216,7 +216,18 @@ public class NetworkManager : MonoBehaviour
         }
         Server.Close();
     }
+    public void SendGoals()
+    {
+        foreach (ServerClient client in Server.clients.Values)
+        {
+            if (client.cursor != null)
+            {
+                Goal[] targets = GiveTargets(client.id);
 
+                ServerSend.BeginSection(client.cursor, targets[0], targets[1]);
+            }
+        }
+    }
     IEnumerator GameStartDelay()
     {
         yield return new WaitForSeconds(2f);
