@@ -109,10 +109,9 @@ public class ClientHandle : MonoBehaviour
         int currentPlayer = _packet.ReadInt();
         TurnSystem.RoundType round = (TurnSystem.RoundType)_packet.ReadInt();
         UIManager.instance.UpdateCurrentPlayerColor(currentPlayer);
-        Debug.Log("Star Turn");
+        GameManager.instance.SetCurrentPlayer(currentPlayer);
         for (int i = 1; i <= GameManager.cursors.Count; i++)
         {
-            Debug.Log("begin turn");
             if (currentPlayer == i)
             {
                 GameManager.instance.BeginTurn(i, round);
