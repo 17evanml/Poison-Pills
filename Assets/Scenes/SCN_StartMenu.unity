@@ -3447,6 +3447,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8684251187902555887, guid: ce501f800d224e845baebb386b381064,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -7673886404300160364, guid: ce501f800d224e845baebb386b381064,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -3622,6 +3627,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: couch (1)
       objectReference: {fileID: 0}
+    - target: {fileID: -492420421572216379, guid: ce501f800d224e845baebb386b381064,
+        type: 3}
+      propertyPath: m_Name
+      value: Cabinet2
+      objectReference: {fileID: 0}
     - target: {fileID: -239555428307642338, guid: ce501f800d224e845baebb386b381064,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -3682,6 +3692,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 87c90debd66510d43abd8ece084e99a0, type: 2}
+    - target: {fileID: 2502203975881118265, guid: ce501f800d224e845baebb386b381064,
+        type: 3}
+      propertyPath: m_Name
+      value: Table
+      objectReference: {fileID: 0}
     - target: {fileID: 3383253211369017260, guid: ce501f800d224e845baebb386b381064,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -3702,6 +3717,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 3109b2c4e4b0b0f48969c161a407c0e3, type: 2}
+    - target: {fileID: 4695666576454475813, guid: ce501f800d224e845baebb386b381064,
+        type: 3}
+      propertyPath: m_Name
+      value: Cabinet
+      objectReference: {fileID: 0}
     - target: {fileID: 5490870052100550915, guid: ce501f800d224e845baebb386b381064,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -3732,6 +3752,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: b86effee2173745459be1954d1530d33, type: 2}
+    - target: {fileID: 7469484624682501897, guid: ce501f800d224e845baebb386b381064,
+        type: 3}
+      propertyPath: m_Name
+      value: Screen
+      objectReference: {fileID: 0}
     - target: {fileID: 7607969613485072407, guid: ce501f800d224e845baebb386b381064,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -6153,7 +6178,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1170063407}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
   m_Name: 
@@ -12057,7 +12082,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2088788089
 MonoBehaviour:
   m_ObjectHideFlags: 0
