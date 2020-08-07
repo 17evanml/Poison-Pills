@@ -52,6 +52,8 @@ public class UIManager : MonoBehaviour
     public TMP_Text goal2;
     public Vector3 originalPosition = new Vector3(-121, -113, 0);
     public float yOffset;
+    public WaiterNotepadJuice waiterNotepad;
+
 
     //public Button beginGame;
     //public Button selfConnect;
@@ -234,6 +236,11 @@ public class UIManager : MonoBehaviour
     public void NextGoalLine()
     {
         revealedGoals[GameManager.instance.CurrentPlayer-1].SetActive(true);
+
+        if (GameManager.instance.CurrentPlayer > 5)
+        {
+            // Call the Function
+        }
     }
     public void WriteRevealedGoal(Goal goal)
     {
