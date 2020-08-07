@@ -253,6 +253,7 @@ public class UIManager : MonoBehaviour
             revealedGoals[i].transform.GetChild(2).gameObject.SetActive(true);
             revealedGoals[i].transform.GetChild(3).gameObject.SetActive(false);
             revealedGoals[i].transform.GetChild(4).gameObject.SetActive(true);
+            revealedGoals[i].gameObject.SetActive(false);
         }
     }
 

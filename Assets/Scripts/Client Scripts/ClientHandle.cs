@@ -68,6 +68,7 @@ public class ClientHandle : MonoBehaviour
         GameManager.instance.CreateAllCups();
         Camera.main.GetComponent<CameraManager>().SwitchCameraPosition();
         UIManager.instance.SetOrderNumber();
+        GameManager.instance.GenerateScoreList();
     }
 
     public static void BeginSection(Packet _packet)
@@ -154,5 +155,6 @@ public class ClientHandle : MonoBehaviour
     {
         Goal goal = _packet.ReadGoal();
         UIManager.instance.WriteRevealedGoal(goal);
+        //GameManager.instance.revealedGoals[0];
     }
 }
