@@ -94,7 +94,9 @@ public class TurnSystem
             {
                 AdvanceRound();
                 currentPlayer = 0;
-                AdvanceTurn();
+                ResetAuthority(currentPlayer);
+                listener.CalculatePoints();
+                NetworkManager.instance.TempBeginEndSpacing();
             }
             else
             {
@@ -103,17 +105,14 @@ public class TurnSystem
         }
         else if (round == RoundType.End)
         {
-            ResetAuthority(currentPlayer);
-            listener.CalculatePoints();
-            NewGame();
+
             /*// Debug Only
             for (int i = 0; i < numPlayers; i++)
             {
                 Debug.Log($"Player {i+1}: {NetworkManager.instance.playerPoints[i+1]}");
             }
             */
-
-
+            NewGame();
         }
 
         return playerActions[currentPlayer];
@@ -255,6 +254,4 @@ public class TurnSystem
         }
         return number;
     }
-
-
 }

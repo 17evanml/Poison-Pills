@@ -52,7 +52,6 @@ public class UIManager : MonoBehaviour
     public TMP_Text goal2;
     public Vector3 originalPosition = new Vector3(-121, -113, 0);
     public float yOffset;
-    private int currentPlayer = 0;
 
     //public Button beginGame;
     //public Button selfConnect;
@@ -234,8 +233,7 @@ public class UIManager : MonoBehaviour
 
     public void NextGoalLine()
     {
-        revealedGoals[currentPlayer].SetActive(true);
-        currentPlayer++;
+        revealedGoals[GameManager.instance.CurrentPlayer-1].SetActive(true);
     }
     public void WriteRevealedGoal(Goal goal)
     {
@@ -248,6 +246,7 @@ public class UIManager : MonoBehaviour
 
     public void ResetRevealedGoals()
     {
+        Debug.Log("resetting");
         for(int i = 0; i < revealedGoals.Length; i++)
         {
             revealedGoals[i].transform.GetChild(1).gameObject.SetActive(true);

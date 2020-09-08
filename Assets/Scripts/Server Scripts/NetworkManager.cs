@@ -233,4 +233,15 @@ public class NetworkManager : MonoBehaviour
         yield return new WaitForSeconds(2f);
         ServerSend.StartTurn(turnSystem.GetCurrentPlayer(), turnSystem.GetRound());
     }
+
+    public void TempBeginEndSpacing()
+    {
+        StartCoroutine(TempEndSpacing());
+    }
+
+    IEnumerator TempEndSpacing()
+    {
+        yield return new WaitForSeconds(2);
+        AdvanceTurn();
+    }
 }

@@ -36,6 +36,13 @@ public class GameManager : MonoBehaviour
     [Header("Round Information")]
     public TurnSystem.RoundType round = TurnSystem.RoundType.Setup;
 
+    private int currentPlayer = 0;
+    public int CurrentPlayer
+    {
+        get { return currentPlayer; }
+        set { currentPlayer = value; }
+    }
+
 
     #region GameManager
     private void Awake()
@@ -89,6 +96,11 @@ public class GameManager : MonoBehaviour
     public void Disconnect()
     {
         SceneManager.LoadScene(0, LoadSceneMode.Single);
+    }
+
+    public void SetCurrentPlayer(int cp)
+    {
+        CurrentPlayer = cp;
     }
     #endregion
 
@@ -147,6 +159,7 @@ public class GameManager : MonoBehaviour
             }
             else if (round == TurnSystem.RoundType.End)
             {
+                Debug.Log("Turn is end");
                 UIManager.instance.ResetRevealedGoals();
                 UIManager.instance.ToggleEndUI();
             }
