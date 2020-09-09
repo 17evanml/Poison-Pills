@@ -204,6 +204,14 @@ public class NetworkManager : MonoBehaviour
         ServerSend.EndRound(points, deaths);
     }
 
+    public void ClearCups()
+    {
+        for(int i = 1; i <= players; i++)
+        {
+            Server.clients[i].cup.ResetPills();
+        }
+    }
+
     public void ServerClose()
     {
         ServerSend.ServerClose();

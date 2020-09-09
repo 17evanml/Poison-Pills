@@ -300,7 +300,7 @@ public class GameManager : MonoBehaviour
 
     public void ClearCups()
     {
-        for(int i = 0; i < cups.Count; i++)
+        for(int i = 1; i <= cups.Count; i++)
         {
             cups[i].ResetPills();
         }
