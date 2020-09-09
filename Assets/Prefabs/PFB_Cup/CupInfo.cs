@@ -155,6 +155,11 @@ public class CupInfo : MonoBehaviour
 
     }
 
+    public void ResetPills()
+    {
+        pillStack.Clear();
+    }
+
     //OPERATOR OVERLOADING
     public override bool Equals(object obj)
     {
