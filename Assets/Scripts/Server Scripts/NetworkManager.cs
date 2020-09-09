@@ -230,7 +230,7 @@ public class NetworkManager : MonoBehaviour
     }
     IEnumerator GameStartDelay()
     {
-        yield return new WaitForSeconds(6f);
+        yield return new WaitForSeconds(2f);
         ServerSend.StartTurn(turnSystem.GetCurrentPlayer(), turnSystem.GetRound());
     }
 
@@ -241,7 +241,7 @@ public class NetworkManager : MonoBehaviour
 
     IEnumerator TempEndSpacing()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(6);
         AdvanceTurn();
     }
 }
