@@ -10454,8 +10454,8 @@ MonoBehaviour:
   revealedGoals: []
   goal1: {fileID: 0}
   goal2: {fileID: 0}
-  originalPosition: {x: -121, y: -53, z: 0}
-  yOffset: 31.6
+  originalPosition: {x: -121, y: -90.8, z: 0}
+  yOffset: 30
   waiterNotepad: {fileID: 0}
   menuCanvas: {fileID: 5522328948331684176}
   menuGoalEntryBase: {x: -163, y: -132, z: 0}
@@ -10468,12 +10468,12 @@ MonoBehaviour:
     type: 3}
   menuScoreEntries: []
   entryScoreYOffset: 50
-  endCanvas: {fileID: 1070086496}
+  endCanvas: {fileID: 6538607045512577503}
   endScoreEntryBase: {x: 0, y: -439, z: 0}
   endScoreEntry: {fileID: 4609110221814076920, guid: 915853177891ab44b8cbdaa8269fb955,
     type: 3}
   endScoreEntries: []
-  endScoreEntryYOffset: 1
+  endScoreEntryYOffset: 23
 --- !u!4 &1835135237
 Transform:
   m_ObjectHideFlags: 0
@@ -13010,6 +13010,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7109b60c0f631664fad6de7cbfd1627b, type: 3}
+--- !u!1 &6538607045512577503 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5430500216975140680, guid: 7109b60c0f631664fad6de7cbfd1627b,
+    type: 3}
+  m_PrefabInstance: {fileID: 6538607045512577502}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6560757961914330811
 PrefabInstance:
   m_ObjectHideFlags: 0
