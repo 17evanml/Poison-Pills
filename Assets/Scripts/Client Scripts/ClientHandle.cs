@@ -69,6 +69,9 @@ public class ClientHandle : MonoBehaviour
         Camera.main.GetComponent<CameraManager>().SwitchCameraPosition();
         UIManager.instance.SetOrderNumber();
         GameManager.instance.GenerateScoreList();
+        UIManager.instance.PopulateMenuUI();
+        UIManager.instance.PopulateEndScreen();
+        UIManager.instance.WriteMenuUI();
     }
 
     public static void BeginSection(Packet _packet)
@@ -135,7 +138,7 @@ public class ClientHandle : MonoBehaviour
             deaths[i] = _packet.ReadBool();
         }
         Debug.Log("EndRound Clientside");
-        GameManager.instance.UpdateScores(points);
+        GameManager.instance.UpdateScores(points, deaths);
     }
 
 

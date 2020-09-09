@@ -7,7 +7,7 @@ public class PlayerScore : IComparable<PlayerScore>
 {
     public int playerID;
     public int score;
-    
+    public bool survived;
     public PlayerScore(int _playerID)
     {
         playerID = _playerID;

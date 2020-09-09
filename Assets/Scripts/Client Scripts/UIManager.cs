@@ -24,14 +24,20 @@ public class UIManager : MonoBehaviour
     public RevealManager revealManager;
 
     [Header("Goal References")]
-    public TMP_Text text_goal_1; // Text Reference used to display Goal 1
+    public TMP_Text goal_1_name; // Text Reference used to display Goal 1
+    public TMP_Text goal_1_goal; // Text Reference used to display Goal 2 goal
+    public TMP_Text goal_1_revealed;
     public Goal goal_1; // Data for Goal 1
     public Image goal_1Background; // Background image for Goal 1
-    public TMP_Text text_goal_2; // Text Reference used to display Goal 2
+
+    public TMP_Text goal_2_name; // Text Reference used to display Goal 2 name
+    public TMP_Text goal_2_goal; // Text Reference used to display Goal 2 goal
+    public TMP_Text goal_2_revealed;
     public Goal goal_2; // Data for Goal 2
     public Image goal_2Background; // Background image for Goal 2
 
     public Image timerBackground;
+    public Goal[] revealedGoalObjects;
 
 
     [Header("Score References")]
@@ -53,6 +59,27 @@ public class UIManager : MonoBehaviour
     public Vector3 originalPosition = new Vector3(-121, -113, 0);
     public float yOffset;
     public WaiterNotepadJuice waiterNotepad;
+
+    [Header("Menu Canvas References")]
+    public GameObject menuCanvas;
+
+    public Vector3 menuGoalEntryBase;
+    public GameObject menuGoalEntry;
+    public GameObject[] menuGoalEntries;
+    public float entryGoalYOffset = 1;
+
+    public Vector3 menuScoreEntryBase;
+    public GameObject menuScoreEntry;
+    public GameObject[] menuScoreEntries;
+    public float entryScoreYOffset = 1;
+
+    [Header("End Menu References")]
+    public GameObject endCanvas;
+
+    public Vector3 endScoreEntryBase;
+    public GameObject endScoreEntry;
+    public GameObject[] endScoreEntries;
+    public float endScoreEntryYOffset;
 
 
     //public Button beginGame;
@@ -123,8 +150,10 @@ public class UIManager : MonoBehaviour
     ///<summary> Initializes the UI for the Player for goal text and score text.</summary>
     public void InitializeGoals()
     {
-        text_goal_1.text = FormatGoal(goal_1); // Formats the Text for Goal 1
-        text_goal_2.text = FormatGoal(goal_2); // Formats the Text for Goal 2
+        goal_1_name.text = GameManager.cursors[goal_1.id].username; // Formats the Text for Goal 1
+        goal_2_name.text = GameManager.cursors[goal_2.id].username; ; // Formats the Text for Goal 2
+        goal_1_goal.text = goal_1.goalState.ToString();
+        goal_2_goal.text = goal_2.goalState.ToString();
         score.text = FormatScore(); // Formats the Text for the Score
 
         goal_1Background.color = GameManager.cursors[goal_1.id].cursorColor;
@@ -189,6 +218,47 @@ public class UIManager : MonoBehaviour
         return tempPoints;
     }
     
+    public void PopulateMenuUI()
+    {
+        menuGoalEntries = new GameObject[GameManager.cursors.Count];
+        menuScoreEntries = new GameObject[GameManager.cursors.Count];
+        for (int i = 0; i < menuGoalEntries.Length; i++)
+        {
+            menuGoalEntries[i] = Instantiate(menuGoalEntry, menuCanvas.transform, false);
+            menuGoalEntries[i].transform.localPosition = menuGoalEntryBase + -transform.up * entryGoalYOffset * i;
+            menuScoreEntries[i] = Instantiate(menuScoreEntry, menuCanvas.transform, false);
+            menuScoreEntries[i].transform.localPosition = menuScoreEntryBase + -transform.up * entryScoreYOffset * i;
+        }
+    }
+
+    public void PopulateEndScreen()
+    {
+        endScoreEntries = new GameObject[GameManager.cursors.Count];
+        for (int i = 0; i < menuGoalEntries.Length; i++)
+        {
+            endScoreEntries[i] = Instantiate(endScoreEntry, endCanvas.transform, false);
+            endScoreEntries[i].transform.localPosition = endScoreEntryBase + -transform.up * endScoreEntryYOffset * i;
+        }
+    }
+
+    public void WriteEndScreen()
+    {
+        string[] standings = GameManager.instance.GenerateStandings();
+        for(int i = 0; i < standings.Length; i++)
+        {
+            endScoreEntries[i].transform.GetChild(0).GetComponent<TMP_Text>().text = standings[i];
+            endScoreEntries[i].transform.GetChild(1).gameObject.SetActive(GameManager.instance.playerScores[i].survived);
+        }
+    }
+
+    public void WriteMenuUI()
+    {
+        for (int i = 0; i < menuScoreEntries.Length; i++)
+        {
+            menuScoreEntries[i].transform.GetChild(0).GetComponent<TMP_Text>().text = GameManager.cursors[GameManager.instance.playerScores[i].playerID].username;
+            menuScoreEntries[i].transform.GetChild(1).GetComponent<TMP_Text>().text = GameManager.instance.playerScores[i].score.ToString();
+        }
+    }
     public void UpdateCurrentPlayerColor(int player)
     {
         timerBackground.color = GameManager.cursors[player].cursorColor;
@@ -201,6 +271,14 @@ public class UIManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.A))
         {
             ToggleRevealUI();
+        }
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            ToggleMenuUIOn();
+        }
+        if(Input.GetKeyUp(KeyCode.Tab))
+        {
+            ToggleMenuUIOff();
         }
     }
     #region Reveal UI
@@ -222,12 +300,15 @@ public class UIManager : MonoBehaviour
             //currentGoals.text += goal2.text + "\n";
             ClientSend.RevealTarget(goal_1);
             WriteRevealedGoal(goal_1);
+            goal_1_revealed.text = "REVEALED";
+
         }
         else
         {
             //currentGoals.text += goal1.text + "\n";
             ClientSend.RevealTarget(goal_2);
             WriteRevealedGoal(goal_2);
+            goal_2_revealed.text = "REVEALED";
         }
         // Initialize Next UI
         // Talk to Evan if we should seperate the 2 UI Canvas
@@ -249,6 +330,8 @@ public class UIManager : MonoBehaviour
         revealedGoals[goal.myId-1].transform.GetChild(3).gameObject.SetActive(true);
         revealedGoals[goal.myId-1].transform.GetChild(4).gameObject.SetActive(false);
         revealedGoals[goal.myId-1].transform.GetChild(3).GetComponent<TMP_Text>().text = $"{goal.goalState} {GameManager.cursors[goal.id].username}";
+        menuGoalEntries[goal.myId - 1].transform.GetChild(0).GetComponent<TMP_Text>().text = $"{GameManager.cursors[goal.myId].username}: {FormatGoal(goal)}";
+        revealedGoalObjects[goal.myId-1] = goal;
     }
 
     public void ResetRevealedGoals()
@@ -267,6 +350,7 @@ public class UIManager : MonoBehaviour
     public void SetOrderNumber()
     {
         revealedGoals = new GameObject[GameManager.cursors.Count];
+        revealedGoalObjects = new Goal[GameManager.cursors.Count];
         Debug.Log(revealedGoals.Length);
         for(int i = 0; i < revealedGoals.Length; i++)
         {
@@ -296,12 +380,21 @@ public class UIManager : MonoBehaviour
 
     public void TogglePlaceUI()
     {
-
     }
 
     public void ToggleEndUI()
     {
+        endCanvas.SetActive(true);
+    }
 
+    public void ToggleMenuUIOn()
+    {
+        menuCanvas.SetActive(true);
+    }
+
+    public void ToggleMenuUIOff()
+    {
+        menuCanvas.SetActive(false);
     }
     #endregion
 }

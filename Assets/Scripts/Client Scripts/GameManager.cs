@@ -96,11 +96,12 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public void UpdateScores(int[] scores)
+    public void UpdateScores(int[] scores, bool[] deaths)
     {
         foreach (PlayerScore player in playerScores)
         {
             player.score += scores[player.playerID];
+            player.survived = deaths[player.playerID];
         }
         Array.Sort<PlayerScore>(playerScores);
     }
@@ -133,7 +134,7 @@ public class GameManager : MonoBehaviour
         string[] ret = new string[cursors.Count];
         for(int i = 0; i < playerScores.Length; i++)
         {
-            ret[i] = $"{cursors[playerScores[i].playerID].username}: {playerScores[i].score}";
+            ret[i] = $"{i+1}. {cursors[playerScores[i].playerID].username}: {playerScores[i].score}";
         }
         return ret;
     }
@@ -205,6 +206,7 @@ public class GameManager : MonoBehaviour
             else if (round == TurnSystem.RoundType.End)
             {
                 UIManager.instance.ResetRevealedGoals();
+                UIManager.instance.WriteEndScreen();
                 UIManager.instance.ToggleEndUI();
                 games++;
             }
