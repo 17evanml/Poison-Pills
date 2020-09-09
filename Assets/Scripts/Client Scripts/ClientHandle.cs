@@ -68,6 +68,10 @@ public class ClientHandle : MonoBehaviour
         GameManager.instance.CreateAllCups();
         Camera.main.GetComponent<CameraManager>().SwitchCameraPosition();
         UIManager.instance.SetOrderNumber();
+        GameManager.instance.GenerateScoreList();
+        UIManager.instance.PopulateMenuUI();
+        UIManager.instance.PopulateEndScreen();
+        UIManager.instance.WriteMenuUI();
     }
 
     public static void BeginSection(Packet _packet)
@@ -134,7 +138,7 @@ public class ClientHandle : MonoBehaviour
             deaths[i] = _packet.ReadBool();
         }
         Debug.Log("EndRound Clientside");
-        GameManager.instance.UpdateScores(points);
+        GameManager.instance.UpdateScores(points, deaths);
     }
 
 
@@ -154,5 +158,6 @@ public class ClientHandle : MonoBehaviour
     {
         Goal goal = _packet.ReadGoal();
         UIManager.instance.WriteRevealedGoal(goal);
+        //GameManager.instance.revealedGoals[0];
     }
 }

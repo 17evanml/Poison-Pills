@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-
+using System;
 public class GameManager : MonoBehaviour
 {
     [Header("Client Object dictionaries")]
@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
 
     public static Dictionary<int, CursorManager> cursors = new Dictionary<int, CursorManager>();
     public static Dictionary<int, CupInfo> cups = new Dictionary<int, CupInfo>();
+    public int players = 0;
 
     [Header("Client objects")]
     public GameObject localCursorPrefab;
@@ -36,13 +37,20 @@ public class GameManager : MonoBehaviour
     [Header("Round Information")]
     public TurnSystem.RoundType round = TurnSystem.RoundType.Setup;
 
+    [Header("Scorekeeping")]
+    public PlayerScore[] playerScores;
+    public Goal[] revealedGoals;
+    private int games = 1;
+    public int Games
+    {
+        get { return games; }
+    }
     private int currentPlayer = 0;
     public int CurrentPlayer
     {
         get { return currentPlayer; }
         set { currentPlayer = value; }
     }
-
 
     #region GameManager
     private void Awake()
@@ -84,13 +92,51 @@ public class GameManager : MonoBehaviour
         cm.pill1Color = _pill1Color;
         cm.pill2Color = _pill2Color;
         cursors.Add(_id, _cursor.GetComponent<CursorManager>());
+        players++;
     }
 
 
-    public void UpdateScores(int[] scores)
+    public void UpdateScores(int[] scores, bool[] deaths)
     {
-        //Debug.Log("Update!");
-        UIManager.instance.tempScore(scores);
+        foreach (PlayerScore player in playerScores)
+        {
+            player.score += scores[player.playerID];
+            player.survived = deaths[player.playerID];
+        }
+        Array.Sort<PlayerScore>(playerScores);
+    }
+
+    public string[] GenerateStandings()
+    {
+        string[] ret = new string[cursors.Count];
+        for(int i = 0; i < playerScores.Length; i++)
+        {
+            if(i == 0)
+            {
+                ret[i] = $"1st: {cursors[playerScores[i].playerID].username}";
+            } else if (i == 1)
+            {
+                ret[i] = $"2nd: {cursors[playerScores[i].playerID].username}";
+            }
+            else if (i == 2)
+            {
+                ret[i] = $"3rd: {cursors[playerScores[i].playerID].username}";
+            } else
+            {
+                ret[i] = $"{i+1}th: {cursors[playerScores[i].playerID].username}";
+            }
+        }
+        return ret;
+    }
+
+    public string[] GeneratePointValues()
+    {
+        string[] ret = new string[cursors.Count];
+        for(int i = 0; i < playerScores.Length; i++)
+        {
+            ret[i] = $"{i+1}. {cursors[playerScores[i].playerID].username}: {playerScores[i].score}";
+        }
+        return ret;
     }
 
     public void Disconnect()
@@ -107,7 +153,7 @@ public class GameManager : MonoBehaviour
     #region CursorGameManger
     public void SwapPillPosition()
     {
-        if (Random.Range(0, 2) == 1)
+        if (UnityEngine.Random.Range(0, 2) == 1)
         {
             Debug.Log("Randomly swapping pill position.");
             Vector3 temp = poisonClick.transform.position;
@@ -159,9 +205,10 @@ public class GameManager : MonoBehaviour
             }
             else if (round == TurnSystem.RoundType.End)
             {
-                Debug.Log("Turn is end");
                 UIManager.instance.ResetRevealedGoals();
+                UIManager.instance.WriteEndScreen();
                 UIManager.instance.ToggleEndUI();
+                games++;
             }
         } else if(round == TurnSystem.RoundType.Reveal)
         {
@@ -176,7 +223,16 @@ public class GameManager : MonoBehaviour
         {
             CreateCup(cm);
         }
+    }
 
+    public void GenerateScoreList()
+    {
+        playerScores = new PlayerScore[cursors.Count];
+        revealedGoals = new Goal[cursors.Count];
+        for(int i = 0; i < playerScores.Length; i++)
+        {
+            playerScores[i] = new PlayerScore(i + 1);
+        }
     }
 
     public void NextTurn()

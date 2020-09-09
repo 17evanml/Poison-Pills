@@ -141,7 +141,7 @@ public class NetworkManager : MonoBehaviour
         {
             target2 = Random.Range(0, targets.Count - 1);
         }
-        ret[1] = new Goal(selfID, targets[target2], (Goal.GoalState)goalState2); ;
+        ret[1] = new Goal(selfID, targets[target2], (Goal.GoalState)goalState2);
         targets.RemoveAt(target2);
 
         goals.Add(ret[0]);
