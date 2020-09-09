@@ -25,6 +25,11 @@ public class ServerCup : MonoBehaviour
         pillStack.Push(pill);
     }
 
+    public void ResetPills()
+    {
+        pillStack.Clear();
+    }
+
     public bool isAlive()
     {
         int poison = 0;
