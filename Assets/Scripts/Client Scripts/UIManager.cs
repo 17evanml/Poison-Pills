@@ -217,6 +217,14 @@ public class UIManager : MonoBehaviour
         return tempPoints;
     }
     
+    public void ResetPillDisplays()
+    {
+        foreach (PillDisplay pd in pillDisplays)
+        {
+            pd.list_pills.Clear();
+        }
+    }
+
     public void PopulateMenuUI()
     {
         menuGoalEntries = new GameObject[GameManager.cursors.Count];

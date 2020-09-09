@@ -209,6 +209,8 @@ public class GameManager : MonoBehaviour
             }
             else if (round == TurnSystem.RoundType.End)
             {
+                UIManager.instance.ResetPillDisplays();
+                ClearCups();
                 UIManager.instance.ResetRevealedGoals();
                 UIManager.instance.WriteEndScreen();
                 UIManager.instance.ToggleEndUI();
@@ -294,6 +296,14 @@ public class GameManager : MonoBehaviour
     public int Count()
     {
         return cups.Count;
+    }
+
+    public void ClearCups()
+    {
+        for(int i = 0; i < cups.Count; i++)
+        {
+            cups[i].ResetPills();
+        }
     }
 
     #endregion
