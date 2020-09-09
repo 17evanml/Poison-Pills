@@ -345,6 +345,8 @@ public class UIManager : MonoBehaviour
             revealedGoals[i].transform.GetChild(4).gameObject.SetActive(true);
             revealedGoals[i].gameObject.SetActive(false);
         }
+        goal_1_revealed.text = "HIDDEN";
+        goal_2_revealed.text = "HIDDEN";
     }
 
     public void SetOrderNumber()

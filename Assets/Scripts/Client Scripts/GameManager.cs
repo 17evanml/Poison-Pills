@@ -134,7 +134,7 @@ public class GameManager : MonoBehaviour
         string[] ret = new string[cursors.Count];
         for(int i = 0; i < playerScores.Length; i++)
         {
-            ret[i] = $"{i+1}. {cursors[playerScores[i].playerID].username}: {playerScores[i].score}";
+            ret[i] = $"{i+1}. {cursors[playerScores[i].playerID].username}, {playerScores[i].score}";
         }
         return ret;
     }
@@ -194,6 +194,10 @@ public class GameManager : MonoBehaviour
             round = _round;
             if (round == TurnSystem.RoundType.Reveal)
             {
+                if(games > 1)
+                {
+                    UIManager.instance.ToggleEndUI();
+                }
                 UIManager.instance.ToggleRevealUI();
                 UIManager.instance.InitializeRevealButtons(); // Calls Initialize on Reveal Manager
                 UIManager.instance.NextGoalLine();
