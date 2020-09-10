@@ -134,7 +134,7 @@ public class GameManager : MonoBehaviour
         string[] ret = new string[cursors.Count];
         for(int i = 0; i < playerScores.Length; i++)
         {
-            ret[i] = $"{i+1}. {cursors[playerScores[i].playerID].username}: {playerScores[i].score}";
+            ret[i] = $"{i+1}. {cursors[playerScores[i].playerID].username}, {playerScores[i].score}";
         }
         return ret;
     }
@@ -194,6 +194,10 @@ public class GameManager : MonoBehaviour
             round = _round;
             if (round == TurnSystem.RoundType.Reveal)
             {
+                if(games > 1)
+                {
+                    UIManager.instance.ToggleEndUI();
+                }
                 UIManager.instance.ToggleRevealUI();
                 UIManager.instance.InitializeRevealButtons(); // Calls Initialize on Reveal Manager
                 UIManager.instance.NextGoalLine();
@@ -205,6 +209,8 @@ public class GameManager : MonoBehaviour
             }
             else if (round == TurnSystem.RoundType.End)
             {
+                UIManager.instance.ResetPillDisplays();
+                ClearCups();
                 UIManager.instance.ResetRevealedGoals();
                 UIManager.instance.WriteEndScreen();
                 UIManager.instance.ToggleEndUI();
@@ -290,6 +296,14 @@ public class GameManager : MonoBehaviour
     public int Count()
     {
         return cups.Count;
+    }
+
+    public void ClearCups()
+    {
+        for(int i = 1; i <= cups.Count; i++)
+        {
+            cups[i].ResetPills();
+        }
     }
 
     #endregion

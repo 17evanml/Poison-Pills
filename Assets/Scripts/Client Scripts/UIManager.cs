@@ -36,7 +36,6 @@ public class UIManager : MonoBehaviour
     public Goal goal_2; // Data for Goal 2
     public Image goal_2Background; // Background image for Goal 2
 
-    public Image timerBackground;
     public Goal[] revealedGoalObjects;
 
 
@@ -134,8 +133,8 @@ public class UIManager : MonoBehaviour
     public void BeginGame()
     {
         HostMenu.SetActive(false);
-        NetworkManager.instance.SendGoals();
         NetworkManager.instance.BeginGame();
+        NetworkManager.instance.SendGoals();
     }
 
     public void EndHost()
@@ -218,6 +217,14 @@ public class UIManager : MonoBehaviour
         return tempPoints;
     }
     
+    public void ResetPillDisplays()
+    {
+        foreach (PillDisplay pd in pillDisplays)
+        {
+            pd.list_pills.Clear();
+        }
+    }
+
     public void PopulateMenuUI()
     {
         menuGoalEntries = new GameObject[GameManager.cursors.Count];
@@ -243,11 +250,12 @@ public class UIManager : MonoBehaviour
 
     public void WriteEndScreen()
     {
-        string[] standings = GameManager.instance.GenerateStandings();
+        string[] standings = GameManager.instance.GeneratePointValues();
         for(int i = 0; i < standings.Length; i++)
         {
             endScoreEntries[i].transform.GetChild(0).GetComponent<TMP_Text>().text = standings[i];
             endScoreEntries[i].transform.GetChild(1).gameObject.SetActive(GameManager.instance.playerScores[i].survived);
+            endScoreEntries[i].transform.GetChild(1).GetComponent<Image>().color = GameManager.cursors[GameManager.instance.playerScores[i].playerID].GetComponent<CursorManager>().cursorColor;
         }
     }
 
@@ -261,7 +269,6 @@ public class UIManager : MonoBehaviour
     }
     public void UpdateCurrentPlayerColor(int player)
     {
-        timerBackground.color = GameManager.cursors[player].cursorColor;
     }
     #endregion
 
@@ -298,17 +305,17 @@ public class UIManager : MonoBehaviour
         if (right)
         {
             //currentGoals.text += goal2.text + "\n";
-            ClientSend.RevealTarget(goal_1);
-            WriteRevealedGoal(goal_1);
-            goal_1_revealed.text = "REVEALED";
+            ClientSend.RevealTarget(goal_2);
+            WriteRevealedGoal(goal_2);
+            goal_2_revealed.text = "REVEALED";
 
         }
         else
         {
             //currentGoals.text += goal1.text + "\n";
-            ClientSend.RevealTarget(goal_2);
-            WriteRevealedGoal(goal_2);
-            goal_2_revealed.text = "REVEALED";
+            ClientSend.RevealTarget(goal_1);
+            WriteRevealedGoal(goal_1);
+            goal_1_revealed.text = "REVEALED";
         }
         // Initialize Next UI
         // Talk to Evan if we should seperate the 2 UI Canvas
@@ -345,6 +352,8 @@ public class UIManager : MonoBehaviour
             revealedGoals[i].transform.GetChild(4).gameObject.SetActive(true);
             revealedGoals[i].gameObject.SetActive(false);
         }
+        goal_1_revealed.text = "HIDDEN";
+        goal_2_revealed.text = "HIDDEN";
     }
 
     public void SetOrderNumber()
@@ -384,7 +393,15 @@ public class UIManager : MonoBehaviour
 
     public void ToggleEndUI()
     {
-        endCanvas.SetActive(true);
+        if (endCanvas.activeSelf == true)
+        {
+            endCanvas.SetActive(false);
+        }
+        else
+        {
+            endCanvas.SetActive(true);
+        }
+
     }
 
     public void ToggleMenuUIOn()

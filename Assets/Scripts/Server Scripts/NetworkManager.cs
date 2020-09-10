@@ -204,6 +204,14 @@ public class NetworkManager : MonoBehaviour
         ServerSend.EndRound(points, deaths);
     }
 
+    public void ClearCups()
+    {
+        for(int i = 1; i <= players; i++)
+        {
+            Server.clients[i].cup.ResetPills();
+        }
+    }
+
     public void ServerClose()
     {
         ServerSend.ServerClose();
@@ -241,7 +249,7 @@ public class NetworkManager : MonoBehaviour
 
     IEnumerator TempEndSpacing()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(6);
         AdvanceTurn();
     }
 }
