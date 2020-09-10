@@ -31,9 +31,11 @@ public class GameManager : MonoBehaviour
 
     [Header("Cup placement")]
     [SerializeField]
-    private Vector3 origin;
+    private Vector3 oddCupOrigin;
     [SerializeField]
-    private float radius = 5f;
+    private Vector3 tableTopRight;
+    [SerializeField]
+    private Vector3 tableBottomLeft;
     [Header("Round Information")]
     public TurnSystem.RoundType round = TurnSystem.RoundType.Setup;
 
@@ -134,7 +136,9 @@ public class GameManager : MonoBehaviour
         string[] ret = new string[cursors.Count];
         for(int i = 0; i < playerScores.Length; i++)
         {
-            ret[i] = $"{i+1}. {cursors[playerScores[i].playerID].username}, {playerScores[i].score}";
+            string goalPlayerColor = ColorUtility.ToHtmlStringRGB(cursors[playerScores[i].playerID].cursorColor);
+            
+            ret[i] = $"{i+1}. <#{goalPlayerColor}>{cursors[playerScores[i].playerID].username}</color>, {playerScores[i].score}";
         }
         return ret;
     }
@@ -248,6 +252,16 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region CupGameManger
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            GameObject tempcup = Instantiate(cupPrefab);
+            tempcup.GetComponent<CupInfo>().id = UnityEngine.Random.Range(2, 3000);
+            AddCup(tempcup.GetComponent<CupInfo>());
+        }
+    }
+
     public void AddCup(CupInfo cup)
     {
         if (cup == null)
@@ -280,15 +294,29 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        //Calculate the position for all the cups
-        float cupAngle = 180f / (cups.Count + 1f);
-        int index = 1;
-        float d2r = Mathf.PI / 180f;
+        //If we have odd number of cups, place it and set skipFirst flag to be true
+        bool skipFirst = false;
+        if (cups.Count % 2 == 1)
+        {
+            skipFirst = true;
+            cups[1].transform.position = oddCupOrigin;
+        }
 
+        //Figure out spacing for remaining cups
+        int spacing = cups.Count / 2 + 1;
+        float spacingDistance = (tableTopRight.z - tableBottomLeft.z) / spacing;
+
+        int count = 0;
         foreach (CupInfo c in cups.Values)
         {
-            c.transform.position = origin + new Vector3(Mathf.Cos(cupAngle * index * d2r), 0, Mathf.Sin(cupAngle * index * d2r)) * radius;
-            index++;
+            if ((skipFirst && c.id != 1) || (!skipFirst))
+            {
+                float xPos = (count % 2 == 0) ? (tableTopRight.x) : (tableBottomLeft.x);
+                Vector3 placement = new Vector3(xPos, tableBottomLeft.y, tableBottomLeft.z + (count / 2 + 1) * spacingDistance);
+                c.transform.position = placement;
+
+                count++;
+            }
         }
     }
 

@@ -83,7 +83,7 @@ public class ClientHandle : MonoBehaviour
         //Debug.Log(goal2);
         UIManager.instance.goal_1 = goal1; // Sets the First Goal
         UIManager.instance.goal_2 = goal2; // Sets the Second Goal
-        UIManager.instance.GameDisplay.SetActive(true);
+        //UIManager.instance.GameDisplay.SetActive(true);
         UIManager.instance.InitializeGoals(); // Calls Initialize in Display Manager
 
         UIManager.instance.playerCount = GameManager.cursors.Count; // Sets the Number of Displays Needed

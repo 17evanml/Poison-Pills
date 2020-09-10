@@ -10,9 +10,9 @@ public class CameraManager : MonoBehaviour {
     public Vector3 rotation;
     public float focus;
     private Vector3 offPosition;
-    private Vector3 onPosition;
+    public Vector3 onPosition;
     private Vector3 offRotation;
-    private Vector3 onRotation;
+    public Vector3 onRotation;
     private float offFocus = 5;
     private float onFocus = 10;
     public float speedMod = 70f;
@@ -22,8 +22,8 @@ public class CameraManager : MonoBehaviour {
     void Start() {
         offPosition = transform.position;
         offRotation = transform.rotation.eulerAngles;
-        onPosition = offPosition + new Vector3(0f, -3.5f, 4.5f);
-        onRotation = offRotation + new Vector3(15, 0, 0);
+        //onPosition = offPosition + new Vector3(0f, -3.5f, 4.5f);
+        //onRotation = offRotation + new Vector3(15, 0, 0);
         position = offPosition;
         rotation = offRotation;
         focus = offFocus;
