@@ -796,7 +796,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5c2e6f206a664d219be4429f0eb61cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  players: 1
+  players: 0
   localCursorPrefab: {fileID: 8400364188618401973, guid: c38d109a3d9c345afa07e4a33c6197dc,
     type: 3}
   cursorPrefab: {fileID: 1403198803876973213, guid: 7d02573e77b3256418cdb1fb69c5774a,

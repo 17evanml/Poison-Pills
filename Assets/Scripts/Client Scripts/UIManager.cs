@@ -153,7 +153,7 @@ public class UIManager : MonoBehaviour
         goal_2_name.text = GameManager.cursors[goal_2.id].username; ; // Formats the Text for Goal 2
         goal_1_goal.text = goal_1.goalState.ToString();
         goal_2_goal.text = goal_2.goalState.ToString();
-        score.text = FormatScore(); // Formats the Text for the Score
+        //score.text = FormatScore(); // Formats the Text for the Score
 
         goal_1Background.color = GameManager.cursors[goal_1.id].cursorColor;
         goal_2Background.color = GameManager.cursors[goal_2.id].cursorColor;
@@ -189,8 +189,8 @@ public class UIManager : MonoBehaviour
 
         if (goal.goalState == Goal.GoalState.Kill) { tempGoal = "Kill "; } // Sets First word
         else { tempGoal = "Save "; }
-
-        tempGoal += GameManager.cursors[goal.id].username; // Sets Second word
+        string goalPlayerColor = ColorUtility.ToHtmlStringRGB(GameManager.cursors[goal.id].cursorColor);
+        tempGoal += $"<#{goalPlayerColor}>{GameManager.cursors[goal.id].username}</color>"; // Sets Second word
         return tempGoal;
     }
 
@@ -337,7 +337,8 @@ public class UIManager : MonoBehaviour
         revealedGoals[goal.myId-1].transform.GetChild(3).gameObject.SetActive(true);
         revealedGoals[goal.myId-1].transform.GetChild(4).gameObject.SetActive(false);
         revealedGoals[goal.myId-1].transform.GetChild(3).GetComponent<TMP_Text>().text = $"{goal.goalState} {GameManager.cursors[goal.id].username}";
-        menuGoalEntries[goal.myId - 1].transform.GetChild(0).GetComponent<TMP_Text>().text = $"{GameManager.cursors[goal.myId].username}: {FormatGoal(goal)}";
+        string goalPlayerColor = ColorUtility.ToHtmlStringRGB(GameManager.cursors[goal.myId].cursorColor);
+        menuGoalEntries[goal.myId - 1].transform.GetChild(0).GetComponent<TMP_Text>().text = $"<#{goalPlayerColor}>{GameManager.cursors[goal.myId].username}</color>: {FormatGoal(goal)}";
         revealedGoalObjects[goal.myId-1] = goal;
     }
 

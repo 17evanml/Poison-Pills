@@ -136,7 +136,9 @@ public class GameManager : MonoBehaviour
         string[] ret = new string[cursors.Count];
         for(int i = 0; i < playerScores.Length; i++)
         {
-            ret[i] = $"{i+1}. {cursors[playerScores[i].playerID].username}, {playerScores[i].score}";
+            string goalPlayerColor = ColorUtility.ToHtmlStringRGB(cursors[playerScores[i].playerID].cursorColor);
+            
+            ret[i] = $"{i+1}. <#{goalPlayerColor}>{cursors[playerScores[i].playerID].username}</color>, {playerScores[i].score}";
         }
         return ret;
     }
