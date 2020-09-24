@@ -190,7 +190,7 @@ public class UIManager : MonoBehaviour
         if (goal.goalState == Goal.GoalState.Kill) { tempGoal = "Kill "; } // Sets First word
         else { tempGoal = "Save "; }
         string goalPlayerColor = ColorUtility.ToHtmlStringRGB(GameManager.cursors[goal.id].cursorColor);
-        tempGoal += $"<#{goalPlayerColor}>{GameManager.cursors[goal.id].username}</color>"; // Sets Second word
+        tempGoal += $"<#{goalPlayerColor}><noparse>{GameManager.cursors[goal.id].username}</noparse></color>"; // Sets Second word
         return tempGoal;
     }
 
@@ -221,7 +221,7 @@ public class UIManager : MonoBehaviour
     {
         foreach (PillDisplay pd in pillDisplays)
         {
-            pd.list_pills.Clear();
+            pd.ClearPills();
         }
     }
 

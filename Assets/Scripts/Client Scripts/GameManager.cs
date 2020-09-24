@@ -102,7 +102,7 @@ public class GameManager : MonoBehaviour
     {
         foreach (PlayerScore player in playerScores)
         {
-            player.score += scores[player.playerID];
+            player.score = scores[player.playerID];
             player.survived = deaths[player.playerID];
         }
         Array.Sort<PlayerScore>(playerScores);

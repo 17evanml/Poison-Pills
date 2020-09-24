@@ -195,8 +195,9 @@ public class NetworkManager : MonoBehaviour
                 playerPoints[goal.myId] += KILLPOINTS;
             }
         }
-
+        goals.Clear();
         UpdatePoints(playerPoints, deaths);
+        ClearCups();
     }
 
     public void UpdatePoints(int[] points, bool[] deaths)

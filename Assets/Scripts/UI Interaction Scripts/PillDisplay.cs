@@ -119,6 +119,14 @@ public class PillDisplay : UIBase {
         }
     }
 
+    public void ClearPills()
+    {
+        list_pills.Clear();
+        vector_spawn = new Vector3(-10f, 2f, 0f);
+        vector_currentGrid = Vector3.zero;
+        vector_maxGrid = new Vector2(4, 1);
+    }
+
     /// <summary> Debug Commands for the Pill Display Script </summary>
     public void DebugTester() {
         if (Input.GetKeyDown(KeyCode.Q)) {
